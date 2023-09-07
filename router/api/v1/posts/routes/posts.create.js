@@ -17,6 +17,7 @@ CREATE.post('/', async (req, res) => {
     const link = req?.body?.link ? req?.body?.link : null;
     const media = req?.body?.media ? req?.body?.media : null;
     const context = req?.body?.context ? req?.body?.context : null;
+    const publisher = req?.body?.publisher ? req?.body?.publisher : null;
 
     /**
      * INPUT VALIDATION.
@@ -83,6 +84,22 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Verify the publisher.
+    const publishers = ['page', 'user'];
+    if (publisher === null || !publishers.includes(publisher))
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating publisher submitted by the user.',
+                message:
+                    "The publisher you submitted is invalid. Make sure it's one of the following two: page OR user.",
+            },
+        });
+
     // Create the post object.
     const post = {
         type,
@@ -90,7 +107,7 @@ CREATE.post('/', async (req, res) => {
         link,
         media,
         context,
-        //     publisher,
+        publisher,
         //     time,
         //     priority,
         //     status,
