@@ -18,7 +18,7 @@ CREATE.post('/', async (req, res) => {
     const media = req?.body?.media ? req?.body?.media : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
-    const time = req?.body?.time ? req?.body?.time : null;
+    let time = req?.body?.time ? req?.body?.time : null;
 
     /**
      * INPUT VALIDATION.
@@ -127,6 +127,21 @@ CREATE.post('/', async (req, res) => {
                 moment: 'Validating time submitted by the user.',
                 message:
                     "The time you submitted is invalid. Make sure it's of the following format: YYYY-MM-DDTHH:MM, e.g. 2022-01-01T12:00.",
+            },
+        });
+
+    // Verify if the time is present based on the type.
+    if (type === 'scheduled' && time === null)
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating time by type submitted by the user.',
+                message:
+                    "Posts of type 'scheduled' must have a time attached to them. Make sure it's of the following format: YYYY-MM-DDTHH:MM, e.g. 2022-01-01T12:00.",
             },
         });
 
