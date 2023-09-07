@@ -165,7 +165,7 @@ CREATE.post('/', async (req, res) => {
         type,
         message,
         link,
-        media: images,
+        media: JSON.stringify(images),
         context,
         publisher,
         time,
@@ -174,16 +174,61 @@ CREATE.post('/', async (req, res) => {
         status,
     };
 
-    // res.json(post);
+    // Store the post into the database.
+    try {
+        const query = `
+            INSERT INTO posts
+            (
+                type,
+                message,
+                link,
+                media,
+                context,
+                publisher,
+                time,
+                timestamp,
+                priority,
+                status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        `;
 
-    // Close the database connection.
-    await db.close();
+        const params = [
+            post.type,
+            post.message,
+            post.link,
+            post.media,
+            post.context,
+            post.publisher,
+            post.time,
+            post.timestamp,
+            post.priority,
+            post.status,
+        ];
 
-    res.json({
-        success: true,
-        data: {
-            post,
-        },
-        error: null,
-    });
+        await db.run(query, params);
+
+        await db.close();
+
+        return res.json({
+            success: true,
+            data: null,
+            error: null,
+        });
+    } catch (err) {
+        if (err) {
+            await db.close();
+
+            return res.status(500).json({
+                success: false,
+                data: null,
+                error: {
+                    code: 500,
+                    type: 'Internal server error.',
+                    route: '/api/v1/posts/create',
+                    moment: 'Storing post into the database.',
+                    message: err.toString(),
+                },
+            });
+        }
+    }
 });
