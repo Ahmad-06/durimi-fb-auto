@@ -40,6 +40,20 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Verify if at least one of the following is submitted: message, link, media.
+    if (link === null && media === null && message === null)
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating content submitted by the user.',
+                message: 'You need to submit at least one of the following: link, media, or message.',
+            },
+        });
+
     // Verify the link.
     if (link !== null && !isValidURL(link))
         return res.status(400).json({
