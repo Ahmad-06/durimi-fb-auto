@@ -16,6 +16,7 @@ CREATE.post('/', async (req, res) => {
     const message = req?.body?.message ? req?.body?.message : null;
     const link = req?.body?.link ? req?.body?.link : null;
     const media = req?.body?.media ? req?.body?.media : null;
+    const context = req?.body?.context ? req?.body?.context : null;
 
     /**
      * INPUT VALIDATION.
@@ -66,13 +67,29 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Verify the context.
+    const contexts = ['page', 'group'];
+    if (context === null || !contexts.includes(context))
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating context submitted by the user.',
+                message:
+                    "The context you submitted is invalid. Make sure it's one of the following two: page OR group.",
+            },
+        });
+
     // Create the post object.
     const post = {
         type,
         message,
         link,
-        //     media,
-        //     context,
+        media,
+        context,
         //     publisher,
         //     time,
         //     priority,
