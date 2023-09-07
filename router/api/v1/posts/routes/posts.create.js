@@ -5,7 +5,12 @@ module.exports = CREATE;
 
 const openDB = require('../../../../../data/openDB');
 
-const { isValidURL, isJSONParsable, isValidDateTime } = require('../../../../../utils/utils');
+const {
+    isValidURL,
+    isJSONParsable,
+    isValidDateTime,
+    saveBase64MediaToFileSystem,
+} = require('../../../../../utils/utils');
 
 CREATE.post('/', async (req, res) => {
     // Create a database connection.
@@ -15,7 +20,7 @@ CREATE.post('/', async (req, res) => {
     const type = req?.body?.type ? req?.body?.type : null;
     const message = req?.body?.message ? req?.body?.message : null;
     const link = req?.body?.link ? req?.body?.link : null;
-    const media = req?.body?.media ? req?.body?.media : null;
+    let media = req?.body?.media && req?.body?.media !== '[]' ? req?.body?.media : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
     let time = req?.body?.time ? req?.body?.time : null;
@@ -149,14 +154,18 @@ CREATE.post('/', async (req, res) => {
     time = type === 'scheduled' ? time : null;
     const timestamp = time !== null ? new Date(time).getTime() : null;
     const priority = timestamp ? timestamp : new Date().getTime();
+
     const status = 'inactive';
+
+    media = JSON.parse(media);
+    const images = saveBase64MediaToFileSystem(media);
 
     // Create the post object.
     const post = {
         type,
         message,
         link,
-        media,
+        media: images,
         context,
         publisher,
         time,
