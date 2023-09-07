@@ -11,6 +11,7 @@ CREATE.post('/', async (req, res) => {
 
     // Get user submission.
     const type = req?.body?.type ? req?.body?.type : null;
+    const message = req?.body?.message ? req?.body?.message : null;
 
     /**
      * INPUT VALIDATION.
