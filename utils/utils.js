@@ -1,3 +1,8 @@
+const fs = require('fs');
+const path = require('path');
+
+const { nanoid } = require('nanoid');
+
 const isValidURL = (url) => {
     let urlRegEx = new RegExp(
         '^' +
@@ -63,8 +68,42 @@ const isValidDateTime = (datetime) => {
     return true;
 };
 
+const getImageFormatFromBase64Url = (image) => {
+    const imageFormat = image.match(/^data:image\/(\w+);base64,/)[1];
+    return imageFormat;
+};
+
+const saveBase64MediaToFileSystem = (base64Images = null) => {
+    if (base64Images === null || base64Images === []) return null;
+
+    const prefix = 'image-' + nanoid();
+    const outputFolder = path.join(__dirname, '..', 'public', 'media');
+
+    let images = [];
+    for (let i = 0; i < base64Images.length; i++) {
+        const base64Image = base64Images[i];
+
+        // Remove the "data:image/png;base64," prefix
+        const data = base64Image.replace(/^data:image\/\w+;base64,/, '');
+
+        // Create a buffer from the base64 data
+        const buffer = Buffer.from(data, 'base64');
+
+        // Create the output file location
+        const format = getImageFormatFromBase64Url(base64Image);
+        const filename = `${prefix}-file-${i + 1}.${format}`;
+        const outputPath = path.join(outputFolder, filename);
+
+        fs.writeFileSync(outputPath, buffer);
+        images.push(filename);
+    }
+
+    return images;
+};
+
 module.exports = {
     isValidURL,
     isJSONParsable,
     isValidDateTime,
+    saveBase64MediaToFileSystem,
 };
