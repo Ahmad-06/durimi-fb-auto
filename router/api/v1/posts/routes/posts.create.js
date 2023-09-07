@@ -5,7 +5,7 @@ module.exports = CREATE;
 
 const openDB = require('../../../../../data/openDB');
 
-const { isValidURL, isJSONParsable } = require('../../../../../utils/utils');
+const { isValidURL, isJSONParsable, isValidDateTime } = require('../../../../../utils/utils');
 
 CREATE.post('/', async (req, res) => {
     // Create a database connection.
@@ -18,6 +18,7 @@ CREATE.post('/', async (req, res) => {
     const media = req?.body?.media ? req?.body?.media : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
+    const time = req?.body?.time ? req?.body?.time : null;
 
     /**
      * INPUT VALIDATION.
@@ -100,6 +101,21 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Verify the time.
+    if (time !== null && !isValidDateTime(time))
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating time submitted by the user.',
+                message:
+                    "The time you submitted is invalid. Make sure it's of the following format: YYYY-MM-DDTHH:MM, e.g. 2022-01-01T12:00.",
+            },
+        });
+
     // Create the post object.
     const post = {
         type,
@@ -108,7 +124,7 @@ CREATE.post('/', async (req, res) => {
         media,
         context,
         publisher,
-        //     time,
+        time,
         //     priority,
         //     status,
     };
