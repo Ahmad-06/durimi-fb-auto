@@ -31,7 +31,9 @@ CREATE.post('/', async (req, res) => {
 
     // Verify the post type.
     const types = ['automated', 'scheduled'];
-    if (type === null || !types.includes(type))
+    if (type === null || !types.includes(type)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -44,9 +46,12 @@ CREATE.post('/', async (req, res) => {
                     "The post type you submitted is invalid. Make sure it's one of the two types: automated OR scheduled.",
             },
         });
+    }
 
     // Verify if at least one of the following is submitted: message, link, media.
-    if (link === null && media === null && message === null)
+    if (link === null && media === null && message === null) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -58,9 +63,12 @@ CREATE.post('/', async (req, res) => {
                 message: 'You need to submit at least one of the following: link, media, or message.',
             },
         });
+    }
 
     // Verify the link.
-    if (link !== null && !isValidURL(link))
+    if (link !== null && !isValidURL(link)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -73,9 +81,12 @@ CREATE.post('/', async (req, res) => {
                     "The link you submitted is invalid. Make sure it's of the following format: http(s)://(www.)example.org",
             },
         });
+    }
 
     // Verify the media.
-    if (media !== null && !isJSONParsable(media))
+    if (media !== null && !isJSONParsable(media)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -87,10 +98,13 @@ CREATE.post('/', async (req, res) => {
                 message: "The media you submitted is invalid. Make sure it's a stringified array of Base64 Image URLs.",
             },
         });
+    }
 
     // Verify the context.
     const contexts = ['page', 'group'];
-    if (context === null || !contexts.includes(context))
+    if (context === null || !contexts.includes(context)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -103,10 +117,13 @@ CREATE.post('/', async (req, res) => {
                     "The context you submitted is invalid. Make sure it's one of the following two: page OR group.",
             },
         });
+    }
 
     // Verify the publisher.
     const publishers = ['page', 'user'];
-    if (publisher === null || !publishers.includes(publisher))
+    if (publisher === null || !publishers.includes(publisher)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -119,9 +136,12 @@ CREATE.post('/', async (req, res) => {
                     "The publisher you submitted is invalid. Make sure it's one of the following two: page OR user.",
             },
         });
+    }
 
     // Verify the time.
-    if (time !== null && !isValidDateTime(time))
+    if (time !== null && !isValidDateTime(time)) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -134,9 +154,12 @@ CREATE.post('/', async (req, res) => {
                     "The time you submitted is invalid. Make sure it's of the following format: YYYY-MM-DDTHH:MM, e.g. 2022-01-01T12:00.",
             },
         });
+    }
 
     // Verify if the time is present based on the type.
-    if (type === 'scheduled' && time === null)
+    if (type === 'scheduled' && time === null) {
+        await db.close();
+
         return res.status(400).json({
             success: false,
             data: null,
@@ -149,6 +172,7 @@ CREATE.post('/', async (req, res) => {
                     "Posts of type 'scheduled' must have a time attached to them. Make sure it's of the following format: YYYY-MM-DDTHH:MM, e.g. 2022-01-01T12:00.",
             },
         });
+    }
 
     // Derive the remaining data items from user input.
     time = type === 'scheduled' ? time : null;
