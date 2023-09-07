@@ -54,7 +54,17 @@ const isJSONParsable = (input) => {
     }
 };
 
+const isValidDateTime = (datetime) => {
+    const timestamp = new Date(datetime).getTime();
+
+    // Return false if the timestamp is not a number.
+    if (isNaN(timestamp)) return false;
+
+    return true;
+};
+
 module.exports = {
     isValidURL,
     isJSONParsable,
+    isValidDateTime,
 };
