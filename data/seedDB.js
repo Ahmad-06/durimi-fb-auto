@@ -14,7 +14,8 @@ const seedDB = async () => {
                 media TEXT,
                 context TEXT NOT NULL,
                 publisher TEXT NOT NULL,
-                time INTEGER,
+                time TEXT,
+                timestamp TIMESTAMP,
                 priority INTEGER NOT NULL,
                 status TEXT
             );
