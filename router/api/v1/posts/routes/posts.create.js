@@ -5,6 +5,8 @@ module.exports = CREATE;
 
 const openDB = require('../../../../../data/openDB');
 
+const { isValidURL } = require('../../../../../utils/utils');
+
 CREATE.post('/', async (req, res) => {
     // Create a database connection.
     const db = await openDB();
@@ -12,6 +14,7 @@ CREATE.post('/', async (req, res) => {
     // Get user submission.
     const type = req?.body?.type ? req?.body?.type : null;
     const message = req?.body?.message ? req?.body?.message : null;
+    const link = req?.body?.link ? req?.body?.link : null;
 
     /**
      * INPUT VALIDATION.
@@ -33,11 +36,26 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Verify the link.
+    if (link !== null && !isValidURL(link))
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/posts/create',
+                moment: 'Validating link submitted by the user.',
+                message:
+                    "The link you submitted is invalid. Make sure it's of the following format: http(s)://(www.)example.org",
+            },
+        });
+
     // Create the post object.
     const post = {
         type,
-        //     message,
-        //     link,
+        message,
+        link,
         //     media,
         //     context,
         //     publisher,
