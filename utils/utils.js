@@ -45,6 +45,16 @@ const isValidURL = (url) => {
     return urlRegEx.test(url);
 };
 
+const isJSONParsable = (input) => {
+    try {
+        JSON.parse(input);
+        return true;
+    } catch (err) {
+        return false;
+    }
+};
+
 module.exports = {
     isValidURL,
+    isJSONParsable,
 };
