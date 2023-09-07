@@ -131,3 +131,6 @@ dist
 
 # Sqlite3 Databases
 *.db
+
+# User-uploaded media
+public/media/
