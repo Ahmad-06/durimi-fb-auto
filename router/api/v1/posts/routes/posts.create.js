@@ -145,6 +145,12 @@ CREATE.post('/', async (req, res) => {
             },
         });
 
+    // Derive the remaining data items from user input.
+    time = type === 'scheduled' ? time : null;
+    const timestamp = time !== null ? new Date(time).getTime() : null;
+    const priority = timestamp ? timestamp : new Date().getTime();
+    const status = 'inactive';
+
     // Create the post object.
     const post = {
         type,
@@ -154,8 +160,9 @@ CREATE.post('/', async (req, res) => {
         context,
         publisher,
         time,
-        //     priority,
-        //     status,
+        timestamp,
+        priority,
+        status,
     };
 
     // res.json(post);
