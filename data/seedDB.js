@@ -36,6 +36,7 @@ const seedDB = async () => {
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 day TEXT NOT NULL,
                 time TEXT NOT NULL,
+                time_formatted TEXT NOT NULL,
                 priority INTEGER NOT NULL
             );
         `;
