@@ -106,6 +106,9 @@
                 <!-- THE TIME -->
                 <input type="datetime-local" name="time" class="form-input" data-form-id="{{ post.id }}" value="{{ post.time }}" />
 
+                <!-- THE PRIORITY -->
+                <input type="number" name="priority" class="form-input hidden" data-form-id="{{ post.id }}" value={{ post.priority }}>
+
                 <!-- THE BUTTONS -->
                 <section class="form-buttons" data-form-id="{{ post.id }}">
                     <!-- THE AUTOMATE BUTTON -->

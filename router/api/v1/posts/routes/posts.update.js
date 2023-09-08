@@ -26,6 +26,7 @@ UPDATE.put('/', async (req, res) => {
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
     let time = req?.body?.time ? req?.body?.time : null;
+    let priority = req?.body?.priority ? req?.body?.priority : null;
 
     // Check if the post id is valid.
     if (id === null || isNaN(id) || id <= 0) {
@@ -192,7 +193,9 @@ UPDATE.put('/', async (req, res) => {
     // Derive the remaining data items from user input.
     time = type === 'scheduled' ? time : null;
     const timestamp = time !== null ? new Date(time).getTime() : null;
-    const priority = timestamp ? timestamp : new Date().getTime();
+    if (priority === null) {
+        priority = timestamp ? timestamp : new Date().getTime();
+    }
 
     const status = 'inactive';
 

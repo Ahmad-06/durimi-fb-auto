@@ -10,6 +10,7 @@ const createPost = async (index, type) => {
         context: getInput('context', index).value,
         publisher: getInput('publisher', index).value,
         time: getInput('time', index).value,
+        priority: getInput('priority', index).value,
         type,
     };
 
