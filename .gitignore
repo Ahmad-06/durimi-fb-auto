@@ -134,3 +134,7 @@ dist
 
 # User-uploaded media
 public/media/
+
+# Sass-generated files
+*.css
+*.css.map

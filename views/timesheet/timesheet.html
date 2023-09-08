@@ -1,0 +1,50 @@
+{% extends '../_base.html' %}
+
+<!-- THE TITLE BLOCK -->
+{% block title %} Timesheet | FB-AUTO {% endblock %}
+
+<!-- THE STYLES BLOCK -->
+{% block styles %}
+<link rel="stylesheet" href="/css/timesheet/timesheet.css" />
+{% endblock %}
+
+<!-- THE CONTENT BLOCK -->
+{% block content %}
+<!-- THE TIMESHEET -->
+<div id="timesheet">
+    {% for day in days %}
+    <div class="timesheet-container" data-day="{{ day }}">
+        <header class="timesheet-header" data-day="{{ day }}">
+            <h3 class="timesheet-heading" data-day="{{ day }}">{{ day }}</h3>
+        </header>
+        <section class="timesheet-content" data-day="{{ day }}">
+            <article class="timesheet-item" data-day="{{ day }}" data-id="12" data-time="12:00 AM">
+                <h4 class="timesheet-item-heading" data-day="{{ day }}" data-id="12" data-time="12:00 AM">12:00 AM</h4>
+                <section class="timesheet-item-buttons" data-day="{{ day }}" data-id="12" data-time="12:00 AM">
+                    <button
+                        class="timesheet-item-button timesheet-item-edit-button"
+                        data-day="{{ day }}"
+                        data-id="12"
+                        data-time="12:00 AM">
+                        <i class="fa-regular fa-pen-to-square" title="Edit time."></i>
+                    </button>
+                    <button
+                        class="timesheet-item-button timesheet-item-delete-button"
+                        data-day="{{ day }}"
+                        data-id="12"
+                        data-time="12:00 AM">
+                        <i class="fa-regular fa-trash-can" title="Delete time."></i>
+                    </button>
+                </section>
+            </article>
+        </section>
+        <footer class="timesheet-footer" data-day="{{ day }}">
+            <button class="timesheet-new-button" data-day="{{ day }}">+ NEW</button>
+        </footer>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<!-- THE SCRIPTS BLOCK -->
+{% block scripts %} {% endblock %}

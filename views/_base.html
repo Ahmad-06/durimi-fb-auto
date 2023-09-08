@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %} {% endblock %}</title>
+        <link rel="stylesheet" href="/css/base.css" />
+        <!-- THE STYLES BLOCK -->
+        {% block styles %} {% endblock %}
+    </head>
+    <body>
+        <!-- THE HEADER -->
+        <header id="header">
+            <!-- THE CONTAINER -->
+            <div class="container">
+                <!-- THE LOGO -->
+                <section id="logo">
+                    <h1>
+                        <a href="/">Facebook</a>
+                    </h1>
+                </section>
+
+                <!-- THE MENU -->
+                <nav id="menu">
+                    <a href="/timesheet">Timesheet</a>
+                    <a href="/posts">Posts</a>
+                    <button>Login</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- THE IDENTIFIER -->
+        <section id="identifier">
+            <!-- THE CONTAINER -->
+            <div class="container">
+                <!-- THE INDICATOR -->
+                <h2 id="indicator" title="Indicator of the logged in instance."></h2>
+            </div>
+        </section>
+
+        <!-- THE CONTENT -->
+        <main id="content">
+            <!-- THE CONTAINER -->
+            <div class="container">
+                <!-- THE CONTENT BLOCK -->
+                {% block content %} {% endblock %}
+            </div>
+        </main>
+
+        <!-- THE FOOTER -->
+        <footer id="footer">
+            <!-- THE CONTAINER -->
+            <div class="container">
+                <!-- THE COPYRIGHT -->
+                <p id="copyright">Copyright (c) 2023 - <a href="mailto:ahmad@shahzad.dev">Ahmad Shahzad</a></p>
+            </div>
+        </footer>
+
+        <!-- THE ERROR -->
+        <div id="error-overlay" class="hidden"></div>
+        <div id="error-modal" class="hidden">
+            <h3 id="error-modal-heading"></h3>
+            <p id="error-modal-message"></p>
+            <pre id="error-modal-content"></pre>
+            <button id="error-modal-close" onclick="closeError()">
+                <i class="fa-regular fa-circle-xmark"></i>
+            </button>
+        </div>
+
+        <!-- THE SCRIPTS -->
+        <script src="/js/base/handleError.js"></script>
+        <script src="/js/base/handleIndicator.js"></script>
+
+        <!-- THE SCRIPTS BLOCK -->
+        {% block scripts %} {% endblock %}
+    </body>
+</html>

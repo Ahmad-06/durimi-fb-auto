@@ -1,0 +1,228 @@
+{% extends '../_base.html' %}
+
+<!-- THE TITLE BLOCK -->
+{% block title %} Posts | FB-AUTO {% endblock %}
+
+<!-- THE STYLES BLOCK -->
+{% block styles %}
+<link rel="stylesheet" href="/css/posts/posts.css" />
+{% endblock %}
+
+<!-- THE CONTENT BLOCK -->
+{% block content %}
+<!-- THE TAB SWITCHES -->
+<section id="tab-switches">
+    <!-- THE AUTOMATED SWITCH -->
+    <button class="tab-switch active" data-tab="automated">Automated Posts</button>
+
+    <!-- THE SCHEDULED SWITCH -->
+    <button class="tab-switch" data-tab="scheduled">Scheduled Posts</button>
+</section>
+
+<!-- THE TABS -->
+<section id="tabs">
+    <!-- THE AUTOMATED TAB -->
+    <section class="tab" data-tab="automated">
+        <!-- THE TAB TITLE -->
+        <h3 class="tab-title">Automated Posts</h3>
+
+        <!-- THE RE-ORDER BUTTON -->
+        <button class="re-order" data-tab="automated">Re-Order Posts</button>
+
+        <!-- THE POSTS -->
+        <section class="posts" data-tab="automated">
+            <!-- A DUMMY POST -->
+            <form class="form post" data-form-id="1" onsubmit="event.preventDefault();">
+                <!-- THE INDEX -->
+                <p class="form-index">1</p>
+
+                <!-- THE HEADING -->
+                <h3 class="form-heading" data-form-id="1">Update the Post</h3>
+
+                <!-- THE ID -->
+                <input type="number" name="id" class="form-input hidden" data-form-id="1" />
+
+                <!-- THE MESSAGE -->
+                <textarea name="message" class="form-textarea" data-form-id="1" placeholder="What's on your mind?">
+Hello, world!</textarea
+                >
+
+                <!-- THE LINK -->
+                <input
+                    type="url"
+                    name="link"
+                    class="form-input"
+                    data-form-id="1"
+                    placeholder="http(s)://(www.)example.org"
+                    value="https://www.facebook.com" />
+
+                <!-- THE MEDIA -->
+                <section class="form-media" data-form-id="1">
+                    <!-- THE DROP ZONE -->
+                    <div class="form-media-drop-zone" data-form-id="1">Drop media here!</div>
+
+                    <!-- THE GALLERY -->
+                    <div class="form-media-gallery hidden" data-form-id="1"></div>
+
+                    <!-- THE SECONDARY GALLERY -->
+                    <div class="form-media-gallery secondary" data-form-id="1">
+                        <img src="https://picsum.photos/101/101" alt="Image #1" />
+                        <img src="https://picsum.photos/102/102" alt="Image #2" />
+                        <img src="https://picsum.photos/103/103" alt="Image #3" />
+                        <img src="https://picsum.photos/104/104" alt="Image #4" />
+                    </div>
+
+                    <!-- THE FILE INPUT -->
+                    <input type="file" name="files" class="hidden" data-form-id="1" multiple />
+
+                    <!-- THE MEDIA INPUT -->
+                    <input type="text" name="media" class="form-input hidden" data-form-id="1" />
+                </section>
+
+                <!-- THE OPTIONS -->
+                <section class="form-options" data-form-id="1">
+                    <!-- THE CONTEXT -->
+                    <select name="context" class="form-select" data-form-id="1">
+                        <option value="page">Post to Page</option>
+                        <option value="group" selected>Post to Group</option>
+                    </select>
+
+                    <!-- THE PUBLISHER -->
+                    <select name="publisher" class="form-select" data-form-id="1">
+                        <option value="page">Post as Page</option>
+                        <option value="user" selected>Post as User</option>
+                    </select>
+                </section>
+
+                <!-- THE TIME -->
+                <input type="datetime-local" name="time" class="form-input" data-form-id="1" />
+
+                <!-- THE BUTTONS -->
+                <section class="form-buttons" data-form-id="1">
+                    <!-- THE AUTOMATE BUTTON -->
+                    <button class="form-button form-button-automate" data-form-id="1">
+                        <i class="fa-regular fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;&nbsp;Update
+                    </button>
+
+                    <!-- THE SCHEDULE BUTTON -->
+                    <button class="form-button form-button-schedule" data-form-id="1">
+                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>
+                    </button>
+
+                    <!-- THE PUBLISH BUTTON -->
+                    <button class="form-button form-button-publish" data-form-id="1">Publish Now</button>
+
+                    <!-- THE DELETE BUTTON -->
+                    <button class="form-button form-button-delete" data-form-id="1">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </section>
+            </form>
+        </section>
+    </section>
+
+    <!-- THE SCHEDULED TAB -->
+    <section class="tab hidden" data-tab="scheduled">
+        <!-- THE TAB TITLE -->
+        <h3 class="tab-title">Scheduled Posts</h3>
+
+        <!-- THE RE-ORDER BUTTON -->
+        <button class="re-order" data-tab="scheduled">Re-Order Posts</button>
+
+        <!-- THE POSTS -->
+        <section class="posts" data-tab="automated">
+            <!-- A DUMMY POST -->
+            <form class="form post" data-form-id="5" onsubmit="event.preventDefault();">
+                <!-- THE INDEX -->
+                <p class="form-index">1</p>
+
+                <!-- THE HEADING -->
+                <h3 class="form-heading" data-form-id="5">Update the Post</h3>
+
+                <!-- THE ID -->
+                <input type="number" name="id" class="form-input hidden" data-form-id="5" />
+
+                <!-- THE MESSAGE -->
+                <textarea name="message" class="form-textarea" data-form-id="5" placeholder="What's on your mind?">
+Hello, world!</textarea
+                >
+
+                <!-- THE LINK -->
+                <input
+                    type="url"
+                    name="link"
+                    class="form-input"
+                    data-form-id="5"
+                    placeholder="http(s)://(www.)example.org"
+                    value="https://www.facebook.com" />
+
+                <!-- THE MEDIA -->
+                <section class="form-media" data-form-id="5">
+                    <!-- THE DROP ZONE -->
+                    <div class="form-media-drop-zone" data-form-id="5">Drop media here!</div>
+
+                    <!-- THE GALLERY -->
+                    <div class="form-media-gallery hidden" data-form-id="5"></div>
+
+                    <!-- THE SECONDARY GALLERY -->
+                    <div class="form-media-gallery secondary" data-form-id="5">
+                        <img src="https://picsum.photos/101/101" alt="Image #1" />
+                        <img src="https://picsum.photos/102/102" alt="Image #2" />
+                        <img src="https://picsum.photos/103/103" alt="Image #3" />
+                        <img src="https://picsum.photos/104/104" alt="Image #4" />
+                    </div>
+
+                    <!-- THE FILE INPUT -->
+                    <input type="file" name="files" class="hidden" data-form-id="5" multiple />
+
+                    <!-- THE MEDIA INPUT -->
+                    <input type="text" name="media" class="form-input hidden" data-form-id="5" />
+                </section>
+
+                <!-- THE OPTIONS -->
+                <section class="form-options" data-form-id="5">
+                    <!-- THE CONTEXT -->
+                    <select name="context" class="form-select" data-form-id="5">
+                        <option value="page">Post to Page</option>
+                        <option value="group" selected>Post to Group</option>
+                    </select>
+
+                    <!-- THE PUBLISHER -->
+                    <select name="publisher" class="form-select" data-form-id="5">
+                        <option value="page">Post as Page</option>
+                        <option value="user" selected>Post as User</option>
+                    </select>
+                </section>
+
+                <!-- THE TIME -->
+                <input type="datetime-local" name="time" class="form-input" data-form-id="5" />
+
+                <!-- THE BUTTONS -->
+                <section class="form-buttons" data-form-id="5">
+                    <!-- THE SCHEDULE BUTTON -->
+                    <button class="form-button form-button-schedule" data-form-id="5">
+                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                        Update
+                    </button>
+
+                    <!-- THE AUTOMATE BUTTON -->
+                    <button class="form-button form-button-automate" data-form-id="5">
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </button>
+
+                    <!-- THE PUBLISH BUTTON -->
+                    <button class="form-button form-button-publish" data-form-id="5">Publish Now</button>
+
+                    <!-- THE DELETE BUTTON -->
+                    <button class="form-button form-button-delete" data-form-id="5">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </section>
+            </form>
+        </section>
+    </section>
+</section>
+{% endblock %}
+
+<!-- THE SCRIPTS BLOCK -->
+{% block scripts %} {% endblock %}
