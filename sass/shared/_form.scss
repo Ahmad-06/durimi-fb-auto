@@ -225,10 +225,12 @@
             grid-gap: 25px;
             grid-template-columns: repeat(4, 1fr);
 
+            img {
+                aspect-ratio: 1 / 1;
+            }
+
             &:not(.secondary) {
                 img {
-                    aspect-ratio: 1 / 1;
-
                     &:hover {
                         cursor: no-drop;
                         filter: grayscale(100%);
