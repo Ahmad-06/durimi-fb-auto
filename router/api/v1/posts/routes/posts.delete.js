@@ -41,7 +41,7 @@ DELETE.delete('/', async (req, res) => {
         if (!post) {
             await db.close();
 
-            res.status(404).json({
+            return res.status(404).json({
                 success: false,
                 data: null,
                 error: {
@@ -71,7 +71,7 @@ DELETE.delete('/', async (req, res) => {
         }
     }
 
-    if (post.media !== 'null') {
+    if (post?.media && post?.media !== 'null') {
         try {
             const media = JSON.parse(post.media);
 
