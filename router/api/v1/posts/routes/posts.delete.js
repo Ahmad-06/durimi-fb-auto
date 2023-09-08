@@ -36,7 +36,7 @@ DELETE.delete('/', async (req, res) => {
         const query = 'SELECT * FROM posts WHERE id = ?';
         const params = [id];
 
-        post = await db.get(query, id);
+        post = await db.get(query, params);
 
         if (!post) {
             await db.close();
