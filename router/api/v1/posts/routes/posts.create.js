@@ -181,8 +181,8 @@ CREATE.post('/', async (req, res) => {
 
     const status = 'inactive';
 
-    media = JSON.parse(media);
-    const images = saveBase64MediaToFileSystem(media);
+    media = media !== null ? JSON.parse(media) : null;
+    const images = media !== null ? saveBase64MediaToFileSystem(media) : null;
 
     // Create the post object.
     const post = {
