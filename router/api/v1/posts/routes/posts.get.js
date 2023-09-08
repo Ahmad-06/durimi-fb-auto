@@ -10,7 +10,7 @@ GET.get('/all', async (req, res) => {
     const db = await openDB();
 
     try {
-        const query = 'SELECT * FROM posts';
+        const query = 'SELECT * FROM posts ORDER BY priority';
 
         const posts = await db.all(query);
 
@@ -66,7 +66,7 @@ GET.get('/:type', async (req, res) => {
     }
 
     try {
-        const query = 'SELECT * FROM posts WHERE type = ?';
+        const query = 'SELECT * FROM posts WHERE type = ? ORDER BY priority';
         const params = [type];
 
         const posts = await db.all(query, params);
