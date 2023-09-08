@@ -14,8 +14,16 @@
     // A FUNCTION TO UPDATE THE GALLERY'S VISIBILITY.
     const updateGalleryVisibility = (id, files) => {
         const gallery = document.querySelector(`.form-media-gallery[data-form-id="${id}"]`);
+        const secondaryGallery = document.querySelector(`.form-media-gallery.secondary[data-form-id="${id}"]`);
+        const imagesInput = document.querySelector(`input[name="images"][data-form-id="${id}"]`);
         gallery.classList.add('hidden');
-        if (files.length !== 0) gallery.classList.remove('hidden');
+        if (imagesInput.value !== 'null') {
+            secondaryGallery.classList.remove('hidden');
+        }
+        if (files.length !== 0) {
+            gallery.classList.remove('hidden');
+            secondaryGallery.classList.add('hidden');
+        }
     };
 
     // A FUNCTION TO UPDATE THE MEDIA INPUT'S VALUE.

@@ -76,7 +76,7 @@
 
                     <!-- THE SECONDARY GALLERY -->
                     {% if post.media %}
-                    <div class="form-media-gallery secondary" data-form-id="{{ post.id }}">
+                    <div class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}" data-form-id="{{ post.id }}">
                         <input type="text" name="images" class="form-input hidden" data-form-id="{{ post.id }}" value="{{ post.media }}">
                     </div>
                     {% endif %}
@@ -109,17 +109,17 @@
                 <!-- THE BUTTONS -->
                 <section class="form-buttons" data-form-id="{{ post.id }}">
                     <!-- THE AUTOMATE BUTTON -->
-                    <button class="form-button form-button-automate" data-form-id="{{ post.id }}">
+                    <button class="form-button form-button-automate" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'automated')">
                         <i class="fa-regular fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;&nbsp;Update
                     </button>
 
                     <!-- THE SCHEDULE BUTTON -->
-                    <button class="form-button form-button-schedule" data-form-id="{{ post.id }}">
+                    <button class="form-button form-button-schedule" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'scheduled')">
                         <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>
                     </button>
 
                     <!-- THE PUBLISH BUTTON -->
-                    <button class="form-button form-button-publish" data-form-id="{{ post.id }}">Publish Now</button>
+                    <button class="form-button form-button-publish" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'publish')">Publish Now</button>
 
                     <!-- THE DELETE BUTTON -->
                     <button class="form-button form-button-delete" data-form-id="{{ post.id }}">
@@ -237,5 +237,6 @@ Hello, world!</textarea
 <!-- THE SCRIPTS BLOCK -->
 {% block scripts %}
 <script src="/js/common/handleMedia.js"></script>
+<script src="/js/common/handleCreatePost.js"></script>
 <script src="/js/posts/handleSecondaryGallery.js"></script>
 {% endblock %}
