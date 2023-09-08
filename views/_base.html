@@ -68,6 +68,37 @@
         </div>
 
         <!-- THE SCRIPTS -->
+        <script>
+            let apiURL = '/api/v1';
+            let apiMiscURL = `${apiURL}/misc`;
+            let apiPostsURL = `${apiURL}/posts`;
+            let apiTimesheetURL = `${apiURL}/timesheet`;
+
+            let api = {
+                misc: {
+                    indicator: `${apiMiscURL}/indicator`,
+                },
+                posts: {
+                    get: {
+                        all: `${apiPostsURL}/all`,
+                        automated: `${apiPostsURL}/automated`,
+                        scheduled: `${apiPostsURL}/scheduled`,
+                    },
+                    create: `${apiPostsURL}/create`,
+                    update: `${apiPostsURL}/update`,
+                    delete: `${apiPostsURL}/delete`,
+                    publish: `${apiPostsURL}/publish`,
+                },
+                timesheet: {
+                    get: {
+                        all: `${apiTimesheetURL}/all`,
+                    },
+                    create: `${apiTimesheetURL}/create`,
+                    update: `${apiTimesheetURL}/update`,
+                    delete: `${apiTimesheetURL}/delete`,
+                },
+            };
+        </script>
         <script src="/js/base/handleError.js"></script>
         <script src="/js/base/handleIndicator.js"></script>
 
