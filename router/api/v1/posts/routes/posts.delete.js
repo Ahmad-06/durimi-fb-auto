@@ -12,9 +12,9 @@ DELETE.delete('/', async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 
-    const id = req?.body?.id ? req?.body?.id : null;
+    const id = req?.body?.id ? parseInt(req?.body?.id) : null;
 
-    if (id === null || isNaN(id)) {
+    if (id === null || isNaN(id) || id <= 0) {
         await db.close();
 
         return res.status(400).json({
