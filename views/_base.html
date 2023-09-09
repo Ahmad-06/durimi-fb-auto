@@ -24,7 +24,7 @@
                 <nav id="menu">
                     <a href="/timesheet">Timesheet</a>
                     <a href="/posts">Posts</a>
-                    <button>Login</button>
+                    <button onclick="handleLogin()">Login</button>
                 </nav>
             </div>
         </header>
@@ -67,6 +67,10 @@
             </button>
         </div>
 
+        <!-- THE LOADING ANIMATION -->
+        <div id="loading-overlay" class="hidden"></div>
+        <div id="loading-icon" class="hidden"></div>
+
         <!-- THE SCRIPTS -->
         <script>
             let apiURL = '/api/v1';
@@ -76,6 +80,7 @@
 
             let api = {
                 misc: {
+                    login: `${apiMiscURL}/login`,
                     indicator: `${apiMiscURL}/indicator`,
                 },
                 posts: {
@@ -100,6 +105,8 @@
                 },
             };
         </script>
+        <script src="/js/base/handleLoadingAnimation.js"></script>
+        <script src="/js/base/handleLogin.js"></script>
         <script src="/js/base/handleError.js"></script>
         <script src="/js/base/handleIndicator.js"></script>
 

@@ -8,7 +8,7 @@ const handleLogin = async () => {
 
     if (!success) {
         hideLoadingAnimation();
-        handleError('There was an error when trying to log in.', error);
+        return handleError('There was an error when trying to log in.', error);
     }
 
     window.location.href = '/';
