@@ -22,6 +22,7 @@ UPDATE.put('/', async (req, res) => {
     const message = req?.body?.message ? req?.body?.message : null;
     const link = req?.body?.link ? req?.body?.link : null;
     let media = req?.body?.media && req?.body?.media !== '[]' ? req?.body?.media : null;
+    const IMAGES = req?.body?.images ? req?.body?.images : null;
     const mediaChanged = req?.body?.mediaChanged ? req?.body?.mediaChanged : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
@@ -201,11 +202,11 @@ UPDATE.put('/', async (req, res) => {
 
     let images;
 
-    if (mediaChanged === 'true') {
+    if (media) {
         media = media !== null ? JSON.parse(media) : null;
         images = media !== null ? saveBase64MediaToFileSystem(media) : null;
     } else {
-        images = media !== null ? JSON.parse(media) : null;
+        images = JSON.parse(IMAGES);
     }
 
     // Create post object.

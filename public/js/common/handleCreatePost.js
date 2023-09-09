@@ -7,6 +7,7 @@ const createPost = async (index, type) => {
         message: getInput('message', index).value,
         link: getInput('link', index).value,
         media: getInput('media', index).value,
+        images: getInput('images', index).value,
         context: getInput('context', index).value,
         publisher: getInput('publisher', index).value,
         time: getInput('time', index).value,
