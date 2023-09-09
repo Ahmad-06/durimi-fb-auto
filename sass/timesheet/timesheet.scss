@@ -181,7 +181,11 @@ body {
                 }
 
                 &#modal-update {
-                    border-color: $yellow;
+                    border-color: $green;
+                }
+
+                &#modal-delete {
+                    border-color: $red;
                 }
 
                 .modal-input {

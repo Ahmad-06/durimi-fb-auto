@@ -53,7 +53,8 @@
                         data-day="{{ timeslot.day }}"
                         data-id="{{ timeslot.id }}"
                         data-time="{{ timeslot.time }}"
-                        data-time-formatted="{{ timeslot.time_formatted }}">
+                        data-time-formatted="{{ timeslot.time_formatted }}"
+                        onclick="handleDeleteTimeslot('{{ timeslot.id }}', '{{ timeslot.day }}', '{{ timeslot.time }}')">
                         <i class="fa-regular fa-trash-can" title="Delete time."></i>
                     </button>
                 </section>
@@ -80,6 +81,8 @@
 <script src="/js/timesheet/handleCloseModal.js"></script>
 
 <script src="/js/timesheet/createTimeslot.js"></script>
+<script src="/js/timesheet/deleteTimeslot.js"></script>
 <script src="/js/timesheet/handleCreateTimeslot.js"></script>
 <script src="/js/timesheet/handleUpdateTimeslot.js"></script>
+<script src="/js/timesheet/handleDeleteTimeslot.js"></script>
 {% endblock %}
