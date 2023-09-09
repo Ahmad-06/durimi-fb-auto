@@ -18,21 +18,41 @@
             <h3 class="timesheet-heading" data-day="{{ day }}">{{ day }}</h3>
         </header>
         <section class="timesheet-content" data-day="{{ day }}">
-            <article class="timesheet-item" data-day="{{ day }}" data-id="12" data-time="12:00 AM">
-                <h4 class="timesheet-item-heading" data-day="{{ day }}" data-id="12" data-time="12:00 AM">12:00 AM</h4>
-                <section class="timesheet-item-buttons" data-day="{{ day }}" data-id="12" data-time="12:00 AM">
+            <article
+                class="timesheet-item"
+                data-day="{{ day }}"
+                data-id="12"
+                data-time="00:00"
+                data-time-formatted="12:00 AM">
+                <h4
+                    class="timesheet-item-heading"
+                    data-day="{{ day }}"
+                    data-id="12"
+                    data-time="00:00"
+                    data-time-formatted="12:00 AM">
+                    12:00 AM
+                </h4>
+                <section
+                    class="timesheet-item-buttons"
+                    data-day="{{ day }}"
+                    data-id="12"
+                    data-time="00:00"
+                    data-time-formatted="12:00 AM">
                     <button
                         class="timesheet-item-button timesheet-item-edit-button"
                         data-day="{{ day }}"
                         data-id="12"
-                        data-time="12:00 AM">
+                        data-time="00:00"
+                        data-time-formatted="12:00 AM"
+                        onclick="handleUpdateTimeslot('12', '{{ day }}', '00:00')">
                         <i class="fa-regular fa-pen-to-square" title="Edit time."></i>
                     </button>
                     <button
                         class="timesheet-item-button timesheet-item-delete-button"
                         data-day="{{ day }}"
                         data-id="12"
-                        data-time="12:00 AM">
+                        data-time="00:00"
+                        data-time-formatted="12:00 AM">
                         <i class="fa-regular fa-trash-can" title="Delete time."></i>
                     </button>
                 </section>
@@ -56,4 +76,8 @@
 {% block scripts %}
 <script src="/js/timesheet/handleOpenModal.js"></script>
 <script src="/js/timesheet/handleCloseModal.js"></script>
+
+<script src="/js/timesheet/createTimeslot.js"></script>
+<script src="/js/timesheet/handleCreateTimeslot.js"></script>
+<script src="/js/timesheet/handleUpdateTimeslot.js"></script>
 {% endblock %}

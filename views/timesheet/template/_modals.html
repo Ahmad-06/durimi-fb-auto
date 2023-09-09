@@ -10,7 +10,7 @@
     <input type="text" name="day" id="modal-create-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-create-id" class="modal-input" />
+    <input type="time" name="time" id="modal-create-time" class="modal-input" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-create-buttons" class="modal-buttons">
@@ -18,6 +18,32 @@
         <button class="modal-button modal-button-danger" onclick="closeModal('modal-create')">Cancel</button>
 
         <!-- THE CONFIRM BUTTON -->
-        <button class="modal-button modal-button-primary" onclick="createTimeslot()">Create</button>
+        <button class="modal-button modal-button-primary" onclick="createTimeslot('create')">Create</button>
     </section>
 </div>
+
+<!-- THE UPDATE MODAL -->
+<div id="modal-update" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-update-heading" class="modal-heading">Monday</h3>
+
+    <!-- THE ID -->
+    <input type="number" name="id" id="modal-update-id" class="modal-input hidden" />
+
+    <!-- THE DAY -->
+    <input type="text" name="day" id="modal-update-day" class="modal-input hidden" />
+
+    <!-- THE TIME -->
+    <input type="time" name="time" id="modal-update-time" class="modal-input" />
+
+    <!-- THE MODAL BUTTOS -->
+    <section id="modal-update-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="closeModal('modal-update')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-secondary" onclick="createTimeslot('update')">Update</button>
+    </section>
+</div>
+
+<!-- THE DELETE MODAL -->
