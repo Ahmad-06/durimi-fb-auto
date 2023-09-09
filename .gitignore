@@ -138,3 +138,6 @@ public/media/
 # Sass-generated files
 *.css
 *.css.map
+
+# Puppeteer data
+automaton/userData
