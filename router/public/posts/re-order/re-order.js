@@ -8,5 +8,5 @@ reOrder.get('/:type', (req, res) => {
 
     if (!['automated', 'scheduled'].includes(type)) return res.redirect('/404');
 
-    res.render(`posts/re-order/${type}`);
+    res.render(`posts/re-order/re-order`, { type });
 });

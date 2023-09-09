@@ -1,0 +1,33 @@
+{% extends '../../_base.html' %}
+
+<!-- THE TITLE BLOCK -->
+{% block title %} {{ type | capitalize }} - Re-Order | FB-AUTO {% endblock %}
+
+<!-- THE STYLES BLOCK -->
+{% block styles %}
+<link rel="stylesheet" href="/css/posts/re-order/re-order.css" />
+{% endblock %}
+
+<!-- THE CONTENT BLOCK -->
+{% block content %}
+<!-- THE ACTION BUTTONS -->
+<section id="action-buttons">
+    <!-- THE RETURN BUTTON -->
+    <button id="action-button-return" class="action-button action-button-danger" onclick="cancelReOrder()">
+        Return
+    </button>
+
+    <!-- THE UPDATE BUTTON -->
+    <button id="action-button-save" class="action-button action-button-primary" onclick="reOrderPosts('{{ type }}')">
+        Update
+    </button>
+</section>
+
+<!-- THE POSTS -->
+<section id="posts" data-type="{{ type }}"></section>
+{% endblock %}
+
+<!-- THE SCRIPTS BLOCK -->
+{% block scripts %}
+<script src="/js/posts/re-order/handlePostReading.js"></script>
+{% endblock %}
