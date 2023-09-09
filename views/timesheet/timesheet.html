@@ -39,7 +39,9 @@
             </article>
         </section>
         <footer class="timesheet-footer" data-day="{{ day }}">
-            <button class="timesheet-new-button" data-day="{{ day }}">+ NEW</button>
+            <button class="timesheet-new-button" data-day="{{ day }}" onclick="handleCreateTimeslot('{{ day }}')">
+                + NEW
+            </button>
         </footer>
     </div>
     {% endfor %}
@@ -52,5 +54,6 @@
 
 <!-- THE SCRIPTS BLOCK -->
 {% block scripts %}
+<script src="/js/timesheet/handleOpenModal.js"></script>
 <script src="/js/timesheet/handleCloseModal.js"></script>
 {% endblock %}
