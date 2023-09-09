@@ -142,7 +142,10 @@
                     </button>
 
                     <!-- THE DELETE BUTTON -->
-                    <button class="form-button form-button-delete" data-form-id="{{ post.id }}">
+                    <button
+                        class="form-button form-button-delete"
+                        data-form-id="{{ post.id }}"
+                        onclick="deletePost('{{ post.id }}')">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </section>
@@ -183,7 +186,7 @@
                     class="form-textarea"
                     data-form-id="{{ post.id }}"
                     placeholder="What's on your mind?">
- {{ post.message }}</textarea
+{{ post.message }}</textarea
                 >
 
                 <!-- THE LINK -->
@@ -271,7 +274,10 @@
                     </button>
 
                     <!-- THE DELETE BUTTON -->
-                    <button class="form-button form-button-delete" data-form-id="{{ post.id }}">
+                    <button
+                        class="form-button form-button-delete"
+                        data-form-id="{{ post.id }}"
+                        onclick="deletePost('{{ post.id }}')">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </section>
@@ -286,6 +292,7 @@
 {% block scripts %}
 <script src="/js/common/handleMedia.js"></script>
 <script src="/js/common/handleCreatePost.js"></script>
+<script src="/js/common/handleDeletePost.js"></script>
 
 <script src="/js/posts/handleTabSwitch.js"></script>
 <script src="/js/posts/handleReOrderSwitch.js"></script>
