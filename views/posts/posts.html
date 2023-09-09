@@ -13,18 +13,26 @@
 <!-- THE TAB SWITCHES -->
 <section id="tab-switches">
     <!-- THE AUTOMATED SWITCH -->
-    <button class="tab-switch active" data-tab="automated" onclick="handleTabSwitch('automated')">
+    <button
+        class="tab-switch {% if posts.automated.length > 0 %} active {% endif %}"
+        data-tab="automated"
+        onclick="handleTabSwitch('automated')">
         Automated Posts
     </button>
 
     <!-- THE SCHEDULED SWITCH -->
-    <button class="tab-switch" data-tab="scheduled" onclick="handleTabSwitch('scheduled')">Scheduled Posts</button>
+    <button
+        class="tab-switch {% if posts.automated.length < 1 %} active {% endif %}"
+        data-tab="scheduled"
+        onclick="handleTabSwitch('scheduled')">
+        Scheduled Posts
+    </button>
 </section>
 
 <!-- THE TABS -->
 <section id="tabs">
     <!-- THE AUTOMATED TAB -->
-    <section class="tab" data-tab="automated">
+    <section class="tab {% if posts.automated.length <= 0 %} hidden {% endif %}" data-tab="automated">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Automated Posts</h3>
 
@@ -155,7 +163,7 @@
     </section>
 
     <!-- THE SCHEDULED TAB -->
-    <section class="tab hidden" data-tab="scheduled">
+    <section class="tab {% if posts.automated.length > 0 %} hidden {% endif %}" data-tab="scheduled">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Scheduled Posts</h3>
 
