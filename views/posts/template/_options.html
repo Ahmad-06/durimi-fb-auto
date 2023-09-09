@@ -1,0 +1,19 @@
+<section class="form-options" data-form-id="{{ post.id }}">
+    <!-- THE CONTEXT -->
+    <select name="context" class="form-select" data-form-id="{{ post.id }}">
+        <!-- prettier-ignore -->
+        <option value="page" {% if (post.context == 'page') %} selected {% endif %}>Post to Page</option>
+
+        <!-- prettier-ignore -->
+        <option value="group" {% if (post.context == 'group') %} selected {% endif %}>Post to Group</option>
+    </select>
+
+    <!-- THE PUBLISHER -->
+    <select name="publisher" class="form-select" data-form-id="{{ post.id }}">
+        <!-- prettier-ignore -->
+        <option value="page" {% if (post.publisher == 'page') %} selected {% endif %}>Post as Page</option>
+
+        <!-- prettier-ignore -->
+        <option value="user" {% if (post.publisher == 'user') %} selected {% endif %}>Post as User</option>
+    </select>
+</section>

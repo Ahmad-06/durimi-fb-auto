@@ -22,7 +22,7 @@
 <!-- THE TABS -->
 <section id="tabs">
     <!-- THE AUTOMATED TAB -->
-    <section class="tab" data-tab="automated">
+    <section class="tab hidden" data-tab="automated">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Automated Posts</h3>
 
@@ -32,7 +32,6 @@
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
             {% for post in posts.automated %}
-            <!-- A DUMMY POST -->
             <form class="form post" data-form-id="{{ post.id }}" onsubmit="event.preventDefault();">
                 <!-- THE INDEX -->
                 <p class="form-index">{{ loop.index }}</p>
@@ -76,8 +75,15 @@
 
                     <!-- THE SECONDARY GALLERY -->
                     {% if post.media %}
-                    <div class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}" data-form-id="{{ post.id }}">
-                        <input type="text" name="images" class="form-input hidden" data-form-id="{{ post.id }}" value="{{ post.media }}">
+                    <div
+                        class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
+                        data-form-id="{{ post.id }}">
+                        <input
+                            type="text"
+                            name="images"
+                            class="form-input hidden"
+                            data-form-id="{{ post.id }}"
+                            value="{{ post.media }}" />
                     </div>
                     {% endif %}
 
@@ -89,40 +95,49 @@
                 </section>
 
                 <!-- THE OPTIONS -->
-                <section class="form-options" data-form-id="{{ post.id }}">
-                    <!-- THE CONTEXT -->
-                    <select name="context" class="form-select" data-form-id="{{ post.id }}">
-                        <option value="page" {% if post.context == 'page' %} selected {% endif %}>Post to Page</option>
-                        <option value="group" {% if post.context == 'group' %} selected {% endif %}>Post to Group</option>
-                    </select>
-
-                    <!-- THE PUBLISHER -->
-                    <select name="publisher" class="form-select" data-form-id="{{ post.id }}">
-                        <option value="page" {% if post.publisher == 'page' %} selected {% endif %}>Post as Page</option>
-                        <option value="user" {% if post.publisher == 'user' %} selected {% endif %}>Post as User</option>
-                    </select>
-                </section>
+                {% include './template/_options.html' %}
 
                 <!-- THE TIME -->
-                <input type="datetime-local" name="time" class="form-input" data-form-id="{{ post.id }}" value="{{ post.time }}" />
+                <input
+                    type="datetime-local"
+                    name="time"
+                    class="form-input"
+                    data-form-id="{{ post.id }}"
+                    value="{{ post.time }}" />
 
                 <!-- THE PRIORITY -->
-                <input type="number" name="priority" class="form-input hidden" data-form-id="{{ post.id }}" value={{ post.priority }}>
+                <input
+                    type="number"
+                    name="priority"
+                    class="form-input hidden"
+                    data-form-id="{{ post.id }}"
+                    value="{{ post.priority }}" />
 
                 <!-- THE BUTTONS -->
                 <section class="form-buttons" data-form-id="{{ post.id }}">
                     <!-- THE AUTOMATE BUTTON -->
-                    <button class="form-button form-button-automate" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'automated')">
+                    <button
+                        class="form-button form-button-automate"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'automated')">
                         <i class="fa-regular fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;&nbsp;Update
                     </button>
 
                     <!-- THE SCHEDULE BUTTON -->
-                    <button class="form-button form-button-schedule" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'scheduled')">
+                    <button
+                        class="form-button form-button-schedule"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'scheduled')">
                         <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>
                     </button>
 
                     <!-- THE PUBLISH BUTTON -->
-                    <button class="form-button form-button-publish" data-form-id="{{ post.id }}" onclick="createPost('{{ post.id }}', 'publish')">Publish Now</button>
+                    <button
+                        class="form-button form-button-publish"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'publish')">
+                        Publish Now
+                    </button>
 
                     <!-- THE DELETE BUTTON -->
                     <button class="form-button form-button-delete" data-form-id="{{ post.id }}">
@@ -135,7 +150,7 @@
     </section>
 
     <!-- THE SCHEDULED TAB -->
-    <section class="tab hidden" data-tab="scheduled">
+    <section class="tab" data-tab="scheduled">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Scheduled Posts</h3>
 
@@ -144,20 +159,29 @@
 
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
-            <!-- A DUMMY POST -->
-            <form class="form post" data-form-id="5" onsubmit="event.preventDefault();">
+            {% for post in posts.scheduled %}
+            <form class="form post" data-form-id="{{ post.id }}" onsubmit="event.preventDefault();">
                 <!-- THE INDEX -->
-                <p class="form-index">1</p>
+                <p class="form-index">{{ loop.index }}</p>
 
                 <!-- THE HEADING -->
-                <h3 class="form-heading" data-form-id="5">Update the Post</h3>
+                <h3 class="form-heading" data-form-id="{{ post.id }}">Update the Post</h3>
 
                 <!-- THE ID -->
-                <input type="number" name="id" class="form-input hidden" data-form-id="5" />
+                <input
+                    type="number"
+                    name="id"
+                    class="form-input hidden"
+                    data-form-id="{{ post.id }}"
+                    value="{{ post.id }}" />
 
                 <!-- THE MESSAGE -->
-                <textarea name="message" class="form-textarea" data-form-id="5" placeholder="What's on your mind?">
-Hello, world!</textarea
+                <textarea
+                    name="message"
+                    class="form-textarea"
+                    data-form-id="{{ post.id }}"
+                    placeholder="What's on your mind?">
+ {{ post.message }}</textarea
                 >
 
                 <!-- THE LINK -->
@@ -165,73 +189,92 @@ Hello, world!</textarea
                     type="url"
                     name="link"
                     class="form-input"
-                    data-form-id="5"
+                    data-form-id="{{ post.id }}"
                     placeholder="http(s)://(www.)example.org"
-                    value="https://www.facebook.com" />
+                    value="{{ post.link }}" />
 
                 <!-- THE MEDIA -->
-                <section class="form-media" data-form-id="5">
+                <section class="form-media" data-form-id="{{ post.id }}">
                     <!-- THE DROP ZONE -->
-                    <div class="form-media-drop-zone" data-form-id="5">Drop media here!</div>
+                    <div class="form-media-drop-zone" data-form-id="{{ post.id }}">Drop media here!</div>
 
                     <!-- THE GALLERY -->
-                    <div class="form-media-gallery hidden" data-form-id="5"></div>
+                    <div class="form-media-gallery hidden" data-form-id="{{ post.id }}"></div>
 
                     <!-- THE SECONDARY GALLERY -->
-                    <div class="form-media-gallery secondary" data-form-id="5">
-                        <img src="https://picsum.photos/101/101" alt="Image #1" />
-                        <img src="https://picsum.photos/102/102" alt="Image #2" />
-                        <img src="https://picsum.photos/103/103" alt="Image #3" />
-                        <img src="https://picsum.photos/104/104" alt="Image #4" />
+                    {% if post.media %}
+                    <div
+                        class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
+                        data-form-id="{{ post.id }}">
+                        <input
+                            type="text"
+                            name="images"
+                            class="form-input hidden"
+                            data-form-id="{{ post.id }}"
+                            value="{{ post.media }}" />
                     </div>
+                    {% endif %}
 
                     <!-- THE FILE INPUT -->
-                    <input type="file" name="files" class="hidden" data-form-id="5" multiple />
+                    <input type="file" name="files" class="hidden" data-form-id="{{ post.id }}" multiple />
 
                     <!-- THE MEDIA INPUT -->
-                    <input type="text" name="media" class="form-input hidden" data-form-id="5" />
+                    <input type="text" name="media" class="form-input hidden" data-form-id="{{ post.id }}" />
                 </section>
 
                 <!-- THE OPTIONS -->
-                <section class="form-options" data-form-id="5">
-                    <!-- THE CONTEXT -->
-                    <select name="context" class="form-select" data-form-id="5">
-                        <option value="page">Post to Page</option>
-                        <option value="group" selected>Post to Group</option>
-                    </select>
-
-                    <!-- THE PUBLISHER -->
-                    <select name="publisher" class="form-select" data-form-id="5">
-                        <option value="page">Post as Page</option>
-                        <option value="user" selected>Post as User</option>
-                    </select>
-                </section>
+                {% include './template/_options.html' %}
 
                 <!-- THE TIME -->
-                <input type="datetime-local" name="time" class="form-input" data-form-id="5" />
+                <input
+                    type="datetime-local"
+                    name="time"
+                    class="form-input"
+                    data-form-id="{{ post.id }}"
+                    value="{{ post.time }}" />
+
+                <!-- THE PRIORITY -->
+                <input
+                    type="number"
+                    name="priority"
+                    class="form-input hidden"
+                    data-form-id="{{ post.id }}"
+                    value="{{ post.priority }}" />
 
                 <!-- THE BUTTONS -->
-                <section class="form-buttons" data-form-id="5">
+                <section class="form-buttons" data-form-id="{{ post.id }}">
                     <!-- THE SCHEDULE BUTTON -->
-                    <button class="form-button form-button-schedule" data-form-id="5">
+                    <button
+                        class="form-button form-button-schedule"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'scheduled')">
                         <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                         Update
                     </button>
 
                     <!-- THE AUTOMATE BUTTON -->
-                    <button class="form-button form-button-automate" data-form-id="5">
+                    <button
+                        class="form-button form-button-automate"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'automated')">
                         <i class="fa-regular fa-paper-plane"></i>
                     </button>
 
                     <!-- THE PUBLISH BUTTON -->
-                    <button class="form-button form-button-publish" data-form-id="5">Publish Now</button>
+                    <button
+                        class="form-button form-button-publish"
+                        data-form-id="{{ post.id }}"
+                        onclick="createPost('{{ post.id }}', 'publish')">
+                        Publish Now
+                    </button>
 
                     <!-- THE DELETE BUTTON -->
-                    <button class="form-button form-button-delete" data-form-id="5">
+                    <button class="form-button form-button-delete" data-form-id="{{ post.id }}">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </section>
             </form>
+            {% endfor %}
         </section>
     </section>
 </section>
