@@ -13,16 +13,18 @@
 <!-- THE TAB SWITCHES -->
 <section id="tab-switches">
     <!-- THE AUTOMATED SWITCH -->
-    <button class="tab-switch active" data-tab="automated">Automated Posts</button>
+    <button class="tab-switch active" data-tab="automated" onclick="handleTabSwitch('automated')">
+        Automated Posts
+    </button>
 
     <!-- THE SCHEDULED SWITCH -->
-    <button class="tab-switch" data-tab="scheduled">Scheduled Posts</button>
+    <button class="tab-switch" data-tab="scheduled" onclick="handleTabSwitch('scheduled')">Scheduled Posts</button>
 </section>
 
 <!-- THE TABS -->
 <section id="tabs">
     <!-- THE AUTOMATED TAB -->
-    <section class="tab hidden" data-tab="automated">
+    <section class="tab" data-tab="automated">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Automated Posts</h3>
 
@@ -150,7 +152,7 @@
     </section>
 
     <!-- THE SCHEDULED TAB -->
-    <section class="tab" data-tab="scheduled">
+    <section class="tab hidden" data-tab="scheduled">
         <!-- THE TAB TITLE -->
         <h3 class="tab-title">Scheduled Posts</h3>
 
@@ -284,5 +286,7 @@
 {% block scripts %}
 <script src="/js/common/handleMedia.js"></script>
 <script src="/js/common/handleCreatePost.js"></script>
+
+<script src="/js/posts/handleTabSwitch.js"></script>
 <script src="/js/posts/handleSecondaryGallery.js"></script>
 {% endblock %}
