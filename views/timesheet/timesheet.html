@@ -18,45 +18,47 @@
             <h3 class="timesheet-heading" data-day="{{ day }}">{{ day }}</h3>
         </header>
         <section class="timesheet-content" data-day="{{ day }}">
+            {% for timeslot in timeslots %} {% if timeslot.day == day %}
             <article
                 class="timesheet-item"
-                data-day="{{ day }}"
-                data-id="12"
-                data-time="00:00"
-                data-time-formatted="12:00 AM">
+                data-day="{{ timeslot.day }}"
+                data-id="{{ timeslot.id }}"
+                data-time="{{ timeslot.time }}"
+                data-time-formatted="{{ timeslot.time_formatted }}">
                 <h4
                     class="timesheet-item-heading"
-                    data-day="{{ day }}"
-                    data-id="12"
-                    data-time="00:00"
-                    data-time-formatted="12:00 AM">
-                    12:00 AM
+                    data-day="{{ timeslot.day }}"
+                    data-id="{{ timeslot.id }}"
+                    data-time="{{ timeslot.time }}"
+                    data-time-formatted="{{ timeslot.time_formatted }}">
+                    {{ timeslot.time_formatted }}
                 </h4>
                 <section
                     class="timesheet-item-buttons"
-                    data-day="{{ day }}"
-                    data-id="12"
-                    data-time="00:00"
-                    data-time-formatted="12:00 AM">
+                    data-day="{{ timeslot.day }}"
+                    data-id="{{ timeslot.id }}"
+                    data-time="{{ timeslot.time }}"
+                    data-time-formatted="{{ timeslot.time_formatted }}">
                     <button
                         class="timesheet-item-button timesheet-item-edit-button"
-                        data-day="{{ day }}"
-                        data-id="12"
-                        data-time="00:00"
-                        data-time-formatted="12:00 AM"
-                        onclick="handleUpdateTimeslot('12', '{{ day }}', '00:00')">
+                        data-day="{{ timeslot.day }}"
+                        data-id="{{ timeslot.id }}"
+                        data-time="{{ timeslot.time }}"
+                        data-time-formatted="{{ timeslot.time_formatted }}"
+                        onclick="handleUpdateTimeslot('{{ timeslot.id }}', '{{ timeslot.day }}', '{{ timeslot.time }}')">
                         <i class="fa-regular fa-pen-to-square" title="Edit time."></i>
                     </button>
                     <button
                         class="timesheet-item-button timesheet-item-delete-button"
-                        data-day="{{ day }}"
-                        data-id="12"
-                        data-time="00:00"
-                        data-time-formatted="12:00 AM">
+                        data-day="{{ timeslot.day }}"
+                        data-id="{{ timeslot.id }}"
+                        data-time="{{ timeslot.time }}"
+                        data-time-formatted="{{ timeslot.time_formatted }}">
                         <i class="fa-regular fa-trash-can" title="Delete time."></i>
                     </button>
                 </section>
             </article>
+            {% endif %} {% endfor %}
         </section>
         <footer class="timesheet-footer" data-day="{{ day }}">
             <button class="timesheet-new-button" data-day="{{ day }}" onclick="handleCreateTimeslot('{{ day }}')">
