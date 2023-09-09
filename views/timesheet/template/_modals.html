@@ -1,0 +1,20 @@
+<!-- THE MODAL OVERLAY -->
+<div id="modal-overlay"></div>
+
+<!-- THE CREATE MODAL -->
+<div id="modal-create" class="modal">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-create-heading" class="modal-heading">Monday</h3>
+
+    <!-- THE MODAL INPUT -->
+    <input type="time" name="time" id="modal-create-id" class="modal-input" />
+
+    <!-- THE MODAL BUTTOS -->
+    <section id="modal-create-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="closeModal('modal-create')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-primary" onclick="createTimeslot()">Create</button>
+    </section>
+</div>
