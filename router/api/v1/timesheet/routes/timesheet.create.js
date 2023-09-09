@@ -15,6 +15,24 @@ CREATE.post('/', async (req, res) => {
     let day = req?.body?.day ? req?.body?.day : null;
     const time = req?.body?.time ? req?.body?.time : null;
 
+    // Check if user has submitted all required fields.
+    if (day === null || time === null) {
+        await db.close();
+
+        return res.status(400).json({
+            success: false,
+            data: null,
+            error: {
+                code: 400,
+                type: 'Invalid user input.',
+                route: '/api/v1/timesheet/create',
+                moment: 'Checking if user submitted all required fields.',
+                message:
+                    'The day or time are missing from your request. Please make sure to provide both a day and a time.',
+            },
+        });
+    }
+
     // Verify if the day submitted by the user is correct.
     if (!isValidDay(day)) {
         await db.close();
