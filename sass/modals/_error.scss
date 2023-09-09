@@ -1,4 +1,6 @@
 #error-overlay {
+    z-index: 15;
+
     top: 0;
     left: 0;
     right: 0;
@@ -10,6 +12,8 @@
 }
 
 #error-modal {
+    z-index: 20;
+
     top: 50%;
     left: 50%;
     position: fixed;
