@@ -9,11 +9,7 @@ reOrder.patch('/', async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 
-    console.log(req.body);
-
     const posts = req?.body?.posts ? req?.body?.posts : null;
-
-    console.log(posts);
 
     if (!posts) {
         await db.close();
