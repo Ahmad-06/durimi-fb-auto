@@ -29,7 +29,7 @@
         <h3 class="tab-title">Automated Posts</h3>
 
         <!-- THE RE-ORDER BUTTON -->
-        <button class="re-order" data-tab="automated">Re-Order Posts</button>
+        <button class="re-order" data-tab="automated" onclick="handleReOrderSwitch('automated')">Re-Order Posts</button>
 
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
@@ -157,7 +157,7 @@
         <h3 class="tab-title">Scheduled Posts</h3>
 
         <!-- THE RE-ORDER BUTTON -->
-        <button class="re-order" data-tab="scheduled">Re-Order Posts</button>
+        <button class="re-order" data-tab="scheduled" onclick="handleReOrderSwitch('scheduled')">Re-Order Posts</button>
 
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
@@ -288,5 +288,6 @@
 <script src="/js/common/handleCreatePost.js"></script>
 
 <script src="/js/posts/handleTabSwitch.js"></script>
+<script src="/js/posts/handleReOrderSwitch.js"></script>
 <script src="/js/posts/handleSecondaryGallery.js"></script>
 {% endblock %}
