@@ -3,6 +3,14 @@ const path = require('path');
 
 const { nanoid } = require('nanoid');
 
+const sleep = (millisec) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('');
+        }, millisec);
+    });
+};
+
 const isValidURL = (url) => {
     let urlRegEx = new RegExp(
         '^' +
@@ -153,6 +161,7 @@ const convert24HourTimeTo12HourTime = (time) => {
 };
 
 module.exports = {
+    sleep,
     isValidURL,
     isValidDay,
     isValidTime,
