@@ -96,7 +96,7 @@ module.exports = async (post, auth) => {
         const [userSwitch] = await page.$x("//span[contains(., '" + auth.publisher.user + "')]");
         const [pageSwitch] = await page.$x("//span[contains(., '" + auth.publisher.page + "')]");
 
-        if (post.publisher === 'user' && context !== 'page') {
+        if (post.publisher === 'user' && post.context !== 'page') {
             await userSwitch.evaluate((s) => s.click());
         } else {
             await pageSwitch.evaluate((s) => s.click());
