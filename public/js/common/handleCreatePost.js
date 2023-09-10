@@ -16,7 +16,7 @@ const createPost = async (index, type) => {
     };
 
     const resp = await fetch(apiEndpoint, {
-        method: apiType === 'update' ? 'PUT' : 'POST',
+        method: type === 'publish' ? 'POST' : apiType === 'update' ? 'PUT' : 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
         },
