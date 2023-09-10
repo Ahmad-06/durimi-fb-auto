@@ -3,16 +3,25 @@ const express = require('express');
 const login = express.Router();
 module.exports = login;
 
-login.get('/', (req, res) => {
+const username = process.env.USERNAME;
+const password = process.env.PASSWORD;
+
+const processLogin = require('../../../../../automaton/login');
+
+login.get('/', async (req, res) => {
+    const { success, error } = await processLogin(username, password);
+
+    if (!success) {
+        return res.status(500).json({
+            success: false,
+            data: null,
+            error,
+        });
+    }
+
     res.json({
-        success: false,
+        success: true,
         data: null,
-        error: {
-            code: 500,
-            type: 'Internal server error.',
-            route: '/api/v1/misc/login',
-            moment: 'Logging in to Facebook.',
-            message: 'There was an error when trying to login to your Facebook account.',
-        },
+        error: null,
     });
 });
