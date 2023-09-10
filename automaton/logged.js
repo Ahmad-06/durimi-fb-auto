@@ -45,7 +45,7 @@ module.exports = async () => {
                 code: 500,
                 type: 'Internal server error.',
                 moment: 'Checking if the user is already logged in.',
-                message: err,
+                message: err.toString(),
             },
         };
     }

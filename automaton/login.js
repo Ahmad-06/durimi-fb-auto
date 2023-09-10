@@ -38,7 +38,7 @@ const login = async (username, password) => {
                     code: 701,
                     type: 'Puppeteer error.',
                     moment: 'Opening the Facebook login page.',
-                    message: err,
+                    message: err.toString(),
                 },
             };
         }
@@ -65,7 +65,7 @@ const login = async (username, password) => {
                     code: 702,
                     type: 'Puppeteer error.',
                     moment: 'Filling in the user login details.',
-                    message: err,
+                    message: err.toString(),
                 },
             };
         }
@@ -87,7 +87,7 @@ const login = async (username, password) => {
                     code: 703,
                     type: 'Puppeteer error.',
                     moment: 'Proceeding with the login sequence.',
-                    message: err,
+                    message: err.toString(),
                 },
             };
         }
@@ -112,7 +112,7 @@ const login = async (username, password) => {
                     code: 704,
                     type: 'Puppeteer error.',
                     moment: 'Awaiting user input at the checkpoint.',
-                    message: err,
+                    message: err.toString(),
                 },
             };
         }
@@ -161,7 +161,7 @@ const login = async (username, password) => {
                     code: 705,
                     type: 'Puppeteer error.',
                     moment: 'Expecting user to be at the homepage.',
-                    message: err,
+                    message: err.toString(),
                 },
             };
         }
