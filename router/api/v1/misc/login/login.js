@@ -3,8 +3,8 @@ const express = require('express');
 const login = express.Router();
 module.exports = login;
 
-const username = process.env.USERNAME;
-const password = process.env.PASSWORD;
+const username = process.env.FB_USERNAME;
+const password = process.env.FB_PASSWORD;
 
 const processLogin = require('../../../../../automaton/login');
 
