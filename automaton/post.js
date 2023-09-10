@@ -93,8 +93,8 @@ module.exports = async (post, auth) => {
 
     // Switch to the correct publisher.
     try {
-        const [userSwitch] = await page.$x("//span[contains(., '" + auth.publisher.user + "')]");
-        const [pageSwitch] = await page.$x("//span[contains(., '" + auth.publisher.page + "')]");
+        const [userSwitch] = await page.$x(`//span[text()='${auth.publisher.user}']`);
+        const [pageSwitch] = await page.$x(`//span[text()='${auth.publisher.page}']`);
 
         if (post.publisher === 'user' && post.context !== 'page') {
             await userSwitch.evaluate((s) => s.click());
