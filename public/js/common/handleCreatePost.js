@@ -15,6 +15,10 @@ const createPost = async (index, type) => {
         type,
     };
 
+    if (type === 'publish') {
+        showLoadingAnimation();
+    }
+
     const resp = await fetch(apiEndpoint, {
         method: type === 'publish' ? 'POST' : apiType === 'update' ? 'PUT' : 'POST',
         headers: {
@@ -24,7 +28,10 @@ const createPost = async (index, type) => {
     });
     const { success, error } = await resp.json();
 
-    if (!success) return handleError('Error encountered when trying to create the Post.', error);
+    if (!success) {
+        hideLoadingAnimation();
+        return handleError('Error encountered when trying to create the Post.', error);
+    }
 
     window.location.href = '/posts';
 };
