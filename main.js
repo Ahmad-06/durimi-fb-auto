@@ -31,3 +31,5 @@ app.use(require('./router/router'));
 app.listen(PORT, () => {
     console.log(`The API is running at http://${HOST}:${PORT}`);
 });
+
+require('./cronjobs');
