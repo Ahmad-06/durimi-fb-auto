@@ -115,6 +115,14 @@
                     data-form-id="{{ post.id }}"
                     value="{{ post.time }}" />
 
+                <!-- THE PUBLISH TIME -->
+                <h4 class="publish-time">
+                    <span data-publish-id="{{ loop.index }}" class="publish-time-date">2023-09-11</span> |
+                    <span data-publish-id="{{ loop.index }}" class="publish-time-day">Monday</span> |
+                    <span data-publish-id="{{ loop.index }}" class="publish-time-time">09:00 PM</span>
+                </h4>
+                <!-- END PUBLISH TIME -->
+
                 <!-- THE PRIORITY -->
                 <input
                     type="number"
@@ -305,4 +313,6 @@
 <script src="/js/posts/handleTabSwitch.js"></script>
 <script src="/js/posts/handleReOrderSwitch.js"></script>
 <script src="/js/posts/handleSecondaryGallery.js"></script>
+
+<script src="/js/posts/handleDateTimeOnAutomatedPosts.js"></script>
 {% endblock %}

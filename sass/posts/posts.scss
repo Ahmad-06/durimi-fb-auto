@@ -1,6 +1,11 @@
 @import '../shared/colors';
 @import '../shared/form';
 
+.publish-time {
+    text-align: center;
+    font-weight: bold;
+}
+
 body {
     #content {
         .container {
