@@ -14,6 +14,18 @@ body {
     grid-gap: 25px;
     grid-template-rows: 75px 50px auto 50px;
 
+    .mobile-enabled {
+        @media screen and (min-width: 575px) {
+            display: none;
+        }
+    }
+
+    .desktop-enabled {
+        @media screen and (max-width: 574px) {
+            display: none;
+        }
+    }
+
     a {
         color: $white;
         text-decoration: none;
@@ -51,6 +63,10 @@ body {
             display: grid;
             grid-template-columns: 0.75fr 3.25fr;
 
+            .icon {
+                font-size: 24px;
+            }
+
             #logo {
                 h1 {
                     a {
@@ -80,6 +96,15 @@ body {
 
                     border: 3px solid;
                     padding: 5px 25px;
+
+                    @media screen and (max-width: 574px) {
+                        border: 2px solid;
+                        padding: 5px 10px;
+
+                        .icon {
+                            font-size: 18px;
+                        }
+                    }
 
                     font-size: 16px;
                     font-weight: bolder;

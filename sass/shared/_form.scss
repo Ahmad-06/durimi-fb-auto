@@ -1,5 +1,5 @@
 .form {
-    width: 100%;
+    width: calc(100vw - 50px);
     max-width: 400px;
 
     margin: 0 auto;
@@ -95,6 +95,11 @@
         display: grid;
         grid-gap: 25px;
         grid-template-columns: 1fr 1fr;
+
+        @media screen and (max-width: 430px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
     }
 
     .form-buttons {
