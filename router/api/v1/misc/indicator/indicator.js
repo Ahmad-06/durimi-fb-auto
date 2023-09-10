@@ -6,11 +6,13 @@ module.exports = indicator;
 indicator.get('/', (req, res) => {
     try {
         const indicator = process.env.INDICATOR || 'FB-AUTO DEFAULT';
+        const link = process.env.INDICATOR_LINK === 'page' ? process.env.PAGE_LINK : process.env.GROUP_LINK;
 
         res.json({
             success: true,
             data: {
                 indicator,
+                link,
             },
             error: null,
         });
