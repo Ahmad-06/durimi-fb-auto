@@ -124,8 +124,6 @@ const login = async (username, password) => {
 
         const pageURL = await page.url();
 
-        console.log(pageURL);
-
         if (
             pageURL === 'https://www.facebook.com/home.php' ||
             pageURL === 'https://www.facebook.com/home.php/' ||
