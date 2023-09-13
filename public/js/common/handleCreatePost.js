@@ -33,7 +33,7 @@ const createPost = async (index, type) => {
         return handleError('Error encountered when trying to create the Post.', error);
     }
 
-    window.location.href = '/posts';
+    location.reload();
 };
 
 const getInput = (name, index) => {
