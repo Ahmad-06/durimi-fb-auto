@@ -5,7 +5,9 @@ module.exports = DELETE;
 
 const openDB = require('../../../../../data/openDB');
 
-DELETE.delete('/', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+DELETE.delete('/', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 

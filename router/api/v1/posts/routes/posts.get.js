@@ -5,7 +5,9 @@ module.exports = GET;
 
 const openDB = require('../../../../../data/openDB');
 
-GET.get('/all', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+GET.get('/all', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 
@@ -42,7 +44,7 @@ GET.get('/all', async (req, res) => {
     }
 });
 
-GET.get('/:type', async (req, res) => {
+GET.get('/:type', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 

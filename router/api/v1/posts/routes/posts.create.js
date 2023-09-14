@@ -12,7 +12,9 @@ const {
     saveBase64MediaToFileSystem,
 } = require('../../../../../utils/utils');
 
-CREATE.post('/', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+CREATE.post('/', loggedIn, async (req, res) => {
     // Create a database connection.
     const db = await openDB();
 

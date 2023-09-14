@@ -3,7 +3,9 @@ const express = require('express');
 const indicator = express.Router();
 module.exports = indicator;
 
-indicator.get('/', (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+indicator.get('/', loggedIn, (req, res) => {
     try {
         const indicator = process.env.INDICATOR || 'FB-AUTO DEFAULT';
         const link = process.env.INDICATOR_LINK === 'page' ? process.env.PAGE_LINK : process.env.GROUP_LINK;

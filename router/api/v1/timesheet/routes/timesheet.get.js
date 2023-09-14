@@ -7,7 +7,9 @@ const openDB = require('../../../../../data/openDB');
 
 const { isValidDay } = require('../../../../../utils/utils');
 
-GET.get('/all', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+GET.get('/all', loggedIn, async (req, res) => {
     // Connect with the database.
     const db = await openDB();
 

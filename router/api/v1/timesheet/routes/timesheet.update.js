@@ -7,7 +7,9 @@ const openDB = require('../../../../../data/openDB');
 
 const { isValidDay, isValidTime, convert24HourTimeTo12HourTime } = require('../../../../../utils/utils');
 
-UPDATE.put('/', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+UPDATE.put('/', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 

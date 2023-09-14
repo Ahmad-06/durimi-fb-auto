@@ -8,7 +8,9 @@ const password = process.env.FB_PASSWORD;
 
 const processLogin = require('../../../../../automaton/login');
 
-login.get('/', async (req, res) => {
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
+login.get('/', loggedIn, async (req, res) => {
     const { success, error } = await processLogin(username, password);
 
     if (!success) {

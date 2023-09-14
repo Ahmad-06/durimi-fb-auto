@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser');
 
 require('./data/seedDB')();
 
+const openDB = require('./data/openDB');
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -28,6 +30,8 @@ passport.deserializeUser(function (user, cb) {
 
 passport.use(
     new LocalStrategy(async function verify(username, password, cb) {
+        const db = await openDB();
+
         try {
             const user = await db.get('SELECT * FROM Users WHERE username = ?', [username]);
 

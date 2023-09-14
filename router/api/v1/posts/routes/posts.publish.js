@@ -9,6 +9,8 @@ const { isValidURL, isJSONParsable, saveBase64MediaToFileSystem } = require('../
 
 const publishPost = require('../../../../../automaton/post');
 
+const { loggedIn } = require('../../../../../utils/loggedIn');
+
 const auth = {
     publisher: {
         page: process.env.PAGE_NAME,
@@ -20,7 +22,7 @@ const auth = {
     },
 };
 
-publish.post('/', async (req, res) => {
+publish.post('/', loggedIn, async (req, res) => {
     // Create a database connection.
     const db = await openDB();
 

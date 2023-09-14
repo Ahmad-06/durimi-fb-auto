@@ -5,7 +5,9 @@ module.exports = timesheet;
 
 const openDB = require('../../../data/openDB');
 
-timesheet.get('/', async (req, res) => {
+const { loggedIn } = require('../../../utils/loggedIn');
+
+timesheet.get('/', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();
 
