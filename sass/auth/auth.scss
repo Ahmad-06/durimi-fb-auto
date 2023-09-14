@@ -1,0 +1,96 @@
+@import '../shared';
+
+body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    color: $white;
+    background-color: $black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+        width: 100%;
+        max-width: 400px;
+
+        padding: 25px;
+        box-shadow: 0 0 0 1px $border;
+
+        gap: 25px;
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        input {
+            cursor: pointer;
+            appearance: none;
+            color-scheme: dark;
+
+            border: none;
+            color: $white;
+            outline: none;
+            box-shadow: 0 0 0 1px $border;
+            background-color: $black;
+
+            height: 50px;
+            padding: 0 15px;
+
+            &::placeholder {
+                color: $muted;
+            }
+
+            &:hover {
+                box-shadow: 0 0 0 1px $blue;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 2px $blue;
+            }
+        }
+
+        button {
+            cursor: pointer;
+
+            height: 50px;
+
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            color: $light;
+            border: 3px solid $light;
+            background-color: transparent;
+
+            &:hover {
+                color: $black;
+                border: 1px solid $black;
+                background-color: $white;
+                box-shadow: 3px 3px $light;
+
+                &:active {
+                    box-shadow: none;
+                    transform: translate(3px, 3px);
+                }
+            }
+        }
+
+        button {
+            color: $blue;
+            border-color: $blue;
+
+            &:hover {
+                color: $black;
+                border: 1px solid $black;
+                background-color: $blue;
+            }
+        }
+    }
+}

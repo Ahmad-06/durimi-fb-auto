@@ -6,8 +6,9 @@ module.exports = posts;
 const openDB = require('../../../data/openDB');
 
 const { loggedIn } = require('../../../utils/loggedIn');
+const changePass = require('../../../utils/changePass');
 
-posts.get('/', loggedIn, async (req, res) => {
+posts.get('/', loggedIn, changePass, async (req, res) => {
     const db = await openDB();
 
     let automated, scheduled;
