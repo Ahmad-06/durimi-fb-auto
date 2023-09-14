@@ -5,13 +5,18 @@
         "url": "https://shahzad.dev"
     },
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.20.2",
+        "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
+        "express-session": "^1.17.3",
         "nanoid": "^3.3.6",
         "node-cron": "^3.0.2",
         "nunjucks": "^3.2.4",
+        "passport": "^0.6.0",
+        "passport-local": "^1.0.0",
         "puppeteer": "^21.1.1",
         "sass": "^1.66.1",
         "sqlite": "^5.0.1",
