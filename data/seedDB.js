@@ -70,6 +70,10 @@ const seedDB = async () => {
     }
 
     try {
+        const existing = await db.get('SELECT * FROM Users');
+
+        if (existing) return;
+
         const createAdminAccount = `
             INSERT INTO Users
             (
