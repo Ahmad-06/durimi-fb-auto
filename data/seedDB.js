@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const openDB = require('./openDB');
 
 const seedDB = async () => {
@@ -21,10 +23,10 @@ const seedDB = async () => {
             );
         `;
 
-        db.exec(createPostsTable);
+        await db.exec(createPostsTable);
     } catch (err) {
         if (err) {
-            db.close();
+            await db.close();
             return console.error('There was an error when trying to create the default posts table: ', err);
         }
     }
@@ -41,11 +43,51 @@ const seedDB = async () => {
             );
         `;
 
-        db.exec(createTimesheetTable);
+        await db.exec(createTimesheetTable);
     } catch (err) {
         if (err) {
-            db.close();
+            await db.close();
             return console.error('There was an error when trying to create the default timesheet table: ', err);
+        }
+    }
+
+    try {
+        const createUsersTable = `
+            CREATE TABLE IF NOT EXISTS users
+            (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL
+            );
+        `;
+
+        await db.exec(createUsersTable);
+    } catch (err) {
+        if (err) {
+            await db.close();
+            return console.error('There was an error when trying to create the default users table: ', err);
+        }
+    }
+
+    try {
+        const createAdminAccount = `
+            INSERT INTO Users
+            (
+                username,
+                password
+            ) VALUES (?, ?);
+        `;
+
+        const username = 'admin';
+        const password = bcrypt.hashSync('admin', 12);
+
+        const params = [username, password];
+
+        await db.run(createAdminAccount, params);
+    } catch (err) {
+        if (err) {
+            await db.close();
+            return console.error('There was an error when trying to create the default user(s): ', err);
         }
     }
 
