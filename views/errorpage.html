@@ -1,0 +1,40 @@
+{% extends './_base.html' %}
+
+<!-- THE TITLE BLOCK -->
+{% block title %} Error | FB-AUTO {% endblock %}
+
+<!-- THE STYLES BLOCK -->
+{% block styles %}
+<style>
+    #content .container {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    #content .container h3 {
+        font-size: 24px;
+        color: red;
+    }
+
+    #content .container h4 {
+        font-size: 20px;
+        color: red;
+    }
+
+    #content .container h5 {
+        font-size: 18px;
+        color: #7cc0ff;
+    }
+</style>
+{% endblock %}
+
+<!-- THE CONTENT BLOCK -->
+{% block content %}
+<h3>ERROR ENCOUNTERED</h3>
+<h4>{{ message }}</h4>
+<h5><a href="/">Return to Home!</a></h5>
+{% endblock %}
+
+<!-- THE SCRIPTS BLOCK -->
+{% block scripts %} {% endblock %}

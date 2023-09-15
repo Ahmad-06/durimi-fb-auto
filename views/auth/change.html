@@ -1,0 +1,121 @@
+{% extends '../_base.html' %}
+
+<!-- THE TITLE BLOCK -->
+{% block title %} Settings | FB-AUTO {% endblock %}
+
+<!-- THE STYLES BLOCK -->
+{% block styles %}
+<style>
+    #change {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+
+        padding: 25px;
+        width: 100%;
+        max-width: 400px;
+
+        box-shadow: 0 0 0 1px #555555;
+    }
+
+    .form-button {
+        cursor: pointer;
+
+        height: 50px;
+
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        color: #cccccc;
+        border: 3px solid #cccccc;
+        background-color: transparent;
+
+        &:hover {
+            color: #111111;
+            border: 1px solid #111111;
+            background-color: #ffffff;
+            box-shadow: 3px 3px #ffffff;
+
+            &:active {
+                box-shadow: none;
+                transform: translate(3px, 3px);
+            }
+        }
+    }
+
+    .form-button-schedule {
+        color: #7cc0ff;
+        border-color: #7cc0ff;
+
+        &:hover {
+            color: #111111;
+            border: 1px solid #111111;
+            background-color: #7cc0ff;
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-textarea,
+    .form-input,
+    .form-select {
+        cursor: pointer;
+        appearance: none;
+        color-scheme: dark;
+
+        border: none;
+        color: #cccccc;
+        outline: none;
+        box-shadow: 0 0 0 1px #555555;
+        background-color: #111111;
+
+        height: 50px;
+        padding: 0 15px;
+
+        &::placeholder {
+            color: #999999;
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 1px #7cc0ff;
+        }
+    }
+
+    .form-textarea,
+    .form-input {
+        &:focus {
+            box-shadow: 0 0 0 2px #7cc0ff;
+        }
+    }
+
+    h3 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+</style>
+{% endblock %}
+
+<!-- THE CONTENT BLOCK -->
+{% block content %}
+<!-- THE FORM -->
+<form action="/auth/pass" method="post" id="change">
+    <h3>Update User</h3>
+    <input type="number" name="id" id="id" value="{{ user.id }}" class="hidden" />
+    <input
+        type="text"
+        name="username"
+        class="form-input"
+        id="username"
+        placeholder="Username..."
+        value="{{ user.username }}" />
+    <input type="password" name="password" class="form-input" id="password" placeholder="Password..." />
+    <button type="submit" class="form-button form-button-schedule">Update</button>
+</form>
+<!-- END FORM -->
+{% endblock %}
+
+<!-- THE SCRIPTS BLOCK -->
+{% block scripts %} {% endblock %}

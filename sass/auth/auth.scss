@@ -12,6 +12,39 @@ body {
     align-items: center;
     justify-content: center;
 
+    & > .container {
+        width: calc(100% - 50px);
+        max-width: 400px;
+
+        gap: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    a {
+        color: $white;
+        text-decoration: none;
+
+        &:hover {
+            color: $blue;
+            text-decoration: underline;
+        }
+    }
+
+    #identifier {
+        width: 100%;
+
+        .container {
+            #indicator {
+                color: $blue;
+                font-size: 24px;
+                font-weight: bold;
+                text-transform: uppercase;
+                text-align: center;
+            }
+        }
+    }
+
     form {
         width: 100%;
         max-width: 400px;
