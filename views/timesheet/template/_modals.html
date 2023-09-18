@@ -10,7 +10,7 @@
     <input type="text" name="day" id="modal-create-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-create-time" class="modal-input" />
+    <input type="time" name="time" id="modal-create-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-create-buttons" class="modal-buttons">
@@ -34,7 +34,7 @@
     <input type="text" name="day" id="modal-update-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-update-time" class="modal-input" />
+    <input type="time" name="time" id="modal-update-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-update-buttons" class="modal-buttons">
@@ -58,7 +58,7 @@
     <input type="text" name="day" id="modal-delete-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-delete-time" class="modal-input" />
+    <input type="time" name="time" id="modal-delete-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-delete-buttons" class="modal-buttons">
@@ -69,3 +69,174 @@
         <button class="modal-button modal-button-danger" onclick="deleteTimeslot()">Delete</button>
     </section>
 </div>
+
+<style>
+    #picker {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 25;
+        background-color: #111111;
+        height: 375px;
+        width: 200px;
+    }
+
+    #picker .container {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100%;
+        overflow: auto;
+        border: 3px solid #7cc0ff;
+    }
+
+    .hour,
+    .modif,
+    .minute {
+        cursor: pointer;
+        border: 2px solid transparent;
+        text-align: center;
+    }
+
+    .hour:hover,
+    .modif:hover,
+    .minute:hover {
+        border: 2px solid #fcff62;
+    }
+
+    .active {
+        border: 2px solid #7cc0ff;
+    }
+
+    #save-time {
+        cursor: pointer;
+
+        width: 100%;
+        height: 50px;
+
+        margin-top: 25px;
+
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        color: #ffffff;
+        border: 3px solid #ffffff;
+        background-color: #111111;
+
+        &:hover {
+            color: #111111;
+            border: 1px solid #111111;
+            background-color: #cccccc;
+            box-shadow: 3px 3px #ffffff;
+
+            &:active {
+                box-shadow: none;
+                transform: translate(3px, 3px);
+            }
+        }
+
+        color: #7cc0ff;
+        border-color: #7cc0ff;
+
+        &:hover {
+            color: #111111;
+            border: 1px solid #111111;
+            background-color: #7cc0ff;
+        }
+    }
+</style>
+
+<div id="picker" class="hidden">
+    <div class="container">
+        <div id="hours">
+            <div class="hour active">01</div>
+            <div class="hour">02</div>
+            <div class="hour">03</div>
+            <div class="hour">04</div>
+            <div class="hour">05</div>
+            <div class="hour">06</div>
+            <div class="hour">07</div>
+            <div class="hour">08</div>
+            <div class="hour">09</div>
+            <div class="hour">10</div>
+            <div class="hour">11</div>
+            <div class="hour">12</div>
+        </div>
+        <div id="minutes">
+            <div class="minute active">00</div>
+            <div class="minute">05</div>
+            <div class="minute">10</div>
+            <div class="minute">15</div>
+            <div class="minute">20</div>
+            <div class="minute">25</div>
+            <div class="minute">30</div>
+            <div class="minute">35</div>
+            <div class="minute">40</div>
+            <div class="minute">45</div>
+            <div class="minute">50</div>
+            <div class="minute">55</div>
+        </div>
+        <div id="modifier">
+            <div class="modif active">AM</div>
+            <div class="modif">PM</div>
+        </div>
+    </div>
+    <button id="save-time">Set Time</button>
+</div>
+
+<script>
+    document.querySelectorAll('.time-pickable').forEach((timepickable) => {
+        timepickable.addEventListener('click', () => {
+            timepickable.classList.add('the-active-time-picker');
+
+            document.querySelector('#picker').classList.remove('hidden');
+        });
+    });
+
+    document.querySelectorAll('.hour').forEach((hour) => {
+        hour.addEventListener('click', () => {
+            document.querySelectorAll('.hour').forEach((hour2) => {
+                hour2.classList.remove('active');
+                if (hour2.innerText === hour.innerText) hour2.classList.add('active');
+            });
+        });
+    });
+
+    document.querySelectorAll('.minute').forEach((minute) => {
+        minute.addEventListener('click', () => {
+            document.querySelectorAll('.minute').forEach((minute2) => {
+                minute2.classList.remove('active');
+                if (minute2.innerText === minute.innerText) minute2.classList.add('active');
+            });
+        });
+    });
+
+    document.querySelectorAll('.modif').forEach((modifier) => {
+        modifier.addEventListener('click', () => {
+            document.querySelectorAll('.modif').forEach((modif2) => {
+                modif2.classList.remove('active');
+                if (modif2.innerText === modifier.innerText) modif2.classList.add('active');
+            });
+        });
+    });
+
+    document.getElementById('save-time').addEventListener('click', () => {
+        const hour12 = document.querySelector('.hour.active').innerText;
+        const minute12 = document.querySelector('.minute.active').innerText;
+        const modifier12 = document.querySelector('.modif.active').innerText;
+
+        let hour24 = hour12;
+
+        if (modifier12 === 'AM' && hour12 === '12') hour24 = '00';
+
+        if (modifier12 === 'PM' && hour12 !== '12') hour24 = parseInt(hour12) + 12;
+
+        document.querySelector('.time-pickable.the-active-time-picker').value = `${hour24}:${minute12}`;
+
+        document.querySelector('#picker').classList.add('hidden');
+
+        document.querySelector('.time-pickable.the-active-time-picker').classList.remove('the-active-time-picker');
+    });
+</script>
