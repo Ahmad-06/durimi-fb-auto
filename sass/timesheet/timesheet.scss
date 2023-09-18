@@ -1,6 +1,9 @@
 @import '../shared/colors';
 
 body {
+    input {
+        width: 100%;
+    }
     #content {
         .container {
             #timesheet {

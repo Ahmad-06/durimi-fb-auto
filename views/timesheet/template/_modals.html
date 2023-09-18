@@ -10,7 +10,7 @@
     <input type="text" name="day" id="modal-create-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-create-time" class="modal-input time-pickable" />
+    <input placeholder="--:-- --" type="time" name="time" id="modal-create-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-create-buttons" class="modal-buttons">
@@ -34,7 +34,7 @@
     <input type="text" name="day" id="modal-update-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-update-time" class="modal-input time-pickable" />
+    <input placeholder="--:-- --" type="time" name="time" id="modal-update-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-update-buttons" class="modal-buttons">
@@ -58,7 +58,7 @@
     <input type="text" name="day" id="modal-delete-day" class="modal-input hidden" />
 
     <!-- THE TIME -->
-    <input type="time" name="time" id="modal-delete-time" class="modal-input time-pickable" />
+    <input placeholder="--:-- --" type="time" name="time" id="modal-delete-time" class="modal-input time-pickable" />
 
     <!-- THE MODAL BUTTOS -->
     <section id="modal-delete-buttons" class="modal-buttons">
@@ -188,7 +188,9 @@
 
 <script>
     document.querySelectorAll('.time-pickable').forEach((timepickable) => {
-        timepickable.addEventListener('click', () => {
+        timepickable.addEventListener('click', (e) => {
+            e.preventDefault();
+
             timepickable.classList.add('the-active-time-picker');
 
             document.querySelector('#picker').classList.remove('hidden');
