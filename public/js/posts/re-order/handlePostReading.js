@@ -34,12 +34,12 @@ const renderPosts = (posts) => {
                 <!-- THE MESSAGE -->
                 <textarea name="message" class="form-textarea" data-form-id="${
                     post.id
-                }" placeholder="What's on your mind?">${post.message}</textarea>
+                }" placeholder="What's on your mind?">${post.message !== null ? post.message : ""}</textarea>
 
                 <!-- THE LINK -->
                 <input type="url" name="link" class="form-input" data-form-id="${
                     post.id
-                }" placeholder="http(s)://(www.)example.org" value="${post.link}" />
+                }" placeholder="http(s)://(www.)example.org" value="${post.link !== null ? post.link : ""}" />
 
                 <!-- THE MEDIA -->
                 <section class="form-media" data-form-id="${post.id}">
@@ -47,7 +47,7 @@ const renderPosts = (posts) => {
                     <div class="form-media-gallery secondary hidden" data-form-id="${post.id}">
                         <input type="text" name="images" class="form-input hidden" data-form-id="${
                             post.id
-                        }" value="null" />
+                        }" value='${post.media}' />
                     </div>
                 </section>
 
@@ -81,6 +81,29 @@ const renderPosts = (posts) => {
     });
 
     document.getElementById('posts').innerHTML = articles;
+
+    (() => {
+        const imagesInputs = document.querySelectorAll('input[name="images"]');
+    
+        imagesInputs.forEach((imagesInput) => {
+            const id = imagesInput.getAttribute('data-form-id');
+            const images = imagesInput.value !== 'null' ? JSON.parse(imagesInput.value) : null;
+    
+            const secondaryGallery = document.querySelector(`.form-media-gallery.secondary[data-form-id="${id}"]`);
+    
+            if (images) {
+                images.forEach((image, index) => {
+                    const img = document.createElement('img');
+                    img.src = `/media/${image}`;
+                    img.alt = `Image #${index + 1}`;
+                    img.setAttribute('data-form-id', id);
+    
+                    secondaryGallery.appendChild(img);
+                });
+                document.querySelector(`.form-media-gallery.secondary[data-form-id="${id}"]`).classList.remove('hidden');
+            }
+        });
+    })();    
 };
 
 const array_move = (arr, old_index, new_index) => {
