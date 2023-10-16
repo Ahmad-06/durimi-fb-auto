@@ -95,6 +95,42 @@ const seedDB = async () => {
         }
     }
 
+    try {
+        const createGroupsTable = `
+            CREATE TABLE IF NOT EXISTS groups
+            (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                group_name TEXT NOT NULL UNIQUE,
+                group_link TEXT NOT NULL UNIQUE
+            );
+        `;
+
+        await db.exec(createGroupsTable);
+    } catch (err) {
+        if (err) {
+            await db.close();
+            return console.error('There was an error when trying to create the default groups table: ', err);
+        }
+    }
+
+    try {
+        const createPostGroupsTable = `
+            CREATE TABLE IF NOT EXISTS post_groups
+            (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                post_id INTEGER NOT NULL,
+                group_id INTEGER NOT NULL
+            );
+        `;
+
+        await db.exec(createPostGroupsTable);
+    } catch (err) {
+        if (err) {
+            await db.close();
+            return console.error('There was an error when trying to create the post_groups table: ', err);
+        }
+    }
+
     db.close();
 };
 
