@@ -1,0 +1,86 @@
+<!-- THE MODAL OVERLAY -->
+<div id="modal-overlay" class="hidden"></div>
+
+<!-- THE CREATE MODAL -->
+<div id="modal-create" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-create-heading" class="modal-heading">Create Group</h3>
+
+    <!-- THE NAME -->
+    <input type="text" name="name" id="modal-create-name" class="modal-input" placeholder="Log Cabins" />
+
+    <!-- THE LINK -->
+    <input
+        type="text"
+        name="link"
+        id="modal-create-link"
+        class="modal-input"
+        placeholder="https://www.facebook.com/groups/abc" />
+
+    <!-- THE MODAL BUTTOS -->
+    <section id="modal-create-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="closeModal('modal-create')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-primary" onclick="createGroup('create')">Create</button>
+    </section>
+</div>
+
+<!-- THE UPDATE MODAL -->
+<div id="modal-update" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-update-heading" class="modal-heading">Update Group</h3>
+
+    <!-- THE ID -->
+    <input type="number" name="id" id="modal-update-id" class="modal-input hidden" />
+
+    <!-- THE NAME -->
+    <input type="text" name="name" id="modal-update-name" class="modal-input" placeholder="Log Cabins" />
+
+    <!-- THE LINK -->
+    <input
+        type="text"
+        name="link"
+        id="modal-update-link"
+        class="modal-input"
+        placeholder="https://www.facebook.com/groups/abc" />
+
+    <!-- THE MODAL BUTTOS -->
+    <section id="modal-update-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="closeModal('modal-update')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-tertiary" onclick="createGroup('update')">Update</button>
+    </section>
+</div>
+
+<!-- THE DELETE MODAL -->
+<div id="modal-delete" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-delete-heading" class="modal-heading">Delete Group</h3>
+
+    <!-- THE ID -->
+    <input type="number" name="id" id="modal-delete-id" class="modal-input hidden" />
+
+    <!-- THE NAME -->
+    <input type="text" name="name" id="modal-delete-name" class="modal-input" placeholder="Log Cabins" />
+
+    <!-- THE LINK -->
+    <input
+        type="text"
+        name="link"
+        id="modal-delete-link"
+        class="modal-input"
+        placeholder="https://www.facebook.com/groups/abc" />
+
+    <!-- THE MODAL BUTTOS -->
+    <section id="modal-delete-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-secondary" onclick="closeModal('modal-delete')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="deleteGroup()">Delete</button>
+    </section>
+</div>

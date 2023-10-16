@@ -28,7 +28,9 @@
             <h2 class="settings-tab-heading">Manage Groups</h2>
 
             <!-- THE CREATE GROUP -->
-            <button class="group-action-create"><i class="fa-solid fa-plus"></i> Create Group</button>
+            <button class="group-action-create" onclick="openModal('modal-create')">
+                <i class="fa-solid fa-plus"></i> Create Group
+            </button>
 
             <!-- THE GROUPS LIST -->
             <table id="groups-list">
@@ -52,8 +54,16 @@
                             <a href="#" target="_blank">https://facebook.com/group</a>
                         </td>
                         <td class="group-actions">
-                            <button class="group-action-edit"><i class="fa-solid fa-pen"></i></button>
-                            <button class="group-action-delete"><i class="fa-regular fa-trash-can"></i></button>
+                            <button
+                                class="group-action-edit"
+                                onclick='handleEditGroup("1", "Log Cabins", "https://facebook.com/group")'>
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button
+                                class="group-action-delete"
+                                onclick='handleDeleteGroup("1", "Log Cabins", "https://facebook.com/group")'>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -61,9 +71,17 @@
         </section>
     </section>
 </div>
+
+<!-- THE MODALS -->
+{% include './template/_modals.html' %}
+<!-- END MODALS -->
 {% endblock %}
 
 <!-- THE SCRIPTS BLOCK -->
 {% block scripts %}
 <script src="/js/posts/handleTabSwitch.js"></script>
+<script src="/js/timesheet/handleOpenModal.js"></script>
+<script src="/js/timesheet/handleCloseModal.js"></script>
+<script src="/js/settings/handleEditGroup.js"></script>
+<script src="/js/settings/handleDeleteGroup.js"></script>
 {% endblock %}

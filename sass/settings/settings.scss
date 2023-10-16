@@ -128,3 +128,160 @@
         }
     }
 }
+
+#modal-overlay {
+    z-index: 5;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+
+    opacity: 0.85;
+    background-color: $dark;
+}
+
+.modal {
+    z-index: 10;
+
+    width: 100%;
+    max-width: 400px;
+
+    background-color: $black;
+
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+
+    padding: 25px;
+    border: 3px solid;
+
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+
+    &#modal-create {
+        border-color: $blue;
+    }
+
+    &#modal-update {
+        border-color: $green;
+    }
+
+    &#modal-delete {
+        border-color: $red;
+    }
+
+    .modal-input {
+        cursor: pointer;
+        appearance: none;
+        color-scheme: dark;
+
+        border: none;
+        color: $white;
+        outline: none;
+        box-shadow: 0 0 0 2px $border;
+        background-color: $black;
+
+        height: 50px;
+        padding: 0 15px;
+
+        &::placeholder {
+            color: $muted;
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 2px $blue;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px $blue;
+        }
+    }
+
+    .modal-heading {
+        text-align: center;
+        text-transform: uppercase;
+
+        &#modal-create-heading {
+            color: $blue;
+        }
+    }
+
+    .modal-buttons {
+        display: grid;
+        grid-gap: 25px;
+        grid-template-columns: 1fr 1fr;
+
+        .modal-button {
+            cursor: pointer;
+
+            height: 50px;
+
+            color: $light;
+            border: 3px solid $light;
+            background-color: transparent;
+
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            &:hover {
+                border: 1px solid $dark;
+                background-color: $light;
+                box-shadow: 3px 3px $light;
+
+                &:active {
+                    box-shadow: none;
+                    transform: translate(3px, 3px);
+                }
+            }
+
+            &.modal-button-primary {
+                color: $blue;
+                border-color: $blue;
+
+                &:hover {
+                    color: $dark;
+                    border: 1px solid $dark;
+                    background-color: $blue;
+                }
+            }
+
+            &.modal-button-danger {
+                color: $red;
+                border-color: $red;
+
+                &:hover {
+                    color: $dark;
+                    border: 1px solid $dark;
+                    background-color: $red;
+                }
+            }
+
+            &.modal-button-secondary {
+                color: $yellow;
+                border-color: $yellow;
+
+                &:hover {
+                    color: $dark;
+                    border: 1px solid $dark;
+                    background-color: $yellow;
+                }
+            }
+
+            &.modal-button-tertiary {
+                color: $green;
+                border-color: $green;
+
+                &:hover {
+                    color: $dark;
+                    border: 1px solid $dark;
+                    background-color: $green;
+                }
+            }
+        }
+    }
+}
