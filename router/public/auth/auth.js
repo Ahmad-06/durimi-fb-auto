@@ -16,11 +16,16 @@ auth.get('/login', loggedOut, (req, res) => {
 auth.get('/pass', loggedIn, async (req, res) => {
     const db = await openDB();
 
-    const id = req.user.id;
+    if (process.env.ENABLE_USER_PASS !== 'false') {
+        const id = req.user.id;
 
-    const user = await db.get('SELECT * FROM Users WHERE id = ?', [id]);
+        const user = await db.get('SELECT * FROM Users WHERE id = ?', [id]);
 
-    res.render('auth/change', { user });
+        res.render('auth/change', { user });
+    } else {
+        const user = await db.get('SELECT * FROM Users');
+        res.render('auth/change', { user });
+    }
 });
 
 auth.post('/pass', loggedIn, async (req, res) => {
