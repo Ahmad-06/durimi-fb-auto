@@ -4,10 +4,66 @@
 {% block title %} Settings | FB-AUTO {% endblock %}
 
 <!-- THE STYLES BLOCK -->
-{% block styles %} {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="/css/settings/settings.css" />
+{% endblock %}
 
 <!-- THE CONTENT BLOCK -->
-{% block content %} {% endblock %}
+{% block content %}
+<!-- THE SETTINGS -->
+<div id="settings">
+    <!-- THE SETTINGS SWITCHER -->
+    <section id="settings-switcher">
+        <!-- THE GROUPS SWITCH -->
+        <button class="tab-switch active" data-tab="manage-groups" onclick="handleTabSwitch('manage-groups')">
+            Manage Groups
+        </button>
+    </section>
+
+    <!-- THE SETTINGS TABS -->
+    <section id="settings-tabs">
+        <!-- THE GROUPS TAB -->
+        <section class="settings-tab tab" data-tab="manage-groups">
+            <!-- THE TAB HEADING -->
+            <h2 class="settings-tab-heading">Manage Groups</h2>
+
+            <!-- THE CREATE GROUP -->
+            <button class="group-action-create"><i class="fa-solid fa-plus"></i> Create Group</button>
+
+            <!-- THE GROUPS LIST -->
+            <table id="groups-list">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="group-id">
+                            <p>1</p>
+                        </td>
+                        <td class="group-name">
+                            <p>Log Cabins</p>
+                        </td>
+                        <td class="group-link">
+                            <a href="#" target="_blank">https://facebook.com/group</a>
+                        </td>
+                        <td class="group-actions">
+                            <button class="group-action-edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="group-action-delete"><i class="fa-regular fa-trash-can"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</div>
+{% endblock %}
 
 <!-- THE SCRIPTS BLOCK -->
-{% block scripts %} {% endblock %}
+{% block scripts %}
+<script src="/js/posts/handleTabSwitch.js"></script>
+{% endblock %}
