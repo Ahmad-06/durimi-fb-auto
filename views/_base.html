@@ -96,6 +96,7 @@
             let apiURL = '/api/v1';
             let apiMiscURL = `${apiURL}/misc`;
             let apiPostsURL = `${apiURL}/posts`;
+            let apiGroupsURL = `${apiURL}/groups`;
             let apiTimesheetURL = `${apiURL}/timesheet`;
 
             let api = {
@@ -114,6 +115,14 @@
                     delete: `${apiPostsURL}/delete`,
                     publish: `${apiPostsURL}/publish`,
                     reOrder: `${apiPostsURL}/re-order`,
+                },
+                groups: {
+                    get: {
+                        all: `${apiGroupURL}/all`,
+                    },
+                    create: `${apiGroupURL}/create`,
+                    update: `${apiGroupURL}/update`,
+                    delete: `${apiGroupURL}/delete`,
                 },
                 timesheet: {
                     get: {
