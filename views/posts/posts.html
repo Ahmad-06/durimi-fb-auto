@@ -165,6 +165,15 @@
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </section>
+
+                <!-- THE GROUPS -->
+                <p class="form-selected-groups">
+                    Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if post.groups !=
+                    'null' %} {% for group in post.groups %}
+                    <span>{{ group.name }}.&nbsp;</span>
+                    {% endfor %} {% endif %}
+                </p>
+                <!-- END GROUPS -->
             </form>
             {% endfor %}
         </section>
@@ -297,6 +306,15 @@
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </section>
+
+                <!-- THE GROUPS -->
+                <p class="form-selected-groups">
+                    Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if post.groups !=
+                    'null' %} {% for group in post.groups %}
+                    <span>{{ group.name }}.&nbsp;</span>
+                    {% endfor %} {% endif %}
+                </p>
+                <!-- END GROUPS -->
             </form>
             {% endfor %}
         </section>
@@ -309,6 +327,7 @@
 <script src="/js/common/handleMedia.js"></script>
 <script src="/js/common/handleCreatePost.js"></script>
 <script src="/js/common/handleDeletePost.js"></script>
+<script src="/js/common/handleGroupSelection.js"></script>
 
 <script src="/js/posts/handleTabSwitch.js"></script>
 <script src="/js/posts/handleReOrderSwitch.js"></script>

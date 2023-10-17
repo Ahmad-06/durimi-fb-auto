@@ -138,17 +138,27 @@ body {
                             .form {
                                 width: 100%;
                                 max-width: 1000px;
-                                max-height: 200px;
+                                max-height: 250px;
 
                                 display: grid;
                                 grid-gap: 25px;
                                 grid-template-columns: repeat(10, 1fr);
-                                grid-template-rows: repeat(3, 1fr);
+                                grid-template-rows: repeat(3, 1fr) 25px;
 
                                 padding-bottom: 25px;
 
                                 & > * {
                                     display: none;
+                                }
+
+                                .form-selected-groups {
+                                    display: initial;
+                                    grid-column: 1 / 12;
+
+                                    span {
+                                        color: $muted;
+                                        font-style: italic;
+                                    }
                                 }
 
                                 .form-index {
