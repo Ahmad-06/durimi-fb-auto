@@ -39,9 +39,11 @@
 
         text-align: center;
     }
+
     input {
         width: 100%;
     }
+
     .form-textarea,
     .form-input,
     .form-select {
@@ -243,6 +245,61 @@
                         filter: grayscale(100%);
                     }
                 }
+            }
+        }
+    }
+
+    #group-toggle {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 15px;
+        padding-right: 15px;
+        cursor: pointer;
+        background: transparent;
+        border: 2px solid $border;
+        color: $white;
+
+        &:hover {
+            border-color: $blue;
+        }
+
+        span {
+            width: 50%;
+
+            &:first-child {
+                text-align: left;
+            }
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    .form-groups {
+        padding: 15px;
+
+        gap: 15px;
+        display: flex;
+        flex-direction: column;
+
+        border-color: $border;
+
+        label {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 1fr 10fr;
+            cursor: pointer;
+
+            &:hover {
+                color: $blue;
+                font-weight: bold;
+            }
+
+            input {
+                color-scheme: dark;
             }
         }
     }

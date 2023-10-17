@@ -44,6 +44,21 @@
         <input type="text" name="media" class="form-input hidden" data-form-id="0" />
     </section>
 
+    <!-- THE GROUPS -->
+    {% if groups.length > 0 %}
+    <button id="group-toggle" onclick="toggleGroupSelector()">
+        <span>Select Groups</span><span><i class="fa-solid fa-chevron-down group-toggle-icon"></i></span>
+    </button>
+    <fieldset class="form-groups hidden" data-form-id="0">
+        {% for group in groups %}
+        <label for="group-{{ loop.index }}">
+            <input type="checkbox" name="groups" id="group-{{ loop.index }}" value="{{ group.id }}" /> {{ group.name }}
+        </label>
+        {% endfor %}
+    </fieldset>
+    {% endif %}
+    <!-- END GROUPS -->
+
     <!-- THE OPTIONS -->
     <section class="form-options" data-form-id="0">
         <!-- THE CONTEXT -->
@@ -90,4 +105,5 @@
 {% block scripts %}
 <script src="/js/common/handleMedia.js"></script>
 <script src="/js/common/handleCreatePost.js"></script>
+<script src="/js/common/handleGroupSelection.js"></script>
 {% endblock %}
