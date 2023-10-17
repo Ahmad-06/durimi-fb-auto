@@ -6,7 +6,7 @@ const createPost = async (index, type) => {
     const groupInputs = document.querySelectorAll('input[name="groups"]:checked');
 
     for (let i = 0; i < groupInputs.length; i++) {
-        groups.push(groupInputs[i].value);
+        groups.push(parseInt(groupInputs[i].value));
     }
 
     const post = {

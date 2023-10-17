@@ -14,6 +14,7 @@ const seedDB = async () => {
                 message TEXT,
                 link TEXT,
                 media TEXT,
+                groups TEXT,
                 context TEXT NOT NULL,
                 publisher TEXT NOT NULL,
                 time TEXT,
@@ -113,23 +114,23 @@ const seedDB = async () => {
         }
     }
 
-    try {
-        const createPostGroupsTable = `
-            CREATE TABLE IF NOT EXISTS post_groups
-            (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                post_id INTEGER NOT NULL,
-                group_id INTEGER NOT NULL
-            );
-        `;
+    // try {
+    //     const createPostGroupsTable = `
+    //         CREATE TABLE IF NOT EXISTS post_groups
+    //         (
+    //             id INTEGER PRIMARY KEY AUTOINCREMENT,
+    //             post_id INTEGER NOT NULL,
+    //             group_id INTEGER NOT NULL
+    //         );
+    //     `;
 
-        await db.exec(createPostGroupsTable);
-    } catch (err) {
-        if (err) {
-            await db.close();
-            return console.error('There was an error when trying to create the post_groups table: ', err);
-        }
-    }
+    //     await db.exec(createPostGroupsTable);
+    // } catch (err) {
+    //     if (err) {
+    //         await db.close();
+    //         return console.error('There was an error when trying to create the post_groups table: ', err);
+    //     }
+    // }
 
     db.close();
 };

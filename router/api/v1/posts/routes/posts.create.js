@@ -23,6 +23,7 @@ CREATE.post('/', loggedIn, async (req, res) => {
     const message = req?.body?.message ? req?.body?.message : null;
     const link = req?.body?.link ? req?.body?.link : null;
     let media = req?.body?.media && req?.body?.media !== '[]' ? req?.body?.media : null;
+    let groups = req?.body?.groups && req?.body?.groups?.length > 0 ? req?.body?.groups : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
     let time = req?.body?.time ? req?.body?.time : null;
@@ -192,6 +193,7 @@ CREATE.post('/', loggedIn, async (req, res) => {
         message,
         link,
         media: JSON.stringify(images),
+        groups: JSON.stringify(groups),
         context,
         publisher,
         time,
@@ -209,13 +211,14 @@ CREATE.post('/', loggedIn, async (req, res) => {
                 message,
                 link,
                 media,
+                groups,
                 context,
                 publisher,
                 time,
                 timestamp,
                 priority,
                 status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
 
         const params = [
@@ -223,6 +226,7 @@ CREATE.post('/', loggedIn, async (req, res) => {
             post.message,
             post.link,
             post.media,
+            post.groups,
             post.context,
             post.publisher,
             post.time,
