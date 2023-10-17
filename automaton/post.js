@@ -13,6 +13,16 @@ module.exports = async (post, auth) => {
 
     const page = await browser.newPage();
 
+    // Check if an XPath exists on the page.
+    const XPathExists = async (XPath) => {
+        try {
+            await page.waitForXPath(XPath, { timeout: 2500 });
+            return true;
+        } catch (err) {
+            return false;
+        }
+    };
+
     // Accept a dialog if it pops-up.
     page.on('dialog', async (dialog) => {
         await dialog.accept();
@@ -69,9 +79,15 @@ module.exports = async (post, auth) => {
 
     // Open the profile switcher.
     try {
-        const [profileSwitcher] = await page.$x("//span[contains(., 'See all profiles')]");
+        if (await XPathExists("//span[contains(., 'See all profiles')]")) {
+            const [profileSwitcher] = await page.$x("//span[contains(., 'See all profiles')]");
 
-        await profileSwitcher.click();
+            await profileSwitcher.click();
+        } else {
+            const [profileSwitcher] = await page.$x("//span[contains(., 'Switch')]");
+
+            await profileSwitcher.click();
+        }
 
         await sleep(3000);
     } catch (err) {
