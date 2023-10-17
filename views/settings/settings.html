@@ -43,29 +43,31 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for group in groups %}
                     <tr>
                         <td class="group-id">
-                            <p>1</p>
+                            <p>{{ loop.index }}</p>
                         </td>
                         <td class="group-name">
-                            <p>Log Cabins</p>
+                            <p>{{ group.name }}</p>
                         </td>
                         <td class="group-link">
-                            <a href="#" target="_blank">https://facebook.com/group</a>
+                            <a href="{{ group.link }}" target="_blank">{{ group.link }}</a>
                         </td>
                         <td class="group-actions">
                             <button
                                 class="group-action-edit"
-                                onclick='handleEditGroup("1", "Log Cabins", "https://facebook.com/group")'>
+                                onclick='handleEditGroup("{{ group.id }}", "{{ group.name }}", "{{ group.link }}")'>
                                 <i class="fa-solid fa-pen"></i>
                             </button>
                             <button
                                 class="group-action-delete"
-                                onclick='handleDeleteGroup("1", "Log Cabins", "https://facebook.com/group")'>
+                                onclick='handleDeleteGroup("{{ group.id }}", "{{ group.name }}", "{{ group.link }}")'>
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </section>
