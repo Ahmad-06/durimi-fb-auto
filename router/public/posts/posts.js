@@ -21,7 +21,9 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
         if (err) {
             await db.close();
 
-            return res.send('There was an error trying to get the automated posts from the database.');
+            return res.render('errorpage', {
+                message: 'There was an error trying to get the automated posts from the database.',
+            });
         }
     }
 
@@ -33,7 +35,9 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
         if (err) {
             await db.close();
 
-            return res.send('There was an error trying to get the scheduled posts from the database.');
+            return res.render('errorpage', {
+                message: 'There was an error trying to get the scheduled posts from the database.',
+            });
         }
     }
 
