@@ -169,6 +169,42 @@ module.exports = async (post, auth) => {
         }
     }
 
+    // Connect the link to the post if it exists.
+    const link = post.link;
+    if (link !== null || link !== 'null' || link !== '') {
+        try {
+            await page.click(selector.linkPreview);
+            await sleep(1000);
+
+            await page.click(selector.linkInput);
+            await sleep(1000);
+
+            await page.type(selector.linkInput, link, { delay: 25 });
+            await sleep(1000);
+
+            if (await XPathExists(xpath.saveLink)) {
+                const [saveLink] = await page.$x(xpath.saveLink);
+                await saveLink.click();
+                await sleep(1000);
+            }
+        } catch (err) {
+            if (err) {
+                await browser.close();
+
+                return {
+                    success: false,
+                    data: null,
+                    error: {
+                        code: 704,
+                        type: 'Puppeteer error.',
+                        moment: 'Typing link.',
+                        error: err.toString(),
+                    },
+                };
+            }
+        }
+    }
+
     // Return with Success
     await sleep(10000);
     await browser.close();
