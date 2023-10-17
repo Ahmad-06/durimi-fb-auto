@@ -205,6 +205,29 @@ module.exports = async (post, auth) => {
         }
     }
 
+    // Publish the Post
+    try {
+        if (await XPathExists(xpath.publishButton)) {
+            const [publishButton] = await page.$x(xpath.publishButton);
+            await publishButton.click();
+        }
+    } catch (err) {
+        if (err) {
+            await browser.close();
+
+            return {
+                success: false,
+                data: null,
+                error: {
+                    code: 705,
+                    type: 'Puppeteer error.',
+                    moment: 'Publishing post.',
+                    error: err.toString(),
+                },
+            };
+        }
+    }
+
     // Return with Success
     await sleep(10000);
     await browser.close();
