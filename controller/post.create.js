@@ -132,9 +132,36 @@ module.exports = async (post, auth) => {
                     success: false,
                     data: null,
                     error: {
-                        code: 701,
+                        code: 702,
                         type: 'Puppeteer error.',
                         moment: 'Selecting Groups.',
+                        error: err.toString(),
+                    },
+                };
+            }
+        }
+    }
+
+    // Type the post message if it exists.
+    const message = post.message;
+    if (message !== null || message !== 'null' || message !== '') {
+        try {
+            const dialog = selector.dialogueBox;
+            await page.click(dialog);
+            await sleep(1000);
+            await page.type(dialog, message, { delay: 25 });
+            await sleep(1000);
+        } catch (err) {
+            if (err) {
+                await browser.close();
+
+                return {
+                    success: false,
+                    data: null,
+                    error: {
+                        code: 703,
+                        type: 'Puppeteer error.',
+                        moment: 'Typing message.',
                         error: err.toString(),
                     },
                 };
