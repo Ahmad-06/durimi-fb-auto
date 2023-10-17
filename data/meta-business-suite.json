@@ -1,1 +1,22 @@
-{"meta":{"selector":{"success":true}},"updated":"2023-10-17T00:00","xpath":{"pageGroupDropdownXPath":"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div[2]/div/div/div/div/div/div[1]/div[2]/div[1]/div/div[2]/div","groupSelectorXPath":"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div/a","groupSelectorModalXPath":"/html/body/div[4]/div[1]","groupXPath":"/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[2]/div[1]/div[2]/div/label/div/div/div[2]/div[1]/div[contains(., 'Name of Group')]","saveGroupsXPath":"/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div","saveLinkXPath":"/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div","publishButtonXPath":"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[2]/div/div[3]/div"},"selector":{"dialogueBox":"[aria-label='Write into the dialogue box to include text with your post.']","linkPreview":"[aria-label='Link preview']","linkInput":"[placeholder='Enter a link']"}}
+{
+    "meta": {
+        "selector": {
+            "success": true
+        }
+    },
+    "updated": "2023-10-17T00:00",
+    "xpath": {
+        "pageGroupDropdown": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div[2]/div/div/div/div/div/div[1]/div[2]/div[1]/div/div[2]/div",
+        "groupSelector": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div/a",
+        "groupSelectorModal": "/html/body/div[4]/div[1]",
+        "group": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[2]/div[1]/div[2]/div/label/div/div/div[2]/div[1]/div[contains(., 'Name of Group')]",
+        "saveGroups": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div",
+        "saveLink": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div",
+        "publishButton": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[2]/div/div[3]/div"
+    },
+    "selector": {
+        "dialogueBox": "[aria-label='Write into the dialogue box to include text with your post.']",
+        "linkPreview": "[aria-label='Link preview']",
+        "linkInput": "[placeholder='Enter a link']"
+    }
+}
