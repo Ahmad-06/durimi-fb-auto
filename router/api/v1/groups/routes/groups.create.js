@@ -61,8 +61,6 @@ CREATE.post('/', loggedIn, async (req, res) => {
 
         const existing_groups = await db.all(query, params);
 
-        console.log(existing_groups.length);
-
         if (existing_groups.length !== 0) {
             await db.close();
 
