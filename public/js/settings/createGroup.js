@@ -7,8 +7,8 @@ const createGroup = async (route) => {
 
     const group = {
         id: idInput.value,
-        day: nameInput.value,
-        time: linkInput.value,
+        name: nameInput.value,
+        link: linkInput.value,
     };
 
     const resp = await fetch(apiEndpoint, {

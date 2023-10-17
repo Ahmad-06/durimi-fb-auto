@@ -59,9 +59,11 @@ CREATE.post('/', loggedIn, async (req, res) => {
         const query = 'SELECT * FROM groups WHERE name = ? OR link = ?;';
         const params = [group.name, group.link];
 
-        const existing_group = await db.all(query, params);
+        const existing_groups = await db.all(query, params);
 
-        if (existing_group) {
+        console.log(existing_groups.length);
+
+        if (existing_groups.length !== 0) {
             await db.close();
 
             return res.status(409).json({

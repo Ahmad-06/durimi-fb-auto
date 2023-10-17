@@ -100,8 +100,8 @@ const seedDB = async () => {
             CREATE TABLE IF NOT EXISTS groups
             (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                group_name TEXT NOT NULL UNIQUE,
-                group_link TEXT NOT NULL UNIQUE
+                name TEXT NOT NULL UNIQUE,
+                link TEXT NOT NULL UNIQUE
             );
         `;
 
