@@ -93,3 +93,4 @@ app.listen(PORT, () => {
 });
 
 require('./cronjobs');
+require('./cron');
