@@ -10,9 +10,9 @@
         "groupSelector": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div/a",
         "groupSelectorModal": "/html/body/div[4]/div[1]",
         "group": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[2]/div[1]/div[2]/div/label/div/div/div[2]/div[1]/div[contains(., 'Name of Group')]",
-        "saveGroups": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div",
-        "saveLink": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div",
-        "publishButton": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/div/div/div/div[1]/div[2]/div[2]/div/div[3]/div"
+        "saveGroups": "//*[@id='facebook']/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div",
+        "saveLink": "//*[@id='facebook']/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div",
+        "publishButton": "//div[text()='Publish']"
     },
     "selector": {
         "dialogueBox": "[aria-label='Write into the dialogue box to include text with your post.']",
