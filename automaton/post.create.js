@@ -12,12 +12,12 @@ module.exports = async (post, auth) => {
         userDataDir: path.join(__dirname, 'userData'),
     });
 
-    const page = await browser.newPage();
+    const page = await browser?.newPage();
 
     // Check if an XPath exists on the page.
     const XPathExists = async (XPath) => {
         try {
-            await page.waitForXPath(XPath, { timeout: 2500 });
+            await page?.waitForXPath(XPath, { timeout: 2500 });
             return true;
         } catch (err) {
             return false;
@@ -25,17 +25,17 @@ module.exports = async (post, auth) => {
     };
 
     // Accept a dialog if it pops-up.
-    page.on('dialog', async (dialog) => {
-        await dialog.accept();
+    page?.on('dialog', async (dialog) => {
+        await dialog?.accept();
     });
 
     // Open the Meta Composer.
     try {
-        await page.goto(auth.meta.composer);
-        await page.waitForNetworkIdle();
+        await page?.goto(auth.meta.composer);
+        await page?.waitForNetworkIdle();
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -44,7 +44,7 @@ module.exports = async (post, auth) => {
                     code: 701,
                     type: 'Puppeteer error.',
                     moment: 'Opening Meta Composer.',
-                    error: err.toString(),
+                    error: err?.toString(),
                 },
             };
         }
@@ -52,7 +52,7 @@ module.exports = async (post, auth) => {
 
     // Get all the Selectors and XPaths
     const { xpath, selector } = JSON.parse(
-        fs.readFileSync(path.join(__dirname, '..', 'data', 'meta-business-suite.json')),
+        fs?.readFileSync(path.join(__dirname, '..', 'data', 'meta-business-suite.json')),
     );
 
     let status = {
@@ -63,32 +63,32 @@ module.exports = async (post, auth) => {
     };
 
     // Select the groups if post has them.
-    if (post.groups.length > 0) {
+    if (post?.groups?.length > 0) {
         try {
             // Check if the Group-Page dropdown exists, open it if it does.
-            if (await XPathExists(xpath.pageGroupDropdown)) {
-                const [pageGroupDropdown] = await page.$x(xpath.pageGroupDropdown);
-                await pageGroupDropdown.click();
+            if (await XPathExists(xpath?.pageGroupDropdown)) {
+                const [pageGroupDropdown] = await page?.$x(xpath?.pageGroupDropdown);
+                await pageGroupDropdown?.click();
                 await sleep(1000);
 
                 // Check if the Group-Selector dropdown exists, open if it does.
-                if (await XPathExists(xpath.groupSelector)) {
-                    const [groupSelector] = await page.$x(xpath.groupSelector);
-                    await groupSelector.click();
+                if (await XPathExists(xpath?.groupSelector)) {
+                    const [groupSelector] = await page?.$x(xpath?.groupSelector);
+                    await groupSelector?.click();
                     await sleep(1000);
 
                     // Check if the Group-Selector modal exists.
-                    if (await XPathExists(xpath.groupSelectorModal)) {
+                    if (await XPathExists(xpath?.groupSelectorModal)) {
                         // Select the Groups if they exist.
-                        for (let i = 0; i < post.groups.length; i++) {
-                            const group = post.groups[i];
-                            const groupXPath = xpath.group.replace('Name of Group', group);
+                        for (let i = 0; i < post?.groups.length; i++) {
+                            const group = post?.groups[i];
+                            const groupXPath = xpath?.group.replace('Name of Group', group);
                             if (await XPathExists(groupXPath)) {
-                                const [group] = await page.$x(groupXPath);
+                                const [group] = await page?.$x(groupXPath);
                                 await group.click();
                                 await sleep(1000);
                             } else {
-                                status.groups.push(group);
+                                status.data.groups.push(group);
                                 status.error = {
                                     code: 60004,
                                     type: 'Meta Business Suite Error.',
@@ -98,7 +98,7 @@ module.exports = async (post, auth) => {
                             }
                         }
                     } else {
-                        status.data.groups = post.groups;
+                        status.data.groups = post?.groups;
                         status.error = {
                             code: 60003,
                             type: 'Meta Business Suite Error.',
@@ -107,7 +107,7 @@ module.exports = async (post, auth) => {
                         };
                     }
                 } else {
-                    status.data.groups = post.groups;
+                    status.data.groups = post?.groups;
                     status.error = {
                         code: 60002,
                         type: 'Meta Business Suite Error.',
@@ -116,7 +116,7 @@ module.exports = async (post, auth) => {
                     };
                 }
             } else {
-                status.data.groups = post.groups;
+                status.data.groups = post?.groups;
                 status.error = {
                     code: 60001,
                     type: 'Meta Business Suite Error.',
@@ -126,7 +126,7 @@ module.exports = async (post, auth) => {
             }
         } catch (err) {
             if (err) {
-                await browser.close();
+                await browser?.close();
 
                 return {
                     success: false,
@@ -135,7 +135,7 @@ module.exports = async (post, auth) => {
                         code: 702,
                         type: 'Puppeteer error.',
                         moment: 'Selecting Groups.',
-                        error: err.toString(),
+                        error: err?.toString(),
                     },
                 };
             }
@@ -143,17 +143,17 @@ module.exports = async (post, auth) => {
     }
 
     // Type the post message if it exists.
-    const message = post.message;
-    if (message !== null && message !== 'null' && message !== '') {
+    const message = post?.message;
+    if (message !== null) {
         try {
-            const dialog = selector.dialogueBox;
-            await page.click(dialog);
+            const dialog = selector?.dialogueBox;
+            await page?.click(dialog);
             await sleep(1000);
-            await page.type(dialog, message, { delay: 25 });
+            await page?.type(dialog, message, { delay: 25 });
             await sleep(1000);
         } catch (err) {
             if (err) {
-                await browser.close();
+                await browser?.close();
 
                 return {
                     success: false,
@@ -162,7 +162,7 @@ module.exports = async (post, auth) => {
                         code: 703,
                         type: 'Puppeteer error.',
                         moment: 'Typing message.',
-                        error: err.toString(),
+                        error: err?.toString(),
                     },
                 };
             }
@@ -170,26 +170,26 @@ module.exports = async (post, auth) => {
     }
 
     // Connect the link to the post if it exists.
-    const link = post.link;
-    if (link !== null && link !== 'null' && link !== '') {
+    const link = post?.link;
+    if (link !== null) {
         try {
-            await page.click(selector.linkPreview);
+            await page?.click(selector?.linkPreview);
             await sleep(1000);
 
-            await page.click(selector.linkInput);
+            await page?.click(selector?.linkInput);
             await sleep(1000);
 
-            await page.type(selector.linkInput, link, { delay: 25 });
+            await page?.type(selector?.linkInput, link, { delay: 25 });
             await sleep(1000);
 
-            if (await XPathExists(xpath.saveLink)) {
-                const [saveLink] = await page.$x(xpath.saveLink);
+            if (await XPathExists(xpath?.saveLink)) {
+                const [saveLink] = await page?.$x(xpath?.saveLink);
                 await saveLink.click();
                 await sleep(1000);
             }
         } catch (err) {
             if (err) {
-                await browser.close();
+                await browser?.close();
 
                 return {
                     success: false,
@@ -198,7 +198,7 @@ module.exports = async (post, auth) => {
                         code: 704,
                         type: 'Puppeteer error.',
                         moment: 'Typing link.',
-                        error: err.toString(),
+                        error: err?.toString(),
                     },
                 };
             }
@@ -207,13 +207,13 @@ module.exports = async (post, auth) => {
 
     // Publish the Post
     try {
-        if (await XPathExists(xpath.publishButton)) {
-            const [publishButton] = await page.$x(xpath.publishButton);
+        if (await XPathExists(xpath?.publishButton)) {
+            const [publishButton] = await page?.$x(xpath?.publishButton);
             await publishButton.click();
         }
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -222,7 +222,7 @@ module.exports = async (post, auth) => {
                     code: 705,
                     type: 'Puppeteer error.',
                     moment: 'Publishing post.',
-                    error: err.toString(),
+                    error: err?.toString(),
                 },
             };
         }
@@ -230,7 +230,7 @@ module.exports = async (post, auth) => {
 
     // Return with Success
     await sleep(10000);
-    await browser.close();
+    await browser?.close();
     return {
         success: true,
         data: status.data.groups.length < 1 ? null : status.data,
