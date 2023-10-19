@@ -127,7 +127,7 @@ cron.schedule('*/5 * * * *', async () => {
                             j++;
                         }
 
-                        if (i === groups?.length - 1) {
+                        if (i === groups?.length - 1 && j === 0) {
                             // Delete the post once everything is published.
                             try {
                                 const query = `
@@ -161,7 +161,7 @@ cron.schedule('*/5 * * * *', async () => {
                                 }
                             }
                         } else {
-                            if (res.success) {
+                            if (res.success && i === groups?.length && j === 0) {
                                 // Delete the post once everything is published.
                                 try {
                                     const query = `
@@ -434,7 +434,7 @@ cron.schedule('*/5 * * * *', async () => {
                                 j++;
                             }
 
-                            if (i === groups?.length - 1) {
+                            if (i === groups?.length - 1 && j === 0) {
                                 // Delete the post once everything is published.
                                 try {
                                     const query = `
@@ -468,7 +468,7 @@ cron.schedule('*/5 * * * *', async () => {
                                     }
                                 }
                             } else {
-                                if (res.success) {
+                                if (res.success && i === groups?.length - 1 && j == 0) {
                                     // Delete the post once everything is published.
                                     try {
                                         const query = `
