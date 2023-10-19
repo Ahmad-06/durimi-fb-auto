@@ -5,7 +5,7 @@ const { sleep } = require('../utils/utils');
 
 module.exports = async (post, auth) => {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: 'new',
         defaultViewport: null,
         args: ['--start-maximized', '--disable-notifications'],
         userDataDir: path.join(__dirname, 'userData'),
@@ -351,7 +351,7 @@ module.exports = async (post, auth) => {
             try {
                 await page?.type(inputField, post?.link, { delay: 25 });
 
-                await sleep(3000);
+                await sleep(7000);
 
                 await page?.click(inputField, { clickCount: 3 });
 
@@ -403,7 +403,7 @@ module.exports = async (post, auth) => {
             try {
                 await page?.type(inputField, post?.message, { delay: 25 });
 
-                if (post?.link !== '') {
+                if (post?.link !== '' && post?.link !== null) {
                     await page?.keyboard.press('Enter');
                     await page?.keyboard.press('Enter');
                 }
