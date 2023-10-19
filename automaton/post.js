@@ -11,12 +11,12 @@ module.exports = async (post, auth) => {
         userDataDir: path.join(__dirname, 'userData'),
     });
 
-    const page = await browser.newPage();
+    const page = await browser?.newPage();
 
-    // Check if an XPath exists on the page.
+    // Check if an XPath exists on the page?.
     const XPathExists = async (XPath) => {
         try {
-            await page.waitForXPath(XPath, { timeout: 2500 });
+            await page?.waitForXPath(XPath, { timeout: 2500 });
             return true;
         } catch (err) {
             return false;
@@ -24,20 +24,20 @@ module.exports = async (post, auth) => {
     };
 
     // Accept a dialog if it pops-up.
-    page.on('dialog', async (dialog) => {
-        await dialog.accept();
+    page?.on('dialog', async (dialog) => {
+        await dialog?.accept();
     });
 
     // Open facebook and go to a dead link.
     try {
         const deadURL = 'https://www.facebook.com/tv/bv/cv/ev';
 
-        await page.goto(deadURL);
+        await page?.goto(deadURL);
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -56,13 +56,13 @@ module.exports = async (post, auth) => {
     try {
         const profileIcon = 'svg[aria-label="Your profile"]';
 
-        await page.waitForSelector(profileIcon);
-        await page.click(profileIcon);
+        await page?.waitForSelector(profileIcon);
+        await page?.click(profileIcon);
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -80,11 +80,11 @@ module.exports = async (post, auth) => {
     // Open the profile switcher.
     try {
         if (await XPathExists("//span[contains(., 'See all profiles')]")) {
-            const [profileSwitcher] = await page.$x("//span[contains(., 'See all profiles')]");
+            const [profileSwitcher] = await page?.$x("//span[contains(., 'See all profiles')]");
 
             await profileSwitcher.click();
         } else {
-            const [profileSwitcher] = await page.$x("//span[contains(., 'Switch')]");
+            const [profileSwitcher] = await page?.$x("//span[contains(., 'Switch')]");
 
             await profileSwitcher.click();
         }
@@ -92,7 +92,7 @@ module.exports = async (post, auth) => {
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -109,10 +109,10 @@ module.exports = async (post, auth) => {
 
     // Switch to the correct publisher.
     try {
-        const [userSwitch] = await page.$x(`//span[text()='${auth.publisher.user}']`);
-        const [pageSwitch] = await page.$x(`//span[text()='${auth.publisher.page}']`);
+        const [userSwitch] = await page?.$x(`//span[text()='${auth?.publisher?.user}']`);
+        const [pageSwitch] = await page?.$x(`//span[text()='${auth?.publisher?.page}']`);
 
-        if (post.publisher === 'user' && post.context !== 'page') {
+        if (post?.publisher === 'user' && post?.context !== 'page') {
             await userSwitch.evaluate((s) => s.click());
         } else {
             await pageSwitch.evaluate((s) => s.click());
@@ -121,7 +121,7 @@ module.exports = async (post, auth) => {
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -140,13 +140,13 @@ module.exports = async (post, auth) => {
     try {
         const cookieButton = 'div[aria-label="Allow essential and optional cookies"][role=button]';
 
-        if (await page.$(cookieButton)) {
-            await page.click(cookieButton);
+        if (await page?.$(cookieButton)) {
+            await page?.click(cookieButton);
             await sleep(3000);
         }
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -165,13 +165,13 @@ module.exports = async (post, auth) => {
     try {
         const acceptButton = 'div[aria-label="I accept"][role=button][tabindex="0"]';
 
-        if (await page.$(acceptButton)) {
-            await page.click(acceptButton);
+        if (await page?.$(acceptButton)) {
+            await page?.click(acceptButton);
             await sleep(3000);
         }
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -188,14 +188,14 @@ module.exports = async (post, auth) => {
 
     // Switch to the correct context.
     try {
-        const contextURL = post.context === 'page' ? auth.context.page : auth.context.group;
+        const contextURL = post?.context === 'page' ? auth?.context?.page : auth?.context?.group;
 
-        await page.goto(contextURL);
+        await page?.goto(contextURL);
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -212,20 +212,20 @@ module.exports = async (post, auth) => {
 
     // Open the post creation form.
     try {
-        const context = page.context;
+        const context = post?.context;
 
         if (context === 'group') {
-            const [groupWriter] = await page.$x("//span[contains(., 'Write something...')]");
+            const [groupWriter] = await page?.$x("//span[contains(., 'Write something...')]");
             await groupWriter.click();
         } else {
-            const [pageWriter] = await page.$x("//span[contains(., '" + 's on your mind?' + "')]");
+            const [pageWriter] = await page?.$x("//span[contains(., '" + 's on your mind?' + "')]");
             await pageWriter.click();
         }
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -241,22 +241,22 @@ module.exports = async (post, auth) => {
     }
 
     // Plug in the media files.
-    if (post.media.length > 0) {
-        if (post.context === 'group') {
+    if (post?.media?.length > 0 && post?.media !== null && post?.media !== '') {
+        if (post?.context === 'group') {
             try {
                 const fileInputHandler = 'input[type=file][multiple]';
-                const fileInput = await page.$$(fileInputHandler);
+                const fileInput = await page?.$$(fileInputHandler);
                 const file = fileInput[1];
 
-                for (let i = 0; i < post.media.length; i++) {
-                    const image = post.media[i];
+                for (let i = 0; i < post?.media?.length; i++) {
+                    const image = post?.media[i];
                     const imagePath = path.join(__dirname, '..', 'public', 'media', image);
 
                     await file.uploadFile(imagePath);
                 }
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -264,7 +264,7 @@ module.exports = async (post, auth) => {
                         error: {
                             code: 709,
                             type: 'Puppeteer error.',
-                            moment: 'Inserting the images attached to the post.',
+                            moment: 'Inserting the images attached to the post?.',
                             error: err.toString(),
                         },
                     };
@@ -273,29 +273,29 @@ module.exports = async (post, auth) => {
         } else {
             try {
                 const fileUploadHandler = 'div[aria-label="Photo/video"][role=button]';
-                await page.click(fileUploadHandler);
+                await page?.click(fileUploadHandler);
 
                 const fileInputHandler = 'input[type=file][multiple]';
-                await page.waitForSelector(fileInputHandler);
-                const fileInputSingle = await page.$(fileInputHandler);
+                await page?.waitForSelector(fileInputHandler);
+                const fileInputSingle = await page?.$(fileInputHandler);
 
                 const mediaPath = path.join(__dirname, '..', 'public', 'media');
 
-                await fileInputSingle.uploadFile(path.join(mediaPath, post.media[0]));
+                await fileInputSingle.uploadFile(path.join(mediaPath, post?.media[0]));
 
-                if (post.media.length > 1) {
-                    await page.waitForSelector(fileInputHandler);
-                    const fileInputMulti = await page.$(fileInputHandler);
+                if (post?.media?.length > 1) {
+                    await page?.waitForSelector(fileInputHandler);
+                    const fileInputMulti = await page?.$(fileInputHandler);
 
-                    for (let i = 0; i < post.media.length; i++) {
+                    for (let i = 0; i < post?.media?.length; i++) {
                         if (i !== 0) {
-                            fileInputMulti.uploadFile(path.join(mediaPath, post.media[i]));
+                            fileInputMulti.uploadFile(path.join(mediaPath, post?.media[i]));
                         }
                     }
                 }
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -303,7 +303,7 @@ module.exports = async (post, auth) => {
                         error: {
                             code: 710,
                             type: 'Puppeteer error.',
-                            moment: 'Inserting the images attached to the post.',
+                            moment: 'Inserting the images attached to the post?.',
                             error: err.toString(),
                         },
                     };
@@ -319,16 +319,16 @@ module.exports = async (post, auth) => {
 
     // Switch to the content writing field.
     try {
-        if (post.context === 'group') {
-            await page.click(groupField);
+        if (post?.context === 'group') {
+            await page?.click(groupField);
         } else {
-            await page.click(pageField);
+            await page?.click(pageField);
         }
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -344,23 +344,23 @@ module.exports = async (post, auth) => {
     }
 
     // Type in the content as needed.
-    if (post.media.length === 0) {
-        const inputField = post.context === 'group' ? groupField : pageField;
+    if (post?.media?.length === 0 || post?.media === null || post?.media === '') {
+        const inputField = post?.context === 'group' ? groupField : pageField;
 
-        if (post.link !== '') {
+        if (post?.link !== '' && post?.link !== null) {
             try {
-                await page.type(inputField, post.link, { delay: 25 });
+                await page?.type(inputField, post?.link, { delay: 25 });
 
-                await sleep(1000);
+                await sleep(3000);
 
-                await page.click(inputField, { clickCount: 3 });
+                await page?.click(inputField, { clickCount: 3 });
 
-                await page.keyboard.press('Backspace');
+                await page?.keyboard.press('Backspace');
 
                 await sleep(1000);
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -376,12 +376,12 @@ module.exports = async (post, auth) => {
             }
         }
 
-        if (post.message !== '') {
+        if (post?.message !== '' && post?.message !== null) {
             try {
-                await page.type(inputField, post.message, { delay: 25 });
+                await page?.type(inputField, post?.message, { delay: 25 });
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -397,19 +397,19 @@ module.exports = async (post, auth) => {
             }
         }
     } else {
-        const inputField = post.context === 'group' ? groupField : pageField;
+        const inputField = post?.context === 'group' ? groupField : pageField;
 
-        if (post.message !== '') {
+        if (post?.message !== '' && post?.message !== null) {
             try {
-                await page.type(inputField, post.message, { delay: 25 });
+                await page?.type(inputField, post?.message, { delay: 25 });
 
-                if (post.link !== '') {
-                    await page.keyboard.press('Enter');
-                    await page.keyboard.press('Enter');
+                if (post?.link !== '') {
+                    await page?.keyboard.press('Enter');
+                    await page?.keyboard.press('Enter');
                 }
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -425,12 +425,12 @@ module.exports = async (post, auth) => {
             }
         }
 
-        if (post.link !== '') {
+        if (post?.link !== '' && post?.link !== null) {
             try {
-                await page.type(inputField, post.link, { delay: 25 });
+                await page?.type(inputField, post?.link, { delay: 25 });
             } catch (err) {
                 if (err) {
-                    await browser.close();
+                    await browser?.close();
 
                     return {
                         success: false,
@@ -454,16 +454,16 @@ module.exports = async (post, auth) => {
         const postIt = 'div[aria-label=Post][role=button]';
         const postItUp = 'div[aria-label="Post on Facebook"][role=button]';
 
-        if (await page.$(postIt)) {
-            await page.click(postIt);
+        if (await page?.$(postIt)) {
+            await page?.click(postIt);
         } else {
-            await page.click(postItUp);
+            await page?.click(postItUp);
         }
 
         await sleep(3000);
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -483,15 +483,15 @@ module.exports = async (post, auth) => {
         const eventHead = "//span[contains(., 'Hosting an event?')]";
         const noEvent = "//span[contains(., 'Not now')]";
 
-        if (await page.$x(eventHead)) {
-            if (await page.$x(noEvent)) {
-                const [cancelEvent] = await page.$x(noEvent);
+        if (await page?.$x(eventHead)) {
+            if (await page?.$x(noEvent)) {
+                const [cancelEvent] = await page?.$x(noEvent);
                 await cancelEvent?.click();
             }
         }
     } catch (err) {
         if (err) {
-            await browser.close();
+            await browser?.close();
 
             return {
                 success: false,
@@ -506,10 +506,10 @@ module.exports = async (post, auth) => {
         }
     }
 
-    const totalSleepTime = 15000 + post.media.length * 10000;
+    const totalSleepTime = 15000 + post?.media?.length * 10000;
 
     await sleep(totalSleepTime);
-    await browser.close();
+    await browser?.close();
     return {
         success: true,
         data: null,
