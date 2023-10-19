@@ -172,35 +172,39 @@ module.exports = async (post, auth) => {
     // Connect the link to the post if it exists.
     const link = post?.link;
     if (link !== null) {
-        try {
-            await page?.click(selector?.linkPreview);
-            await sleep(2500);
-
-            await page?.click(selector?.linkInput);
-            await sleep(2500);
-
-            await page?.type(selector?.linkInput, link, { delay: 25 });
-            await sleep(2500);
-
-            if (await XPathExists(xpath?.saveLink)) {
-                const [saveLink] = await page?.$x(xpath?.saveLink);
-                await saveLink.click();
+        for (let i = 1; i !== 0; i++) {
+            try {
+                await page?.click(selector?.linkPreview);
                 await sleep(2500);
-            }
-        } catch (err) {
-            if (err) {
-                await browser?.close();
 
-                return {
-                    success: false,
-                    data: null,
-                    error: {
-                        code: 704,
-                        type: 'Puppeteer error.',
-                        moment: 'Typing link.',
-                        error: err?.toString(),
-                    },
-                };
+                await page?.click(selector?.linkInput);
+                await sleep(2500);
+
+                await page?.type(selector?.linkInput, link, { delay: 25 });
+                await sleep(2500);
+
+                if (await XPathExists(xpath?.saveLink)) {
+                    const [saveLink] = await page?.$x(xpath?.saveLink);
+                    await saveLink.click();
+                    await sleep(2500);
+                }
+
+                if (await XPathExists(`//a[contains(., '${link}')]`)) break;
+            } catch (err) {
+                if (err) {
+                    await browser?.close();
+
+                    return {
+                        success: false,
+                        data: null,
+                        error: {
+                            code: 704,
+                            type: 'Puppeteer error.',
+                            moment: 'Typing link.',
+                            error: err?.toString(),
+                        },
+                    };
+                }
             }
         }
     }
