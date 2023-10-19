@@ -69,13 +69,13 @@ module.exports = async (post, auth) => {
             if (await XPathExists(xpath?.pageGroupDropdown)) {
                 const [pageGroupDropdown] = await page?.$x(xpath?.pageGroupDropdown);
                 await pageGroupDropdown?.click();
-                await sleep(1000);
+                await sleep(2500);
 
                 // Check if the Group-Selector dropdown exists, open if it does.
                 if (await XPathExists(xpath?.groupSelector)) {
                     const [groupSelector] = await page?.$x(xpath?.groupSelector);
                     await groupSelector?.click();
-                    await sleep(1000);
+                    await sleep(2500);
 
                     // Check if the Group-Selector modal exists.
                     if (await XPathExists(xpath?.groupSelectorModal)) {
@@ -86,7 +86,7 @@ module.exports = async (post, auth) => {
                             if (await XPathExists(groupXPath)) {
                                 const [group] = await page?.$x(groupXPath);
                                 await group.click();
-                                await sleep(1000);
+                                await sleep(2500);
                             } else {
                                 status.data.groups.push(group);
                                 status.error = {
@@ -148,9 +148,9 @@ module.exports = async (post, auth) => {
         try {
             const dialog = selector?.dialogueBox;
             await page?.click(dialog);
-            await sleep(1000);
+            await sleep(2500);
             await page?.type(dialog, message, { delay: 25 });
-            await sleep(1000);
+            await sleep(2500);
         } catch (err) {
             if (err) {
                 await browser?.close();
@@ -174,18 +174,18 @@ module.exports = async (post, auth) => {
     if (link !== null) {
         try {
             await page?.click(selector?.linkPreview);
-            await sleep(1000);
+            await sleep(2500);
 
             await page?.click(selector?.linkInput);
-            await sleep(1000);
+            await sleep(2500);
 
             await page?.type(selector?.linkInput, link, { delay: 25 });
-            await sleep(1000);
+            await sleep(2500);
 
             if (await XPathExists(xpath?.saveLink)) {
                 const [saveLink] = await page?.$x(xpath?.saveLink);
                 await saveLink.click();
-                await sleep(1000);
+                await sleep(2500);
             }
         } catch (err) {
             if (err) {
