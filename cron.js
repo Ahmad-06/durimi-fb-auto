@@ -3,9 +3,9 @@ const path = require('path');
 const cron = require('node-cron');
 const fetch = require('node-fetch');
 
-const metaEndpoint = 'https://airy-beaded-caravel.glitch.me/meta-business-suite.json';
-
+// Fetch the endpoints from the remote repository every 30 minutes.
 cron.schedule('*/30 * * * *', async () => {
+    const metaEndpoint = 'https://airy-beaded-caravel.glitch.me/meta-business-suite.json';
     const resp = await fetch(metaEndpoint);
     if (resp.ok) {
         const data = await resp.json();
