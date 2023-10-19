@@ -140,4 +140,4 @@ public/media/
 *.css.map
 
 # Puppeteer data
-automaton/userData
+userData
