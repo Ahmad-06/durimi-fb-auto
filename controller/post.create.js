@@ -144,7 +144,7 @@ module.exports = async (post, auth) => {
 
     // Type the post message if it exists.
     const message = post.message;
-    if (message !== null || message !== 'null' || message !== '') {
+    if (message !== null && message !== 'null' && message !== '') {
         try {
             const dialog = selector.dialogueBox;
             await page.click(dialog);
@@ -171,7 +171,7 @@ module.exports = async (post, auth) => {
 
     // Connect the link to the post if it exists.
     const link = post.link;
-    if (link !== null || link !== 'null' || link !== '') {
+    if (link !== null && link !== 'null' && link !== '') {
         try {
             await page.click(selector.linkPreview);
             await sleep(1000);
