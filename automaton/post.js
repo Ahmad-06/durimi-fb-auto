@@ -5,7 +5,7 @@ const { sleep } = require('../utils/utils');
 
 module.exports = async (post, auth) => {
     const browser = await puppeteer.launch({
-        headless: 'new',
+        headless: false,
         defaultViewport: null,
         args: ['--start-maximized', '--disable-notifications'],
         userDataDir: path.join(__dirname, 'userData'),
@@ -348,30 +348,40 @@ module.exports = async (post, auth) => {
         const inputField = post?.context === 'group' ? groupField : pageField;
 
         if (post?.link !== '' && post?.link !== null) {
-            try {
-                await page?.type(inputField, post?.link, { delay: 25 });
+            for (let i = 1; i > 0; i++) {
+                try {
+                    await page?.type(inputField, post?.link, { delay: 25 });
 
-                await sleep(7000);
+                    await sleep(7000);
 
-                await page?.click(inputField, { clickCount: 3 });
+                    await page?.click(inputField, { clickCount: 3 });
 
-                await page?.keyboard.press('Backspace');
+                    await page?.keyboard.press('Backspace');
 
-                await sleep(1000);
-            } catch (err) {
-                if (err) {
-                    await browser?.close();
+                    await sleep(1000);
 
-                    return {
-                        success: false,
-                        data: null,
-                        error: {
-                            code: 714,
-                            type: 'Puppeteer error.',
-                            moment: 'Typing in the post link.',
-                            error: err.toString(),
-                        },
-                    };
+                    try {
+                        if (await page.waitForSelector('[aria-label="Creating link preview"]')) {
+                            break;
+                        }
+                    } catch (err) {
+                        if (err) continue;
+                    }
+                } catch (err) {
+                    if (err) {
+                        await browser?.close();
+
+                        return {
+                            success: false,
+                            data: null,
+                            error: {
+                                code: 714,
+                                type: 'Puppeteer error.',
+                                moment: 'Typing in the post link.',
+                                error: err.toString(),
+                            },
+                        };
+                    }
                 }
             }
         }
