@@ -245,18 +245,48 @@ module.exports = async (post, auth) => {
         if (post?.context === 'group') {
             try {
                 const fileUploadHandler = 'div[aria-label="Photo/video"][role=button]';
-                await page?.click(fileUploadHandler);
-
                 const fileInputHandler = 'input[type=file][multiple]';
-                await page?.waitForSelector(fileInputHandler);
-                const fileInput = await page?.$(fileInputHandler);
-                const file = fileInput;
+                let xyz = false;
 
-                for (let i = 0; i < post?.media?.length; i++) {
-                    const image = post?.media[i];
-                    const imagePath = path.join(__dirname, '..', 'public', 'media', image);
+                try {
+                    await page?.waitForSelector(fileInputHandler, { timeout: 2500 });
+                } catch (err) {
+                    if (err) xyz = true;
+                }
 
-                    await file.uploadFile(imagePath);
+                console.log('XYZ is now: ', xyz);
+
+                if (xyz) {
+                    await page?.click(fileUploadHandler);
+                    await page?.waitForSelector(fileInputHandler);
+                    const fileInputSingle = await page?.$(fileInputHandler);
+
+                    const mediaPath = path.join(__dirname, '..', 'public', 'media');
+
+                    await fileInputSingle.uploadFile(path.join(mediaPath, post?.media[0]));
+
+                    if (post?.media?.length > 1) {
+                        await page?.waitForSelector(fileInputHandler);
+                        const fileInputMulti = await page?.$(fileInputHandler);
+
+                        for (let i = 0; i < post?.media?.length; i++) {
+                            if (i !== 0) {
+                                fileInputMulti.uploadFile(path.join(mediaPath, post?.media[i]));
+                            }
+                        }
+                    }
+                } else {
+                    const fileInputHandler = 'input[type=file][multiple]';
+                    await page?.waitForSelector(fileInputHandler);
+                    const fileInput = await page?.$$(fileInputHandler);
+                    const file = fileInput[1];
+
+                    for (let i = 0; i < post?.media?.length; i++) {
+                        const image = post?.media[i];
+                        const imagePath = path.join(__dirname, '..', 'public', 'media', image);
+
+                        await file.uploadFile(imagePath);
+                    }
                 }
             } catch (err) {
                 if (err) {
