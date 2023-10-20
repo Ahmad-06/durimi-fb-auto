@@ -5,7 +5,7 @@ const { sleep } = require('../utils/utils');
 
 module.exports = async (post, auth) => {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: 'new',
         defaultViewport: null,
         args: ['--start-maximized', '--disable-notifications'],
         userDataDir: path.join(__dirname, 'userData'),
@@ -244,9 +244,13 @@ module.exports = async (post, auth) => {
     if (post?.media?.length > 0 && post?.media !== null && post?.media !== '') {
         if (post?.context === 'group') {
             try {
+                const fileUploadHandler = 'div[aria-label="Photo/video"][role=button]';
+                await page?.click(fileUploadHandler);
+
                 const fileInputHandler = 'input[type=file][multiple]';
-                const fileInput = await page?.$$(fileInputHandler);
-                const file = fileInput[1];
+                await page?.waitForSelector(fileInputHandler);
+                const fileInput = await page?.$(fileInputHandler);
+                const file = fileInput;
 
                 for (let i = 0; i < post?.media?.length; i++) {
                     const image = post?.media[i];
