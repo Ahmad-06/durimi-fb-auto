@@ -18,6 +18,12 @@ const auth = {
 };
 
 module.exports = async (posts, db) => {
+    let end_result = {
+        success: true,
+        publish_errors: [],
+        delete_errors: [],
+    };
+
     if (posts.length > 0) {
         // Standardize the data.
         for (let i = 0; i < posts.length; i++) {
@@ -42,7 +48,7 @@ module.exports = async (posts, db) => {
                 const res = await pub.meta(post, auth);
 
                 if (!res.success)
-                    console.error({
+                    end_result.publish_errors.push({
                         message: 'Failed to post to the page.',
                         adapatar: 'Meta',
                         post,
@@ -63,7 +69,7 @@ module.exports = async (posts, db) => {
                         const res = await pub.post(post, auth);
 
                         if (!res.success) {
-                            console.error({
+                            end_result.publish_errors.push({
                                 message: 'Failed to post to the group.',
                                 adaptor: 'Legacy',
                                 post,
@@ -85,15 +91,9 @@ module.exports = async (posts, db) => {
                                 const params = [post.id];
 
                                 await db.run(query, params);
-
-                                return {
-                                    success: true,
-                                    data: null,
-                                    error: null,
-                                };
                             } catch (err) {
                                 if (err) {
-                                    return {
+                                    end_result.delete_errors.push({
                                         success: false,
                                         data: null,
                                         error: {
@@ -102,7 +102,7 @@ module.exports = async (posts, db) => {
                                             moment: 'Deleting post from the database.',
                                             error: err.toString(),
                                         },
-                                    };
+                                    });
                                 }
                             }
                         } else {
@@ -119,15 +119,9 @@ module.exports = async (posts, db) => {
                                     const params = [post.id];
 
                                     await db.run(query, params);
-
-                                    return {
-                                        success: true,
-                                        data: null,
-                                        error: null,
-                                    };
                                 } catch (err) {
                                     if (err) {
-                                        return {
+                                        end_result.delete_errors.push({
                                             success: false,
                                             data: null,
                                             error: {
@@ -136,7 +130,7 @@ module.exports = async (posts, db) => {
                                                 moment: 'Deleting post from the database.',
                                                 error: err.toString(),
                                             },
-                                        };
+                                        });
                                     }
                                 }
                             }
@@ -147,7 +141,12 @@ module.exports = async (posts, db) => {
                 const res = await pub.post(post, auth);
 
                 if (!res.success)
-                    console.error({ message: 'Failed to post to the page.', adaptar: 'Legacy', post, res });
+                    end_result.publish_errors.push({
+                        message: 'Failed to post to the page.',
+                        adaptar: 'Legacy',
+                        post,
+                        res,
+                    });
 
                 if (post?.groups?.length > 0) {
                     const groups = post?.groups;
@@ -163,7 +162,7 @@ module.exports = async (posts, db) => {
                         const res = await pub.post(post, auth);
 
                         if (!res.success) {
-                            console.error({
+                            end_result.publish_errors.push({
                                 message: 'Failed to post to the group.',
                                 adaptar: 'Legacy',
                                 post,
@@ -185,15 +184,9 @@ module.exports = async (posts, db) => {
                                 const params = [post.id];
 
                                 await db.run(query, params);
-
-                                return {
-                                    success: true,
-                                    data: null,
-                                    error: null,
-                                };
                             } catch (err) {
                                 if (err) {
-                                    return {
+                                    end_result.delete_errors.push({
                                         success: false,
                                         data: null,
                                         error: {
@@ -202,7 +195,7 @@ module.exports = async (posts, db) => {
                                             moment: 'Deleting post from the database.',
                                             error: err.toString(),
                                         },
-                                    };
+                                    });
                                 }
                             }
                         }
@@ -221,15 +214,9 @@ module.exports = async (posts, db) => {
                             const params = [post.id];
 
                             await db.run(query, params);
-
-                            return {
-                                success: true,
-                                data: null,
-                                error: null,
-                            };
                         } catch (err) {
                             if (err) {
-                                return {
+                                end_result.delete_errors.push({
                                     success: false,
                                     data: null,
                                     error: {
@@ -238,7 +225,7 @@ module.exports = async (posts, db) => {
                                         moment: 'Deleting post from the database.',
                                         error: err.toString(),
                                     },
-                                };
+                                });
                             }
                         }
                     }
@@ -246,4 +233,18 @@ module.exports = async (posts, db) => {
             }
         }
     }
+
+    return end_result.delete_errors.length > 0 || end_result.publish_errors.length > 0
+        ? {
+              success: false,
+              data: null,
+              error: {
+                  code: 3003,
+                  type: 'PubSub-Unified-Error-Interface',
+                  moment: 'PubSub-Unified-Publication',
+                  error: 'Various errors were encountered while trying to publish posts to Pages/Groups and/or removing them from the Database.',
+                  description: { delete_erros: end_result.delete_errors, publish_errors: end_result.publish_errors },
+              },
+          }
+        : end_result;
 };
