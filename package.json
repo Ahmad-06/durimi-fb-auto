@@ -35,7 +35,8 @@
         "start": "node .",
         "start:dev": "nodemon -e js,html",
         "start:sass": "sass --watch sass:public/css",
-        "build:sass": "sass sass:public/css"
+        "build:sass": "sass sass:public/css",
+        "migrate": "node data/migrate.js"
     },
     "version": "0.0.1"
 }
