@@ -7,20 +7,9 @@ const openDB = require('../../../../../data/openDB');
 
 const { isValidURL, isJSONParsable, saveBase64MediaToFileSystem } = require('../../../../../utils/utils');
 
-const publishPost = require('../../../../../automaton/post');
-
 const { loggedIn } = require('../../../../../utils/loggedIn');
 
-const auth = {
-    publisher: {
-        page: process.env.PAGE_NAME,
-        user: process.env.PROFILE_NAME,
-    },
-    context: {
-        page: process.env.PAGE_LINK,
-        group: process.env.GROUP_LINK,
-    },
-};
+const pubsub = require('../../../../../utils/pubsub');
 
 publish.post('/', loggedIn, async (req, res) => {
     // Create a database connection.
@@ -30,6 +19,8 @@ publish.post('/', loggedIn, async (req, res) => {
     const message = req?.body?.message ? req?.body?.message : null;
     const link = req?.body?.link ? req?.body?.link : null;
     let media = req?.body?.media && req?.body?.media !== '[]' ? req?.body?.media : null;
+    const groups =
+        req?.body?.groups && req?.body?.groups?.length > 0 && req?.body?.groups !== '[]' ? req?.body?.groups : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
 
@@ -52,8 +43,9 @@ publish.post('/', loggedIn, async (req, res) => {
         }
 
         const post = await db.get('SELECT * FROM posts WHERE id = ?', [id]);
+        const posts = [post];
 
-        const response = await handlePostPublication(post, auth, db);
+        const response = await pubsub(posts, db);
 
         if (response.success === false) {
             return res.status(500).json(response);
@@ -156,6 +148,31 @@ publish.post('/', loggedIn, async (req, res) => {
             });
         }
 
+        // Verify the groups.
+        if (groups !== null && groups.length > 0) {
+            let status = false;
+            for (let i = 0; i < groups.length; i++) {
+                if (!Number.isInteger(groups[i])) {
+                    status = true;
+                    break;
+                }
+            }
+            if (status) {
+                return res.status(400).json({
+                    success: false,
+                    data: null,
+                    error: {
+                        code: 400,
+                        type: 'Invalid user input.',
+                        route: '/api/v1/posts/create',
+                        moment: 'Validating groups submitted by the user.',
+                        message:
+                            "The groups you submitted is invalid. Make sure it's an array of integer IDs representing each group.",
+                    },
+                });
+            }
+        }
+
         media = media !== null ? JSON.parse(media) : null;
         const images = media !== null ? saveBase64MediaToFileSystem(media) : null;
 
@@ -163,11 +180,14 @@ publish.post('/', loggedIn, async (req, res) => {
             message,
             link,
             media: JSON.stringify(images),
+            groups: JSON.stringify(groups),
             context,
             publisher,
         };
 
-        const response = await handleNakedPostPublication(post, auth, db);
+        const posts = [post];
+
+        const response = await pubsub(posts, db);
 
         if (response.success === false) {
             return res.status(500).json(response);
@@ -180,211 +200,3 @@ publish.post('/', loggedIn, async (req, res) => {
         }
     }
 });
-
-const handlePostPublication = async (post, auth, db) => {
-    let content = {
-        message: post.message === null || post.message === 'null' ? '' : post.message,
-        link: post.link === null || post.link === 'null' ? '' : post.link,
-        media: post.media === null || post.media === 'null' ? [] : JSON.parse(post.media),
-        context: post.context,
-        publisher: post.publisher,
-    };
-
-    // Set the post as active before handing it over for publication.
-    try {
-        const query = `
-            UPDATE
-                posts
-            SET
-                status = 'active'
-            WHERE
-                id = ?;
-        `;
-        const params = [post.id];
-
-        await db.run(query, params);
-    } catch (err) {
-        if (err) {
-            await db.close();
-
-            return {
-                success: false,
-                data: null,
-                error: {
-                    code: 500,
-                    type: 'Cron runner error.',
-                    moment: 'Trying to set post as active for publishing.',
-                    error: err.toString(),
-                },
-            };
-        }
-    }
-
-    const { success, error } = await publishPost(content, auth);
-
-    if (success) {
-        const response = await deletePost(post.id, db);
-
-        return response;
-    }
-
-    if (!success) {
-        // Set the post as inactive so it can be published again in the next run.
-        try {
-            const query = `
-            UPDATE
-                posts
-            SET
-                status = 'inactive'
-            WHERE
-                id = ?;
-        `;
-            const params = [post.id];
-
-            await db.run(query, params);
-
-            return {
-                success: false,
-                data: null,
-                error,
-            };
-        } catch (err) {
-            if (err) {
-                await db.close();
-
-                return console.error({
-                    success: false,
-                    data: null,
-                    error: {
-                        code: 500,
-                        type: 'Cron runner error.',
-                        moment: 'Trying to set post as active for publishing.',
-                        error: err.toString(),
-                    },
-                });
-            }
-        }
-    }
-};
-
-const deletePost = async (id, db) => {
-    try {
-        const query = `
-            DELETE
-                FROM
-                    posts
-                WHERE
-                    id = ?;
-        `;
-        const params = [id];
-
-        await db.run(query, params);
-
-        return {
-            success: true,
-            data: null,
-            error: null,
-        };
-    } catch (err) {
-        if (err) {
-            return {
-                success: false,
-                data: null,
-                error: {
-                    code: 500,
-                    type: 'Internal server error.',
-                    moment: 'Deleting post from the database.',
-                    error: err.toString(),
-                },
-            };
-        }
-    }
-};
-
-const handleNakedPostPublication = async (post, auth, db) => {
-    let content = {
-        message: post.message === null || post.message === 'null' ? '' : post.message,
-        link: post.link === null || post.link === 'null' ? '' : post.link,
-        media: post.media === null || post.media === 'null' ? [] : JSON.parse(post.media),
-        context: post.context,
-        publisher: post.publisher,
-    };
-
-    // Set the post as active before handing it over for publication.
-    try {
-        const query = `
-            UPDATE
-                posts
-            SET
-                status = 'active'
-            WHERE
-                id = ?;
-        `;
-        const params = [post.id];
-
-        await db.run(query, params);
-    } catch (err) {
-        if (err) {
-            await db.close();
-
-            return {
-                success: false,
-                data: null,
-                error: {
-                    code: 500,
-                    type: 'Cron runner error.',
-                    moment: 'Trying to set post as active for publishing.',
-                    error: err.toString(),
-                },
-            };
-        }
-    }
-
-    const { success, error } = await publishPost(content, auth);
-
-    if (success) {
-        return {
-            success: true,
-            data: null,
-            error: null,
-        };
-    }
-
-    if (!success) {
-        // Set the post as inactive so it can be published again in the next run.
-        try {
-            const query = `
-            UPDATE
-                posts
-            SET
-                status = 'inactive'
-            WHERE
-                id = ?;
-        `;
-            const params = [post.id];
-
-            await db.run(query, params);
-
-            return {
-                success: false,
-                data: null,
-                error,
-            };
-        } catch (err) {
-            if (err) {
-                await db.close();
-
-                return console.error({
-                    success: false,
-                    data: null,
-                    error: {
-                        code: 500,
-                        type: 'Cron runner error.',
-                        moment: 'Trying to set post as active for publishing.',
-                        error: err.toString(),
-                    },
-                });
-            }
-        }
-    }
-};
