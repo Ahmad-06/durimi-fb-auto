@@ -254,8 +254,6 @@ module.exports = async (post, auth) => {
                     if (err) xyz = true;
                 }
 
-                console.log('XYZ is now: ', xyz);
-
                 if (xyz) {
                     await page?.click(fileUploadHandler);
                     await page?.waitForSelector(fileInputHandler);
