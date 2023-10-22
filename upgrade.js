@@ -79,4 +79,10 @@ const db_migrate = require('./data/migrate');
         console.log('[2] Database Migration Completed...');
         console.log('----------');
     }
+
+    await sleep(1500);
+    console.log('\n\n');
+    console.log('----------');
+    console.log('Completed application upgrade...');
+    console.log('----------');
 })();
