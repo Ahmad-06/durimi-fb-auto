@@ -1,7 +1,9 @@
-const { readFileSync } = require('node:fs');
+const { readFileSync, renameSync, writeFileSync } = require('node:fs');
 const { execSync } = require('node:child_process');
 
 const { sleep } = require('./utils/utils');
+
+const db_migrate = require('./data/migrate');
 
 (async () => {
     console.log('----------');
@@ -44,6 +46,37 @@ const { sleep } = require('./utils/utils');
 
         console.log('----------');
         console.log('[2] Halted the Database Migration process...');
+        console.log('----------');
+    } else {
+        console.log('\nMoving the current database to old.db...');
+        renameSync('./data/data.db', './data/old.db');
+        await sleep(1500);
+
+        console.log('\nExecuting the migration...\n');
+        await sleep(1500);
+
+        await db_migrate();
+
+        await sleep(1500);
+        console.log('\nCleaning up the migration...\n');
+
+        const datetime = `${new Date().getFullYear()}-${
+            new Date().getMonth() < 10 ? '0' : ''
+        }${new Date().getMonth()}-${new Date().getDate() < 10 ? '0' : ''}${new Date().getDate()}T${
+            new Date().getHours() < 10 ? '0' : ''
+        }${new Date().getHours()}${new Date().getMinutes() < 10 ? '0' : ''}${new Date().getMinutes()}${
+            new Date().getSeconds() < 10 ? '0' : ''
+        }${new Date().getSeconds()}`;
+        renameSync('./data/old.db', `./data/backups/data-backup-${datetime}.db`);
+        await sleep(1500);
+
+        upgraded_db_schema.migrate = false;
+        writeFileSync('./data/schema.json', `${JSON.stringify(upgraded_db_schema, null, 4)}\n`);
+        console.log('Disabling the migration flag until the next update...\n');
+        await sleep(1500);
+
+        console.log('----------');
+        console.log('[2] Database Migration Completed...');
         console.log('----------');
     }
 })();
