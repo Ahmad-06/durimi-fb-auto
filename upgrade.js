@@ -20,7 +20,7 @@ const db_migrate = require('./data/migrate');
     await sleep(1500);
 
     try {
-        execSync('git pull origin feat-upgrade-script');
+        execSync('git pull origin main');
     } catch (err) {
         if (err) return console.error('There was an error when upgrading the source code: \n', error);
     }
