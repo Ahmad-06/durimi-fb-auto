@@ -36,7 +36,7 @@
         "start:dev": "nodemon -e js,html",
         "start:sass": "sass --watch sass:public/css",
         "build:sass": "sass sass:public/css",
-        "migrate": "node data/migrate.js"
+        "upgrade": "node upgrade.js"
     },
     "version": "0.0.1"
 }
