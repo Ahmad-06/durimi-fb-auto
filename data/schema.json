@@ -2,7 +2,11 @@
     "updated": "2023-10-22T00:00",
     "migrate": false,
     "table": {
-        "users": ["id", "username", "password"],
+        "users": [
+            "id",
+            "username",
+            "password"
+        ],
         "posts": [
             "id",
             "type",
@@ -17,7 +21,17 @@
             "priority",
             "status"
         ],
-        "groups": ["id", "name", "link"],
-        "timesheet": ["id", "day", "time", "time_formatted", "priority"]
+        "groups": [
+            "id",
+            "name",
+            "link"
+        ],
+        "timesheet": [
+            "id",
+            "day",
+            "time",
+            "time_formatted",
+            "priority"
+        ]
     }
 }
