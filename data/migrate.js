@@ -2,6 +2,8 @@ const path = require('path');
 const { open } = require('sqlite');
 const sqlite3 = require('sqlite3');
 
+const { sleep } = require('../utils/utils');
+
 const openMG = () => {
     return open({
         filename: path.join(__dirname, 'old.db'),
@@ -27,6 +29,7 @@ module.exports = async () => {
     // Migrate the old users to the new one.
     try {
         console.log('[1] Migrating the user details...');
+        await sleep(1500);
         const users = await db.old.all('SELECT * FROM Users');
         if (users?.length > 0) {
             for (let i = 0; i < users.length; i++) {
@@ -56,6 +59,7 @@ module.exports = async () => {
     // Migrate the old timeslots to the new one
     try {
         console.log('[2] Migrating the timesheet...');
+        await sleep(1500);
         const timeslots = await db.old.all('SELECT * FROM Timesheet');
         if (timeslots?.length > 0) {
             for (let i = 0; i < timeslots.length; i++) {
@@ -85,6 +89,7 @@ module.exports = async () => {
     // Migrate the old posts to the new one
     try {
         console.log('[3] Migrating the posts...');
+        await sleep(1500);
         const posts = await db.old.all('SELECT * FROM Posts');
         if (posts?.length > 0) {
             for (let i = 0; i < posts.length; i++) {
@@ -129,6 +134,9 @@ module.exports = async () => {
             console.error('[3] There was an error when migrating the posts: ', err);
         }
     }
+
+    await db.new.close();
+    await db.old.close();
 
     console.log('Database migration finished successfully!');
     console.log('---------------');
