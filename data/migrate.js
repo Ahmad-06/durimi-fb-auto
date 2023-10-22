@@ -12,7 +12,7 @@ const openMG = () => {
 const openDB = require('./openDB');
 const seedDB = require('./seedDB');
 
-(async () => {
+module.exports = async () => {
     // Seed the new database.
     await seedDB();
 
@@ -40,6 +40,8 @@ const seedDB = require('./seedDB');
                     ) VALUES (?, ?);
                 `;
                 const params = [user.username, user.password];
+
+                await db.new.run('DELETE FROM Users WHERE username = ?;', [user.username]);
 
                 await db.new.run(query, params);
             }
@@ -130,4 +132,4 @@ const seedDB = require('./seedDB');
 
     console.log('Database migration finished successfully!');
     console.log('---------------');
-})();
+};
