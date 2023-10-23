@@ -34,6 +34,26 @@ const db_migrate = require('./data/migrate');
 
     console.log('\n\n');
     console.log('----------');
+    console.log('[2] Generating the stylesheets...');
+    console.log('----------');
+
+    await sleep(1500);
+
+    try {
+        const message = Buffer.from(execSync('npm run build:sass')).toString();
+        console.log(message);
+    } catch (err) {
+        if (err) return console.error('There was an error when generating new stylesheets: \n', err);
+    }
+
+    await sleep(1500);
+
+    console.log('----------');
+    console.log('[2] Successfully generated stylesheets...');
+    console.log('----------');
+
+    console.log('\n\n');
+    console.log('----------');
     console.log('[2] Starting Database Migration...');
     console.log('----------');
 
