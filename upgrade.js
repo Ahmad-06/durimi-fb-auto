@@ -22,7 +22,7 @@ const db_migrate = require('./data/migrate');
     try {
         execSync('git pull origin main', { windowsHide: true });
     } catch (err) {
-        if (err) return console.error('There was an error when upgrading the source code: \n', error);
+        if (err) return console.error('There was an error when upgrading the source code: \n', err);
     }
 
     await sleep(1500);
