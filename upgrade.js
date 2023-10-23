@@ -20,7 +20,7 @@ const db_migrate = require('./data/migrate');
     await sleep(1500);
 
     try {
-        execSync('git pull origin main');
+        execSync('git pull origin main', { windowsHide: true });
     } catch (err) {
         if (err) return console.error('There was an error when upgrading the source code: \n', error);
     }
@@ -40,7 +40,7 @@ const db_migrate = require('./data/migrate');
     await sleep(1500);
 
     try {
-        const message = Buffer.from(execSync('npm run build:sass')).toString();
+        const message = Buffer.from(execSync('npm run build:sass', { windowsHide: true })).toString();
         console.log(message);
     } catch (err) {
         if (err) return console.error('There was an error when generating new stylesheets: \n', err);

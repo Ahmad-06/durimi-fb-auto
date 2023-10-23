@@ -3,9 +3,11 @@ const { execSync } = require('node:child_process');
 const fetch = require('node-fetch');
 
 const getLocalCommit = () => {
-    const commitHash = Buffer.from(execSync('git rev-parse HEAD')).toString().replace('\n', '');
+    const commitHash = Buffer.from(execSync('git rev-parse HEAD', { windowsHide: true }))
+        .toString()
+        .replace('\n', '');
     const commitTime = new Date(
-        Buffer.from(execSync(`git show --no-patch --format=%ci ${commitHash}`))
+        Buffer.from(execSync(`git show --no-patch --format=%ci ${commitHash}`, { windowsHide: true }))
             .toString()
             .replace('\n', ''),
     ).getTime();
