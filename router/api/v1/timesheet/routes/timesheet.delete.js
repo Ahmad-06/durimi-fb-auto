@@ -7,6 +7,45 @@ const openDB = require('../../../../../data/openDB');
 
 const { loggedIn } = require('../../../../../utils/loggedIn');
 
+DELETE.delete('/all', loggedIn, async (req, res) => {
+    // Connect to the database.
+    const db = await openDB();
+
+    try {
+        const query = `
+            DELETE
+                FROM
+                    Timesheet;
+        `;
+
+        await db.run(query);
+
+        await db.close();
+
+        return res.json({
+            success: true,
+            data: null,
+            error: null,
+        });
+    } catch (err) {
+        if (err) {
+            await db.close();
+
+            return res.status(500).json({
+                success: false,
+                data: null,
+                error: {
+                    code: 500,
+                    type: 'Internal server error.',
+                    route: '/api/v1/timesheet/delete/all',
+                    moment: 'Deleting all timeslots from the database.',
+                    message: err.toString(),
+                },
+            });
+        }
+    }
+});
+
 DELETE.delete('/', loggedIn, async (req, res) => {
     // Connect to the database.
     const db = await openDB();

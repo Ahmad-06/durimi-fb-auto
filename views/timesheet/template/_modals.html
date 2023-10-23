@@ -70,6 +70,27 @@
     </section>
 </div>
 
+<!-- THE PURGE MODAL -->
+<div id="modal-purge" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-purge-heading" class="modal-heading">Purge Timesheet</h3>
+
+    <!-- THE MESSAGE -->
+    <p id="modal-purge-message" class="modal-message">
+        Are you sure you want to purge the Timesheet? This will remove all timeslots from the database and cannot be
+        reversed!
+    </p>
+
+    <!-- THE MODAL BUTTONS -->
+    <section id="modal-purge-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-secondary" onclick="closeModal('modal-purge')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="purgeTimesheet()">Purge!</button>
+    </section>
+</div>
+
 <style>
     #picker {
         position: fixed;
