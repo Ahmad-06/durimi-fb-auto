@@ -44,7 +44,10 @@ module.exports = async (posts, db) => {
                 post.groups = groups;
             }
 
-            if (post?.media === null || post?.media?.length < 1) {
+            if (
+                (post?.media === null || post?.media?.length < 1) &&
+                (post.context !== 'group' || post.publisher !== 'user')
+            ) {
                 const res = await pub.meta(post, auth);
 
                 if (!res.success)
