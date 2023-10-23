@@ -12,10 +12,12 @@
 {% block content %}
 <!-- THE TIMESHEET ACTIONS -->
 <div id="timesheet-actions">
+    {% if timeslots.length > 0 %}
     <!-- THE TIMESHEET DELETE -->
     <button class="timesheet-action timesheet-delete" onclick="openModal('modal-purge')">
         <i class="fa-regular fa-trash-can"></i>
     </button>
+    {% endif %}
 </div>
 
 <!-- THE TIMESHEET -->
