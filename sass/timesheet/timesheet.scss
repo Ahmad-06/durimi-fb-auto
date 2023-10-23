@@ -6,6 +6,37 @@ body {
     }
     #content {
         .container {
+            flex-direction: column;
+            gap: 25px;
+
+            #timesheet-actions {
+                height: 50px;
+                width: 50px;
+                display: grid;
+
+                .timesheet-action {
+                    color: $blue;
+                    border: 3px solid $blue;
+                    font-size: 18px;
+                    background: transparent;
+                    cursor: pointer;
+
+                    &.timesheet-delete {
+                        color: $red;
+                        border-color: $red;
+                    }
+
+                    &:hover {
+                        box-shadow: 3px 3px $light;
+
+                        &:active {
+                            box-shadow: none;
+                            transform: translate(3px, 3px);
+                        }
+                    }
+                }
+            }
+
             #timesheet {
                 width: calc(100vw - 50px);
                 max-width: 1000px;
@@ -189,7 +220,8 @@ body {
                     border-color: $green;
                 }
 
-                &#modal-delete {
+                &#modal-delete,
+                &#modal-purge {
                     border-color: $red;
                 }
 
@@ -227,6 +259,14 @@ body {
                     &#modal-create-heading {
                         color: $blue;
                     }
+
+                    &#modal-purge-heading {
+                        color: $red;
+                    }
+                }
+
+                .modal-message {
+                    text-transform: uppercase;
                 }
 
                 .modal-buttons {
