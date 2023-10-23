@@ -8,7 +8,7 @@
         <!-- THE STYLES BLOCK -->
         {% block styles %} {% endblock %}
     </head>
-    <body>
+    <body class="update-indicator-visible">
         <!-- THE HEADER -->
         <header id="header">
             <!-- THE CONTAINER -->
@@ -148,6 +148,7 @@
         <script src="/js/base/handleLogin.js"></script>
         <script src="/js/base/handleError.js"></script>
         <script src="/js/base/handleIndicator.js"></script>
+        <script src="/js/base/silenceUpdateNotification.js"></script>
 
         <!-- THE SCRIPTS BLOCK -->
         {% block scripts %} {% endblock %}

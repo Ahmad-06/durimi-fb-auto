@@ -12,7 +12,11 @@ body {
 
     display: grid;
     grid-gap: 25px;
-    grid-template-rows: 75px 50px 50px auto 50px;
+    grid-template-rows: 75px 50px auto 50px;
+
+    &.update-indicator-visible {
+        grid-template-rows: 75px 50px 50px auto 50px;
+    }
 
     .mobile-enabled {
         @media screen and (min-width: 575px) {
