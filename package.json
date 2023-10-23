@@ -38,5 +38,5 @@
         "build:sass": "sass sass:public/css",
         "upgrade": "node upgrade.js"
     },
-    "version": "1.7.2"
+    "version": "1.7.3"
 }
