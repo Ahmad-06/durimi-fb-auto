@@ -17,7 +17,7 @@ const getLocalCommit = () => {
 };
 
 const getRemoteCommit = async () => {
-    const resp = await fetch('https://api.github.com/repos/ahmad-06/durimi-fb-auto/commits/main');
+    const resp = await fetch('https://vultr-api.srvr.run/commit');
     const data = await resp.json();
 
     const commitHash = data.sha;
