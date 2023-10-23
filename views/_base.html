@@ -58,6 +58,16 @@
             </div>
         </section>
 
+        <!-- THE UPDATE INDICATOR -->
+        <section id="update-indicator" class="hidden">
+            <!-- THE CONTAINER -->
+            <div class="container">
+                <!-- THE UPDATE MESSAGE -->
+                <h3 id="update-message">A new update is available!</h3>
+                <button id="update-message-close" onclick="silenceUpdateNotification()">OK</button>
+            </div>
+        </section>
+
         <!-- THE CONTENT -->
         <main id="content">
             <!-- THE CONTAINER -->
@@ -102,6 +112,7 @@
             let api = {
                 misc: {
                     login: `${apiMiscURL}/login`,
+                    update: `${apiMiscURL}/update`,
                     indicator: `${apiMiscURL}/indicator`,
                 },
                 posts: {
@@ -138,6 +149,8 @@
         <script src="/js/base/handleLogin.js"></script>
         <script src="/js/base/handleError.js"></script>
         <script src="/js/base/handleIndicator.js"></script>
+        <script src="/js/base/silenceUpdateNotification.js"></script>
+        <script src="/js/base/checkForUpdate.js"></script>
 
         <!-- THE SCRIPTS BLOCK -->
         {% block scripts %} {% endblock %}

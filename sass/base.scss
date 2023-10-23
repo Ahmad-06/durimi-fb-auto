@@ -14,6 +14,10 @@ body {
     grid-gap: 25px;
     grid-template-rows: 75px 50px auto 50px;
 
+    &.update-indicator-visible {
+        grid-template-rows: 75px 50px 50px auto 50px;
+    }
+
     .mobile-enabled {
         @media screen and (min-width: 575px) {
             display: none;
@@ -136,6 +140,48 @@ body {
                 font-size: 20px;
                 font-weight: bold;
                 text-transform: uppercase;
+            }
+        }
+    }
+
+    #update-indicator {
+        width: calc(100% - 50px);
+        max-width: 350px;
+        justify-self: center;
+        box-shadow: 0 0 0 2px $green;
+
+        .container {
+            height: 50px;
+            align-items: center;
+
+            display: grid;
+            grid-gap: 25px;
+            grid-template-columns: 1fr 40px;
+
+            #update-message {
+                font-weight: bold;
+                text-transform: uppercase;
+                color: $green;
+                font-size: 14px;
+            }
+
+            #update-message-close {
+                height: 40px;
+                width: 40px;
+                cursor: pointer;
+
+                color: $dark;
+                font-weight: bolder;
+                background-color: $red;
+
+                &:hover {
+                    box-shadow: 2px 2px $light;
+
+                    &:active {
+                        box-shadow: none;
+                        transform: translate(2px, 2px);
+                    }
+                }
             }
         }
     }

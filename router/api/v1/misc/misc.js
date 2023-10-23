@@ -4,4 +4,5 @@ const misc = express.Router();
 module.exports = misc;
 
 misc.use('/login', require('./login/login'));
+misc.use('/update', require('./update/update'));
 misc.use('/indicator', require('./indicator/indicator'));
