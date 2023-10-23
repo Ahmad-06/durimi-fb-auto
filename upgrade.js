@@ -54,7 +54,7 @@ const db_migrate = require('./data/migrate');
 
     console.log('\n\n');
     console.log('----------');
-    console.log('[2] Starting Database Migration...');
+    console.log('[3] Starting Database Migration...');
     console.log('----------');
 
     const upgraded_db_schema = JSON.parse(readFileSync('./data/schema.json'));
@@ -65,7 +65,7 @@ const db_migrate = require('./data/migrate');
         console.log('No Database Migration is required for this iteration!');
 
         console.log('----------');
-        console.log('[2] Halted the Database Migration process...');
+        console.log('[3] Halted the Database Migration process...');
         console.log('----------');
     } else {
         console.log('\nMoving the current database to old.db...');
@@ -96,7 +96,7 @@ const db_migrate = require('./data/migrate');
         await sleep(1500);
 
         console.log('----------');
-        console.log('[2] Database Migration Completed...');
+        console.log('[3] Database Migration Completed...');
         console.log('----------');
     }
 
