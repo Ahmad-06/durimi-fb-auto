@@ -29,13 +29,16 @@
 
             <!-- THE GROUPS -->
             {% if groups.length > 0 %}
-            <button id="group-toggle" onclick="toggleGroupSelector()">
-                <span>Select Groups</span><span><i class="fa-solid fa-chevron-down group-toggle-icon"></i></span>
+            <button id="group-toggle" data-form-id="0" onclick="toggleGroupSelector('0')">
+                <span>Select Groups</span>
+                <span>
+                    <i class="fa-solid fa-chevron-down group-toggle-icon" data-form-id="0"></i>
+                </span>
             </button>
             <fieldset class="form-groups hidden" data-form-id="0">
                 {% for group in groups %}
-                <label for="group-{{ loop.index }}">
-                    <input type="checkbox" name="groups" id="group-{{ loop.index }}" value="{{ group.id }}" /> {{ group.name }}
+                <label for="group-{{ group.id }}-post-0">
+                    <input type="checkbox" name="groups" id="group-{{ group.id }}-post-0" value="{{ group.id }}" data-form-id="0" /> {{ group.name }}
                 </label>
                 {% endfor %}
             </fieldset>

@@ -11,12 +11,14 @@ const changePass = require('../../../utils/changePass');
 posts.get('/', loggedIn, changePass, async (req, res) => {
     const db = await openDB();
 
-    let groups, automated, scheduled;
+    let groups, automated, scheduled, all_groups;
 
     try {
         const query = 'SELECT * FROM groups;';
 
         groups = await db.all(query);
+
+        all_groups = groups;
 
         let new_groups = {};
 
@@ -52,6 +54,7 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
                 post_groups = post_groups_new;
 
                 automated[i].groups = post_groups;
+                automated[i].groups_string = JSON.stringify(post_groups);
             }
         }
     } catch (err) {
@@ -81,6 +84,7 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
                 post_groups = post_groups_new;
 
                 scheduled[i].groups = post_groups;
+                scheduled[i].groups_string = JSON.stringify(post_groups);
             }
         }
     } catch (err) {
@@ -94,6 +98,7 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
     }
 
     res.render('posts/posts', {
+        all_groups,
         posts: {
             automated,
             scheduled,
