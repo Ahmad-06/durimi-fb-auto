@@ -230,12 +230,13 @@
         }
 
         .form-media-gallery {
-            display: grid;
-            grid-gap: 25px;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            gap: 25px;
+            flex-direction: row;
+            overflow: auto;
 
             img {
-                aspect-ratio: 1 / 1;
+                max-height: 150px;
             }
 
             &:not(.secondary) {
