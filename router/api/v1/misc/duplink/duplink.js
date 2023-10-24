@@ -53,11 +53,11 @@ duplink.post('/', async (req, res) => {
         const post = await db.get(query, params);
 
         if (post) {
-            return {
+            return res.json({
                 success: false,
                 data: null,
                 error: null,
-            };
+            });
         }
     } catch (err) {
         if (err) {
@@ -77,9 +77,9 @@ duplink.post('/', async (req, res) => {
         }
     }
 
-    return {
+    return res.json({
         success: true,
         data: null,
         error: null,
-    };
+    });
 });

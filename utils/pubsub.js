@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const pub = {
     post: require('../automaton/post'),
@@ -266,11 +267,11 @@ module.exports = async (posts, db) => {
             },
         };
 
-        const errored_posts = JSON.parse(fs.readFileSync('../data/errored_posts.json'));
+        const errored_posts = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'errored_posts.json')));
 
         errored_posts.push(endest_result);
 
-        fs.writeFileSync('../data/errored_posts.json', JSON.stringify(errored_posts));
+        fs.writeFileSync(path.join(__dirname, '..', 'data', 'errored_posts.json'), JSON.stringify(errored_posts));
 
         return endest_result;
     } else {
