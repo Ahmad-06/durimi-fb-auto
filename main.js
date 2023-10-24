@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 try {
-    fs.writeFileSync('./data/errored_posts.json', JSON.stringify('[]'), { flag: 'wx' });
+    fs.writeFileSync('./data/errored_posts.json', JSON.stringify([]), { flag: 'wx' });
 } catch (err) {
     if (err.code !== 'EEXIST') console.error(err);
 }
