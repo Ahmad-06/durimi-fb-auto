@@ -3,7 +3,7 @@ const createPost = async (index, type) => {
     const apiEndpoint = type === 'publish' ? api.posts.publish : api.posts[apiType];
 
     let groups = [];
-    const groupInputs = document.querySelectorAll('input[name="groups"]:checked');
+    const groupInputs = document.querySelectorAll(`input[name="groups"][data-form-id="${index}"]:checked`);
 
     for (let i = 0; i < groupInputs.length; i++) {
         groups.push(parseInt(groupInputs[i].value));
