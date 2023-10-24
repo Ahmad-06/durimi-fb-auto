@@ -1,0 +1,75 @@
+#duplink-overlay {
+    z-index: 15;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+
+    opacity: 0.85;
+    background-color: $dark;
+}
+
+#duplink-modal {
+    z-index: 20;
+
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    max-width: 400px;
+
+    padding: 25px;
+    padding-bottom: 50px;
+    border: 3px solid $red;
+    background-color: $dark;
+
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+
+    #duplink-modal-heading {
+        text-transform: uppercase;
+        text-align: center;
+        color: $red;
+    }
+
+    #duplink-modal-message {
+        text-transform: uppercase;
+        text-align: center;
+        color: $yellow;
+    }
+
+    #duplink-modal-buttons {
+        display: grid;
+        grid-gap: 25px;
+        grid-template-columns: 1fr 1fr;
+
+        button {
+            height: 50px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            background: transparent;
+            border: 3px solid $yellow;
+            color: $yellow;
+
+            &:hover {
+                box-shadow: 3px 3px $light;
+
+                &:active {
+                    box-shadow: none;
+                    transform: translate(3px, 3px);
+                }
+            }
+
+            &#duplink-modal-create {
+                color: $red;
+                border-color: $red;
+            }
+        }
+    }
+}

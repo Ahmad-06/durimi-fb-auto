@@ -97,6 +97,22 @@
             </button>
         </div>
 
+        <!-- THE DUPLINK WARNING -->
+        <div id="duplink-overlay" class="hidden"></div>
+        <div id="duplink-modal" class="hidden">
+            <input type="number" id="duplink-modal-index" class="hidden" />
+            <input type="text" id="duplink-modal-type" class="hidden" />
+            <h3 id="duplink-modal-heading">Duplicate Link</h3>
+            <p id="duplink-modal-message">
+                The link in your post already exists in the database! Are you sure you want to create a new post with
+                the same link?
+            </p>
+            <section id="duplink-modal-buttons">
+                <button id="duplink-modal-close" onclick="closeDuplinkWarning()">Cancel</button>
+                <button id="duplink-modal-create" onclick="ignoreDuplinkWarning()">I am Sure!</button>
+            </section>
+        </div>
+
         <!-- THE LOADING ANIMATION -->
         <div id="loading-overlay" class="hidden"></div>
         <div id="loading-icon" class="hidden"></div>
@@ -151,6 +167,7 @@
         <script src="/js/base/handleIndicator.js"></script>
         <script src="/js/base/silenceUpdateNotification.js"></script>
         <script src="/js/base/checkForUpdate.js"></script>
+        <script src="/js/common/handleDuplink.js"></script>
 
         <!-- THE SCRIPTS BLOCK -->
         {% block scripts %} {% endblock %}
