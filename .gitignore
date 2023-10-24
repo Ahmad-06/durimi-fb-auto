@@ -141,3 +141,6 @@ public/media/
 
 # Puppeteer data
 userData
+
+# Errored Posts
+data/errored_posts.json

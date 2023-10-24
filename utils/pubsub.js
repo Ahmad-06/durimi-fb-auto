@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const pub = {
     post: require('../automaton/post'),
     meta: require('../automaton/post.create'),
@@ -32,6 +35,20 @@ module.exports = async (posts, db) => {
             post.link = post.link === null || post.link === 'null' ? null : post.link;
             post.media = post.media === null || post.media === 'null' ? null : JSON.parse(post.media);
             post.groups = post.groups === null || post.groups === 'null' ? null : JSON.parse(post.groups);
+
+            if (post?.id && post?.id !== null && post?.id !== 0) {
+                const query = `
+                    UPDATE
+                        Posts
+                    SET
+                        status = 'active'
+                    WHERE
+                        id = ?;
+                `;
+                const params = [post?.id];
+
+                await db.run(query, params);
+            }
 
             // Get the group names instead of IDs.
             if (post?.groups !== null && post?.groups?.length > 0) {
@@ -237,17 +254,27 @@ module.exports = async (posts, db) => {
         }
     }
 
-    return end_result.delete_errors.length > 0 || end_result.publish_errors.length > 0
-        ? {
-              success: false,
-              data: null,
-              error: {
-                  code: 3003,
-                  type: 'PubSub-Unified-Error-Interface',
-                  moment: 'PubSub-Unified-Publication',
-                  error: 'Various errors were encountered while trying to publish posts to Pages/Groups and/or removing them from the Database.',
-                  description: { delete_erros: end_result.delete_errors, publish_errors: end_result.publish_errors },
-              },
-          }
-        : end_result;
+    if (end_result.delete_errors.length > 0 || end_result.publish_errors.length > 0) {
+        const endest_result = {
+            success: false,
+            data: null,
+            error: {
+                code: 3003,
+                type: 'PubSub-Unified-Error-Interface',
+                moment: 'PubSub-Unified-Publication',
+                error: 'Various errors were encountered while trying to publish posts to Pages/Groups and/or removing them from the Database.',
+                description: { delete_erros: end_result.delete_errors, publish_errors: end_result.publish_errors },
+            },
+        };
+
+        const errored_posts = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'errored_posts.json')));
+
+        errored_posts.push(endest_result);
+
+        fs.writeFileSync(path.join(__dirname, '..', 'data', 'errored_posts.json'), JSON.stringify(errored_posts));
+
+        return endest_result;
+    } else {
+        return end_result;
+    }
 };
