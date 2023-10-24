@@ -25,11 +25,13 @@ UPDATE.put('/', loggedIn, async (req, res) => {
     const link = req?.body?.link ? req?.body?.link : null;
     let media = req?.body?.media && req?.body?.media !== '[]' ? req?.body?.media : null;
     const IMAGES = req?.body?.images ? req?.body?.images : null;
-    const mediaChanged = req?.body?.mediaChanged ? req?.body?.mediaChanged : null;
+    let groups = req?.body?.groups && req?.body?.groups !== '[]' ? req?.body?.groups : null;
     const context = req?.body?.context ? req?.body?.context : null;
     const publisher = req?.body?.publisher ? req?.body?.publisher : null;
     let time = req?.body?.time ? req?.body?.time : null;
     let priority = req?.body?.priority ? req?.body?.priority : null;
+
+    console.log(groups);
 
     // Check if the post id is valid.
     if (id === null || isNaN(id) || id <= 0) {
@@ -217,6 +219,7 @@ UPDATE.put('/', loggedIn, async (req, res) => {
         message,
         link,
         media: JSON.stringify(images),
+        groups: JSON.stringify(groups),
         context,
         publisher,
         time,
@@ -273,6 +276,7 @@ UPDATE.put('/', loggedIn, async (req, res) => {
                 message = ?,
                 link = ?,
                 media = ?,
+                groups = ?,
                 context = ?,
                 publisher = ?,
                 time = ?,
@@ -287,6 +291,7 @@ UPDATE.put('/', loggedIn, async (req, res) => {
             post.message,
             post.link,
             post.media,
+            post.groups,
             post.context,
             post.publisher,
             post.time,
