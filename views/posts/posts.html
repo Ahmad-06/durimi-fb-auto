@@ -42,7 +42,10 @@
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
             {% for post in posts.automated %}
-            <form class="form post" data-form-id="{{ post.id }}" onsubmit="event.preventDefault();">
+            <form
+                class="form post {% if post.status == 'active' %}failed-post{% endif %}"
+                data-form-id="{{ post.id }}"
+                onsubmit="event.preventDefault();">
                 <!-- THE INDEX -->
                 <p class="form-index">{{ loop.index }}</p>
 
@@ -190,7 +193,10 @@
         <!-- THE POSTS -->
         <section class="posts" data-tab="automated">
             {% for post in posts.scheduled %}
-            <form class="form post" data-form-id="{{ post.id }}" onsubmit="event.preventDefault();">
+            <form
+                class="form post {% if post.status == 'active' %} failed-post {% endif %}"
+                data-form-id="{{ post.id }}"
+                onsubmit="event.preventDefault();">
                 <!-- THE INDEX -->
                 <p class="form-index">{{ loop.index }}</p>
 

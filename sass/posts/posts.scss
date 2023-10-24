@@ -147,6 +147,10 @@ body {
 
                                 padding-bottom: 25px;
 
+                                &.failed-post {
+                                    border: 2px dashed red;
+                                }
+
                                 & > * {
                                     display: none;
                                 }
