@@ -199,6 +199,8 @@
                     </p>
                     <!-- END GROUPS -->
 
+                    <input type="text" class="hidden" name="groups-holder" data-form-id="{{ post.id }}" value="{{ post.groups_string }}">
+
 
                     <!-- THE PUBLISH TIME -->
                     <h4 class="publish-time">
@@ -385,6 +387,8 @@
                     {% endfor %} {% endif %}
                 </p>
                 <!-- END GROUPS -->
+
+                <input type="text" class="hidden" name="groups-holder" data-form-id="{{ post.id }}" value="{{ post.groups_string }}">
             </form>
             {% endfor %}
         </section>
@@ -402,6 +406,8 @@
 <script src="/js/posts/handleTabSwitch.js"></script>
 <script src="/js/posts/handleReOrderSwitch.js"></script>
 <script src="/js/posts/handleSecondaryGallery.js"></script>
+
+<script src="/js/posts/handleGroupCheckboxes.js"></script>
 
 <script src="/js/posts/handleDateTimeOnAutomatedPosts.js"></script>
 {% endblock %}

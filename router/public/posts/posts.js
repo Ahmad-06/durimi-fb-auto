@@ -54,6 +54,7 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
                 post_groups = post_groups_new;
 
                 automated[i].groups = post_groups;
+                automated[i].groups_string = JSON.stringify(post_groups);
             }
         }
     } catch (err) {
@@ -83,6 +84,7 @@ posts.get('/', loggedIn, changePass, async (req, res) => {
                 post_groups = post_groups_new;
 
                 scheduled[i].groups = post_groups;
+                scheduled[i].groups_string = JSON.stringify(post_groups);
             }
         }
     } catch (err) {
