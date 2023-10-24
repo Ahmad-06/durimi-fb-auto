@@ -5,7 +5,7 @@ const { sleep } = require('../utils/utils');
 
 module.exports = async (post, auth) => {
     const browser = await puppeteer.launch({
-        headless: 'new',
+        headless: false,
         defaultViewport: null,
         args: ['--start-maximized', '--disable-notifications'],
         userDataDir: path.join(__dirname, 'userData'),
@@ -16,8 +16,11 @@ module.exports = async (post, auth) => {
     // Check if an XPath exists on the page?.
     const XPathExists = async (XPath) => {
         try {
-            await page?.waitForXPath(XPath, { timeout: 2500 });
-            return true;
+            if (await page?.waitForXPath(XPath, { timeout: 2500 })) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (err) {
             return false;
         }
@@ -393,9 +396,12 @@ module.exports = async (post, auth) => {
                     await sleep(1000);
 
                     try {
-                        if (await page.waitForSelector('[aria-label="Creating link preview"]')) {
+                        if (
+                            await page.waitForSelector('[aria-label="Remove link preview from your post"]', {
+                                timeout: 3000,
+                            })
+                        )
                             break;
-                        }
                     } catch (err) {
                         if (err) continue;
                     }
@@ -548,9 +554,20 @@ module.exports = async (post, auth) => {
         }
     }
 
-    const totalSleepTime = 15000 + post?.media?.length * 10000;
+    for (let i = 1; i !== 0; i++) {
+        try {
+            const dialog = '[role="dialog"]';
+            if (await page.waitForSelector(dialog, { timeout: 3000 })) {
+                await sleep(1000);
+                continue;
+            } else {
+                break;
+            }
+        } catch (err) {
+            break;
+        }
+    }
 
-    await sleep(totalSleepTime);
     await browser?.close();
     return {
         success: true,
