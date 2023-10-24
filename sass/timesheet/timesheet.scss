@@ -11,8 +11,11 @@ body {
 
             #timesheet-actions {
                 height: 50px;
-                width: 50px;
+                width: 125px;
                 display: grid;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 25px;
 
                 .timesheet-action {
                     color: $blue;
