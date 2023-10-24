@@ -67,6 +67,8 @@ module.exports = async (posts, db) => {
             ) {
                 const res = await pub.meta(post, auth);
 
+                console.log(res);
+
                 if (!res.success)
                     end_result.publish_errors.push({
                         message: 'Failed to post to the page.',
@@ -154,6 +156,32 @@ module.exports = async (posts, db) => {
                                     }
                                 }
                             }
+                        }
+                    }
+                } else {
+                    try {
+                        const query = `
+                                DELETE
+                                    FROM
+                                        posts
+                                    WHERE
+                                        id = ?;
+                            `;
+                        const params = [post.id];
+
+                        await db.run(query, params);
+                    } catch (err) {
+                        if (err) {
+                            end_result.delete_errors.push({
+                                success: false,
+                                data: null,
+                                error: {
+                                    code: 500,
+                                    type: 'Internal server error.',
+                                    moment: 'Deleting post from the database.',
+                                    error: err.toString(),
+                                },
+                            });
                         }
                     }
                 }
