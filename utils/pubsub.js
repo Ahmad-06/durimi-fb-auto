@@ -33,6 +33,20 @@ module.exports = async (posts, db) => {
             post.media = post.media === null || post.media === 'null' ? null : JSON.parse(post.media);
             post.groups = post.groups === null || post.groups === 'null' ? null : JSON.parse(post.groups);
 
+            if (post?.id && post?.id !== null && post?.id !== 0) {
+                const query = `
+                    UPDATE
+                        Posts
+                    SET
+                        status = 'active'
+                    WHERE
+                        id = ?;
+                `;
+                const params = [post?.id];
+
+                await db.run(query, params);
+            }
+
             // Get the group names instead of IDs.
             if (post?.groups !== null && post?.groups?.length > 0) {
                 let groups = [];
