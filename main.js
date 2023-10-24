@@ -92,5 +92,4 @@ app.listen(PORT, () => {
     console.log(`The API is running at http://${HOST}:${PORT}`);
 });
 
-// require('./cronjobs');
 require('./cron');
