@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const fs = require('fs');
+
 // TODO: get rid of this
 const cors = require('cors');
 const njk = require('nunjucks');
@@ -8,6 +10,12 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
+try {
+    fs.writeFileSync('./data/errored_posts.json', JSON.stringify('[]'), { flag: 'wx' });
+} catch (err) {
+    if (err.code !== 'EEXIST') console.error(err);
+}
 
 require('./data/seedDB')();
 
