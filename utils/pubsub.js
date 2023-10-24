@@ -67,8 +67,6 @@ module.exports = async (posts, db) => {
             ) {
                 const res = await pub.meta(post, auth);
 
-                console.log(res);
-
                 if (!res.success)
                     end_result.publish_errors.push({
                         message: 'Failed to post to the page.',
