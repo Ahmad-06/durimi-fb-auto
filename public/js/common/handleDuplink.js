@@ -11,7 +11,7 @@ const duplink = async (index, type) => {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: JSON.stringify({ link }),
+            body: JSON.stringify({ link, id: index }),
         });
         const { success, error } = await resp.json();
 

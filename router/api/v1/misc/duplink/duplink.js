@@ -11,6 +11,7 @@ duplink.post('/', async (req, res) => {
     const db = await openDB();
 
     const link = req?.body?.link ? req?.body?.link : null;
+    const id = req?.body?.id ? req?.body?.id : 0;
 
     // Verify user submitted the link
     if (!link) {
@@ -46,9 +47,11 @@ duplink.post('/', async (req, res) => {
             FROM
                 Posts
             WHERE
-                link = ?;
+                link = ?
+                AND
+                id != ?;
         `;
-        const params = [link];
+        const params = [link, id];
 
         const post = await db.get(query, params);
 
