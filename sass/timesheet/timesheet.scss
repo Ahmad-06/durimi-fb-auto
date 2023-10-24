@@ -215,7 +215,8 @@ body {
                 display: flex;
                 flex-direction: column;
 
-                &#modal-create {
+                &#modal-create,
+                &#modal-instant {
                     border-color: $blue;
                 }
 
@@ -252,6 +253,23 @@ body {
 
                     &:focus {
                         box-shadow: 0 0 0 2px $blue;
+                    }
+                }
+
+                fieldset {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    border-color: $border;
+
+                    .modal-checkbox {
+                        display: grid;
+                        grid-gap: 10px;
+                        grid-template-columns: 30px 1fr;
+
+                        .modal-checkbox-input {
+                            color-scheme: dark;
+                        }
                     }
                 }
 

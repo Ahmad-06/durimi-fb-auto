@@ -91,6 +91,104 @@
     </section>
 </div>
 
+<!-- THE INSTANT MODAL -->
+<div id="modal-instant" class="modal hidden">
+    <!-- THE MODAL HEADING -->
+    <h3 id="modal-instant-heading" class="modal-heading">Instant Timeslot(s)</h3>
+
+    <!-- THE TIME -->
+    <input placeholder="--:-- --" type="time" name="time" id="modal-instant-time" class="modal-input time-pickable" />
+
+    <!-- THE DAYS -->
+    <fieldset>
+        <legend>Timeslot Days</legend>
+
+        <label for="modal-instant-days-all" class="modal-checkbox">
+            <input type="checkbox" name="days" id="modal-instant-days-all" class="modal-checkbox-input" value="All" />
+            Select All
+        </label>
+
+        <label for="modal-instant-days-monday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-monday"
+                class="modal-checkbox-input"
+                value="Monday" />
+            Monday
+        </label>
+
+        <label for="modal-instant-days-tuesday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-tuesday"
+                class="modal-checkbox-input"
+                value="Tuesday" />
+            Tuesday
+        </label>
+
+        <label for="modal-instant-days-wednesday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-wednesday"
+                class="modal-checkbox-input"
+                value="Wednesday" />
+            Wednesday
+        </label>
+
+        <label for="modal-instant-days-thursday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-thursday"
+                class="modal-checkbox-input"
+                value="Thursday" />
+            Thursday
+        </label>
+
+        <label for="modal-instant-days-friday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-friday"
+                class="modal-checkbox-input"
+                value="Friday" />
+            Friday
+        </label>
+
+        <label for="modal-instant-days-saturday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-saturday"
+                class="modal-checkbox-input"
+                value="Saturday" />
+            Saturday
+        </label>
+
+        <label for="modal-instant-days-sunday" class="modal-checkbox">
+            <input
+                type="checkbox"
+                name="days"
+                id="modal-instant-days-sunday"
+                class="modal-checkbox-input"
+                value="Sunday" />
+            Sunday
+        </label>
+    </fieldset>
+
+    <!-- THE MODAL BUTTONS -->
+    <section id="modal-instant-buttons" class="modal-buttons">
+        <!-- THE CANCEL BUTTON -->
+        <button class="modal-button modal-button-danger" onclick="closeModal('modal-instant')">Cancel</button>
+
+        <!-- THE CONFIRM BUTTON -->
+        <button class="modal-button modal-button-primary" onclick="createInstantTimeslots()">Create</button>
+    </section>
+</div>
+
 <style>
     #picker {
         position: fixed;
