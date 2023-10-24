@@ -332,6 +332,20 @@
                     }
                 }
             }
+
+            .form-extra-info {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                & > p {
+                    text-align: left;
+                }
+
+                & > h4 {
+                    text-align: right;
+                }
+            }
         }
     }
 }

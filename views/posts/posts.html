@@ -144,14 +144,6 @@
                             data-form-id="{{ post.id }}"
                             value="{{ post.time }}" />
 
-                        <!-- THE PUBLISH TIME -->
-                        <h4 class="publish-time">
-                            <span data-publish-id="{{ loop.index }}" class="publish-time-date">2023-09-11</span> |
-                            <span data-publish-id="{{ loop.index }}" class="publish-time-day">Monday</span> |
-                            <span data-publish-id="{{ loop.index }}" class="publish-time-time">09:00 PM</span>
-                        </h4>
-                        <!-- END PUBLISH TIME -->
-
                         <!-- THE PRIORITY -->
                         <input
                             type="number"
@@ -195,16 +187,27 @@
                             </button>
                         </section>
                     </section>
+                </div>
 
+                <section class="form-extra-info">
                     <!-- THE GROUPS -->
-                    <!-- <p class="form-selected-groups">
-                        Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if
-                        post.groups != 'null' %} {% for group in post.groups %}
+                    <p class="form-selected-groups">
+                        <b>Groups:</b></b>&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if post.groups !=
+                        'null' %} {% for group in post.groups %}
                         <span>{{ group.name }}.&nbsp;</span>
                         {% endfor %} {% endif %}
-                    </p> -->
+                    </p>
                     <!-- END GROUPS -->
-                </div>
+
+
+                    <!-- THE PUBLISH TIME -->
+                    <h4 class="publish-time">
+                        <span data-publish-id="{{ loop.index }}" class="publish-time-date">2023-09-11</span> |
+                        <span data-publish-id="{{ loop.index }}" class="publish-time-day">Monday</span> |
+                        <span data-publish-id="{{ loop.index }}" class="publish-time-time">09:00 PM</span>
+                    </h4>
+                    <!-- END PUBLISH TIME -->
+                </section>
             </form>
             {% endfor %}
         </section>
@@ -372,16 +375,16 @@
                             </button>
                         </section>
                     </section>
-
-                    <!-- THE GROUPS -->
-                    <!-- <p class="form-selected-groups">
-                        Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if
-                        post.groups != 'null' %} {% for group in post.groups %}
-                        <span>{{ group.name }}.&nbsp;</span>
-                        {% endfor %} {% endif %}
-                    </p> -->
-                    <!-- END GROUPS -->
                 </div>
+
+                <!-- THE GROUPS -->
+                <p class="form-selected-groups">
+                    Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if
+                    post.groups != 'null' %} {% for group in post.groups %}
+                    <span>{{ group.name }}.&nbsp;</span>
+                    {% endfor %} {% endif %}
+                </p>
+                <!-- END GROUPS -->
             </form>
             {% endfor %}
         </section>
