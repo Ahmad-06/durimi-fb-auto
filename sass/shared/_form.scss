@@ -303,4 +303,35 @@
             }
         }
     }
+
+    .form-container,
+    .form-content,
+    .form-flags {
+        display: flex;
+        gap: 25px;
+        flex-direction: column;
+    }
+
+    @media screen and (min-width: 1000px) {
+        & {
+            max-width: 1000px;
+
+            .form-container {
+                flex-direction: row;
+
+                .form-content,
+                .form-media,
+                .form-flags {
+                    width: 100%;
+                    max-width: 300px;
+                }
+
+                .form-content {
+                    textarea {
+                        height: calc(100% - 100px - 50px);
+                    }
+                }
+            }
+        }
+    }
 }

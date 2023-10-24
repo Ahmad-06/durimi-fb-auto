@@ -18,84 +18,92 @@
     <!-- THE ID -->
     <input type="number" name="id" class="form-input hidden" data-form-id="0" value="0" />
 
-    <!-- THE MESSAGE -->
-    <textarea name="message" class="form-textarea" data-form-id="0" placeholder="What's on your mind?"></textarea>
+    <section class="form-container">
 
-    <!-- THE LINK -->
-    <input type="url" name="link" class="form-input" data-form-id="0" placeholder="http(s)://(www.)example.org" />
+        <section class="form-content">
+            <!-- THE MESSAGE -->
+            <textarea name="message" class="form-textarea" data-form-id="0" placeholder="What's on your mind?"></textarea>
 
-    <!-- THE MEDIA -->
-    <section class="form-media" data-form-id="0">
-        <!-- THE DROP ZONE -->
-        <div class="form-media-drop-zone" data-form-id="0">Drop media here!</div>
+            <!-- THE LINK -->
+            <input type="url" name="link" class="form-input" data-form-id="0" placeholder="http(s)://(www.)example.org" />
 
-        <!-- THE GALLERY -->
-        <div class="form-media-gallery hidden" data-form-id="0"></div>
+            <!-- THE GROUPS -->
+            {% if groups.length > 0 %}
+            <button id="group-toggle" onclick="toggleGroupSelector()">
+                <span>Select Groups</span><span><i class="fa-solid fa-chevron-down group-toggle-icon"></i></span>
+            </button>
+            <fieldset class="form-groups hidden" data-form-id="0">
+                {% for group in groups %}
+                <label for="group-{{ loop.index }}">
+                    <input type="checkbox" name="groups" id="group-{{ loop.index }}" value="{{ group.id }}" /> {{ group.name }}
+                </label>
+                {% endfor %}
+            </fieldset>
+            {% endif %}
+            <!-- END GROUPS -->
+        </section>
 
-        <!-- THE SECONDARY GALLERY -->
-        <div class="form-media-gallery secondary hidden" data-form-id="0">
-            <input type="text" name="images" class="form-input hidden" data-form-id="0" value="null" />
-        </div>
+        <!-- THE MEDIA -->
+        <section class="form-media" data-form-id="0">
+            <!-- THE DROP ZONE -->
+            <div class="form-media-drop-zone" data-form-id="0">Drop media here!</div>
 
-        <!-- THE FILE INPUT -->
-        <input type="file" name="files" class="hidden" data-form-id="0" multiple />
+            <!-- THE GALLERY -->
+            <div class="form-media-gallery hidden" data-form-id="0"></div>
 
-        <!-- THE MEDIA INPUT -->
-        <input type="text" name="media" class="form-input hidden" data-form-id="0" />
-    </section>
+            <!-- THE SECONDARY GALLERY -->
+            <div class="form-media-gallery secondary hidden" data-form-id="0">
+                <input type="text" name="images" class="form-input hidden" data-form-id="0" value="null" />
+            </div>
 
-    <!-- THE GROUPS -->
-    {% if groups.length > 0 %}
-    <button id="group-toggle" onclick="toggleGroupSelector()">
-        <span>Select Groups</span><span><i class="fa-solid fa-chevron-down group-toggle-icon"></i></span>
-    </button>
-    <fieldset class="form-groups hidden" data-form-id="0">
-        {% for group in groups %}
-        <label for="group-{{ loop.index }}">
-            <input type="checkbox" name="groups" id="group-{{ loop.index }}" value="{{ group.id }}" /> {{ group.name }}
-        </label>
-        {% endfor %}
-    </fieldset>
-    {% endif %}
-    <!-- END GROUPS -->
+            <!-- THE FILE INPUT -->
+            <input type="file" name="files" class="hidden" data-form-id="0" multiple />
 
-    <!-- THE OPTIONS -->
-    <section class="form-options" data-form-id="0">
-        <!-- THE CONTEXT -->
-        <select name="context" class="form-select" data-form-id="0">
-            <option value="page" {% if context == 'page' %}selected{% endif %}>Post to Page</option>
-            <option value="group" {% if context == 'group' %}selected{% endif %}>Post to Group</option>
-        </select>
+            <!-- THE MEDIA INPUT -->
+            <input type="text" name="media" class="form-input hidden" data-form-id="0" />
+        </section>
 
-        <!-- THE PUBLISHER -->
-        <select name="publisher" class="form-select" data-form-id="0">
-            <option value="page" {% if publisher == 'page' %}selected{% endif %}>Post as Page</option>
-            <option value="user" {% if publisher == 'user' %}selected{% endif %}>Post as User</option>
-        </select>
-    </section>
+        <section class="form-flags">
+            <!-- THE OPTIONS -->
+            <section class="form-options" data-form-id="0">
+                <!-- THE CONTEXT -->
+                <select name="context" class="form-select" data-form-id="0">
+                    <option value="page" {% if context == 'page' %}selected{% endif %}>Post to Page</option>
+                    <option value="group" {% if context == 'group' %}selected{% endif %}>Post to Group</option>
+                </select>
 
-    <!-- THE TIME -->
-    <input type="datetime-local" name="time" class="form-input" data-form-id="0" />
+                <!-- THE PUBLISHER -->
+                <select name="publisher" class="form-select" data-form-id="0">
+                    <option value="page" {% if publisher == 'page' %}selected{% endif %}>Post as Page</option>
+                    <option value="user" {% if publisher == 'user' %}selected{% endif %}>Post as User</option>
+                </select>
+            </section>
 
-    <!-- THE PRIORITY -->
-    <input type="number" name="priority" class="form-input hidden" data-form-id="0" />
+            <!-- THE TIME -->
+            <input type="datetime-local" name="time" class="form-input" data-form-id="0" />
 
-    <!-- THE BUTTONS -->
-    <section class="form-buttons" data-form-id="0">
-        <!-- THE SCHEDULE BUTTON -->
-        <button class="form-button form-button-schedule" data-form-id="0" onclick="duplink('0', 'scheduled')">
-            Schedule
-        </button>
+            <!-- THE PRIORITY -->
+            <input type="number" name="priority" class="form-input hidden" data-form-id="0" />
 
-        <!-- THE AUTOMATE BUTTON -->
-        <button class="form-button form-button-automate" data-form-id="0" onclick="duplink('0', 'automated')">
-            <i class="fa-regular fa-paper-plane"></i>
-        </button>
+            <!-- THE BUTTONS -->
+            <section class="form-buttons" data-form-id="0">
+                <!-- THE SCHEDULE BUTTON -->
+                <button class="form-button form-button-schedule" data-form-id="0" onclick="duplink('0', 'scheduled')">
+                    Schedule
+                </button>
 
-        <!-- THE PUBLISH BUTTON -->
-        <button class="form-button form-button-publish" data-form-id="0" onclick="duplink('0', 'publish')">
-            Publish Now
-        </button>
+                <!-- THE AUTOMATE BUTTON -->
+                <button class="form-button form-button-automate" data-form-id="0" onclick="duplink('0', 'automated')">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+
+                <!-- THE PUBLISH BUTTON -->
+                <button class="form-button form-button-publish" data-form-id="0" onclick="duplink('0', 'publish')">
+                    Publish Now
+                </button>
+            </section>
+        </section>
+
     </section>
 </form>
 <!-- END FORM -->
