@@ -88,11 +88,11 @@
                         </button>
                         <fieldset class="form-groups hidden" data-form-id="{{ post.id }}">
                             {% for group in all_groups %}
-                            <label for="group-{{ loop.index }}">
+                            <label for="group-{{ group.id }}-post-{{ post.id }}">
                                 <input
                                     type="checkbox"
                                     name="groups"
-                                    id="group-{{ loop.index }}"
+                                    id="group-{{ group.id }}-post-{{ post.id }}"
                                     value="{{ group.id }}"
                                     data-form-id="{{ post.id }}" />
                                 {{ group.name }}
@@ -277,11 +277,11 @@
                         </button>
                         <fieldset class="form-groups hidden" data-form-id="{{ post.id }}">
                             {% for group in all_groups %}
-                            <label for="group-{{ loop.index }}">
+                            <label for="group-{{ group.id }}-post-{{ post.id }}">
                                 <input
                                     type="checkbox"
                                     name="groups"
-                                    id="group-{{ loop.index }}"
+                                    id="group-{{ group.id }}-post-{{ post.id }}"
                                     value="{{ group.id }}"
                                     data-form-id="{{ post.id }}" />
                                 {{ group.name }}

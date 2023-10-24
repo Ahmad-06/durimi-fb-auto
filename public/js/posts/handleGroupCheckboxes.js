@@ -9,7 +9,9 @@
                 : [];
 
         groups.forEach((group) => {
-            const checkbox = document.querySelector(`#group-${group.id}[type="checkbox"][data-form-id="${id}"]`);
+            const checkbox = document.querySelector(
+                `#group-${group.id}-post-${id}[type="checkbox"][data-form-id="${id}"]`,
+            );
 
             checkbox.checked = true;
         });
