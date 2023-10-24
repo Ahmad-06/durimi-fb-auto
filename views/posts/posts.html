@@ -60,123 +60,151 @@
                     data-form-id="{{ post.id }}"
                     value="{{ post.id }}" />
 
-                <!-- THE MESSAGE -->
-                <textarea
-                    name="message"
-                    class="form-textarea"
-                    data-form-id="{{ post.id }}"
-                    placeholder="What's on your mind?">
+                <div class="form-container">
+                    <section class="form-content">
+                        <!-- THE MESSAGE -->
+                        <textarea
+                            name="message"
+                            class="form-textarea"
+                            data-form-id="{{ post.id }}"
+                            placeholder="What's on your mind?">
 {{ post.message }}</textarea
-                >
+                        >
 
-                <!-- THE LINK -->
-                <input
-                    type="url"
-                    name="link"
-                    class="form-input"
-                    data-form-id="{{ post.id }}"
-                    placeholder="http(s)://(www.)example.org"
-                    value="{{ post.link }}" />
-
-                <!-- THE MEDIA -->
-                <section class="form-media" data-form-id="{{ post.id }}">
-                    <!-- THE DROP ZONE -->
-                    <div class="form-media-drop-zone" data-form-id="{{ post.id }}">Drop media here!</div>
-
-                    <!-- THE GALLERY -->
-                    <div class="form-media-gallery hidden" data-form-id="{{ post.id }}"></div>
-
-                    <!-- THE SECONDARY GALLERY -->
-                    {% if post.media %}
-                    <div
-                        class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
-                        data-form-id="{{ post.id }}">
+                        <!-- THE LINK -->
                         <input
-                            type="text"
-                            name="images"
+                            type="url"
+                            name="link"
+                            class="form-input"
+                            data-form-id="{{ post.id }}"
+                            placeholder="http(s)://(www.)example.org"
+                            value="{{ post.link }}" />
+
+                        <!-- THE GROUPS -->
+                        {% if all_groups.length > 0 %}
+                        <button id="group-toggle" data-form-id onclick="toggleGroupSelector('{{ post.id }}')">
+                            <span>Select Groups</span>
+                            <span><i class="fa-solid fa-chevron-down group-toggle-icon"></i></span>
+                        </button>
+                        <fieldset class="form-groups hidden" data-form-id="{{ post.id }}">
+                            {% for group in all_groups %}
+                            <label for="group-{{ loop.index }}">
+                                <input
+                                    type="checkbox"
+                                    name="groups"
+                                    id="group-{{ loop.index }}"
+                                    value="{{ group.id }}"
+                                    data-form-id="{{ post.id }}" />
+                                {{ group.name }}
+                            </label>
+                            {% endfor %}
+                        </fieldset>
+                        {% endif %}
+                        <!-- END GROUPS -->
+                    </section>
+
+                    <!-- THE MEDIA -->
+                    <section class="form-media" data-form-id="{{ post.id }}">
+                        <!-- THE DROP ZONE -->
+                        <div class="form-media-drop-zone" data-form-id="{{ post.id }}">Drop media here!</div>
+
+                        <!-- THE GALLERY -->
+                        <div class="form-media-gallery hidden" data-form-id="{{ post.id }}"></div>
+
+                        <!-- THE SECONDARY GALLERY -->
+                        {% if post.media %}
+                        <div
+                            class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
+                            data-form-id="{{ post.id }}">
+                            <input
+                                type="text"
+                                name="images"
+                                class="form-input hidden"
+                                data-form-id="{{ post.id }}"
+                                value="{{ post.media }}" />
+                        </div>
+                        {% endif %}
+
+                        <!-- THE FILE INPUT -->
+                        <input type="file" name="files" class="hidden" data-form-id="{{ post.id }}" multiple />
+
+                        <!-- THE MEDIA INPUT -->
+                        <input type="text" name="media" class="form-input hidden" data-form-id="{{ post.id }}" />
+                    </section>
+
+                    <section class="form-flags">
+                        <!-- THE OPTIONS -->
+                        {% include './template/_options.html' %}
+
+                        <!-- THE TIME -->
+                        <input
+                            type="datetime-local"
+                            name="time"
+                            class="form-input"
+                            data-form-id="{{ post.id }}"
+                            value="{{ post.time }}" />
+
+                        <!-- THE PUBLISH TIME -->
+                        <h4 class="publish-time">
+                            <span data-publish-id="{{ loop.index }}" class="publish-time-date">2023-09-11</span> |
+                            <span data-publish-id="{{ loop.index }}" class="publish-time-day">Monday</span> |
+                            <span data-publish-id="{{ loop.index }}" class="publish-time-time">09:00 PM</span>
+                        </h4>
+                        <!-- END PUBLISH TIME -->
+
+                        <!-- THE PRIORITY -->
+                        <input
+                            type="number"
+                            name="priority"
                             class="form-input hidden"
                             data-form-id="{{ post.id }}"
-                            value="{{ post.media }}" />
-                    </div>
-                    {% endif %}
+                            value="{{ post.priority }}" />
 
-                    <!-- THE FILE INPUT -->
-                    <input type="file" name="files" class="hidden" data-form-id="{{ post.id }}" multiple />
+                        <!-- THE BUTTONS -->
+                        <section class="form-buttons" data-form-id="{{ post.id }}">
+                            <!-- THE AUTOMATE BUTTON -->
+                            <button
+                                class="form-button form-button-automate"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'automated')">
+                                <i class="fa-regular fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;&nbsp;Update
+                            </button>
 
-                    <!-- THE MEDIA INPUT -->
-                    <input type="text" name="media" class="form-input hidden" data-form-id="{{ post.id }}" />
-                </section>
+                            <!-- THE SCHEDULE BUTTON -->
+                            <button
+                                class="form-button form-button-schedule"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'scheduled')">
+                                <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>
+                            </button>
 
-                <!-- THE OPTIONS -->
-                {% include './template/_options.html' %}
+                            <!-- THE PUBLISH BUTTON -->
+                            <button
+                                class="form-button form-button-publish"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'publish')">
+                                Publish Now
+                            </button>
 
-                <!-- THE TIME -->
-                <input
-                    type="datetime-local"
-                    name="time"
-                    class="form-input"
-                    data-form-id="{{ post.id }}"
-                    value="{{ post.time }}" />
+                            <!-- THE DELETE BUTTON -->
+                            <button
+                                class="form-button form-button-delete"
+                                data-form-id="{{ post.id }}"
+                                onclick="deletePost('{{ post.id }}')">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </section>
+                    </section>
 
-                <!-- THE PUBLISH TIME -->
-                <h4 class="publish-time">
-                    <span data-publish-id="{{ loop.index }}" class="publish-time-date">2023-09-11</span> |
-                    <span data-publish-id="{{ loop.index }}" class="publish-time-day">Monday</span> |
-                    <span data-publish-id="{{ loop.index }}" class="publish-time-time">09:00 PM</span>
-                </h4>
-                <!-- END PUBLISH TIME -->
-
-                <!-- THE PRIORITY -->
-                <input
-                    type="number"
-                    name="priority"
-                    class="form-input hidden"
-                    data-form-id="{{ post.id }}"
-                    value="{{ post.priority }}" />
-
-                <!-- THE BUTTONS -->
-                <section class="form-buttons" data-form-id="{{ post.id }}">
-                    <!-- THE AUTOMATE BUTTON -->
-                    <button
-                        class="form-button form-button-automate"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'automated')">
-                        <i class="fa-regular fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;&nbsp;Update
-                    </button>
-
-                    <!-- THE SCHEDULE BUTTON -->
-                    <button
-                        class="form-button form-button-schedule"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'scheduled')">
-                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>
-                    </button>
-
-                    <!-- THE PUBLISH BUTTON -->
-                    <button
-                        class="form-button form-button-publish"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'publish')">
-                        Publish Now
-                    </button>
-
-                    <!-- THE DELETE BUTTON -->
-                    <button
-                        class="form-button form-button-delete"
-                        data-form-id="{{ post.id }}"
-                        onclick="deletePost('{{ post.id }}')">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                </section>
-
-                <!-- THE GROUPS -->
-                <p class="form-selected-groups">
-                    Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if post.groups !=
-                    'null' %} {% for group in post.groups %}
-                    <span>{{ group.name }}.&nbsp;</span>
-                    {% endfor %} {% endif %}
-                </p>
-                <!-- END GROUPS -->
+                    <!-- THE GROUPS -->
+                    <!-- <p class="form-selected-groups">
+                        Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if
+                        post.groups != 'null' %} {% for group in post.groups %}
+                        <span>{{ group.name }}.&nbsp;</span>
+                        {% endfor %} {% endif %}
+                    </p> -->
+                    <!-- END GROUPS -->
+                </div>
             </form>
             {% endfor %}
         </section>
@@ -211,116 +239,149 @@
                     data-form-id="{{ post.id }}"
                     value="{{ post.id }}" />
 
-                <!-- THE MESSAGE -->
-                <textarea
-                    name="message"
-                    class="form-textarea"
-                    data-form-id="{{ post.id }}"
-                    placeholder="What's on your mind?">
+                <div class="form-container">
+                    <section class="form-content">
+                        <!-- THE MESSAGE -->
+                        <textarea
+                            name="message"
+                            class="form-textarea"
+                            data-form-id="{{ post.id }}"
+                            placeholder="What's on your mind?">
 {{ post.message }}</textarea
-                >
+                        >
 
-                <!-- THE LINK -->
-                <input
-                    type="url"
-                    name="link"
-                    class="form-input"
-                    data-form-id="{{ post.id }}"
-                    placeholder="http(s)://(www.)example.org"
-                    value="{{ post.link }}" />
-
-                <!-- THE MEDIA -->
-                <section class="form-media" data-form-id="{{ post.id }}">
-                    <!-- THE DROP ZONE -->
-                    <div class="form-media-drop-zone" data-form-id="{{ post.id }}">Drop media here!</div>
-
-                    <!-- THE GALLERY -->
-                    <div class="form-media-gallery hidden" data-form-id="{{ post.id }}"></div>
-
-                    <!-- THE SECONDARY GALLERY -->
-                    {% if post.media %}
-                    <div
-                        class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
-                        data-form-id="{{ post.id }}">
+                        <!-- THE LINK -->
                         <input
-                            type="text"
-                            name="images"
+                            type="url"
+                            name="link"
+                            class="form-input"
+                            data-form-id="{{ post.id }}"
+                            placeholder="http(s)://(www.)example.org"
+                            value="{{ post.link }}" />
+
+                        <!-- THE GROUPS -->
+                        {% if all_groups.length > 0 %}
+                        <button
+                            id="group-toggle"
+                            data-form-id="{{ post.id }}"
+                            onclick="toggleGroupSelector('{{ post.id }}')">
+                            <span>Select Groups</span>
+                            <span
+                                ><i class="fa-solid fa-chevron-down group-toggle-icon" data-form-id="{{ post.id }}"></i
+                            ></span>
+                        </button>
+                        <fieldset class="form-groups hidden" data-form-id="{{ post.id }}">
+                            {% for group in all_groups %}
+                            <label for="group-{{ loop.index }}">
+                                <input
+                                    type="checkbox"
+                                    name="groups"
+                                    id="group-{{ loop.index }}"
+                                    value="{{ group.id }}"
+                                    data-form-id="{{ post.id }}" />
+                                {{ group.name }}
+                            </label>
+                            {% endfor %}
+                        </fieldset>
+                        {% endif %}
+                        <!-- END GROUPS -->
+                    </section>
+
+                    <!-- THE MEDIA -->
+                    <section class="form-media" data-form-id="{{ post.id }}">
+                        <!-- THE DROP ZONE -->
+                        <div class="form-media-drop-zone" data-form-id="{{ post.id }}">Drop media here!</div>
+
+                        <!-- THE GALLERY -->
+                        <div class="form-media-gallery hidden" data-form-id="{{ post.id }}"></div>
+
+                        <!-- THE SECONDARY GALLERY -->
+                        {% if post.media %}
+                        <div
+                            class="form-media-gallery secondary {% if post.media == 'null' %} hidden {%endif%}"
+                            data-form-id="{{ post.id }}">
+                            <input
+                                type="text"
+                                name="images"
+                                class="form-input hidden"
+                                data-form-id="{{ post.id }}"
+                                value="{{ post.media }}" />
+                        </div>
+                        {% endif %}
+
+                        <!-- THE FILE INPUT -->
+                        <input type="file" name="files" class="hidden" data-form-id="{{ post.id }}" multiple />
+
+                        <!-- THE MEDIA INPUT -->
+                        <input type="text" name="media" class="form-input hidden" data-form-id="{{ post.id }}" />
+                    </section>
+
+                    <section class="form-flags">
+                        <!-- THE OPTIONS -->
+                        {% include './template/_options.html' %}
+
+                        <!-- THE TIME -->
+                        <input
+                            type="datetime-local"
+                            name="time"
+                            class="form-input"
+                            data-form-id="{{ post.id }}"
+                            value="{{ post.time }}" />
+
+                        <!-- THE PRIORITY -->
+                        <input
+                            type="number"
+                            name="priority"
                             class="form-input hidden"
                             data-form-id="{{ post.id }}"
-                            value="{{ post.media }}" />
-                    </div>
-                    {% endif %}
+                            value="{{ post.priority }}" />
 
-                    <!-- THE FILE INPUT -->
-                    <input type="file" name="files" class="hidden" data-form-id="{{ post.id }}" multiple />
+                        <!-- THE BUTTONS -->
+                        <section class="form-buttons" data-form-id="{{ post.id }}">
+                            <!-- THE SCHEDULE BUTTON -->
+                            <button
+                                class="form-button form-button-schedule"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'scheduled')">
+                                <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i
+                                >&nbsp;&nbsp;&nbsp;&nbsp; Update
+                            </button>
 
-                    <!-- THE MEDIA INPUT -->
-                    <input type="text" name="media" class="form-input hidden" data-form-id="{{ post.id }}" />
-                </section>
+                            <!-- THE AUTOMATE BUTTON -->
+                            <button
+                                class="form-button form-button-automate"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'automated')">
+                                <i class="fa-regular fa-paper-plane"></i>
+                            </button>
 
-                <!-- THE OPTIONS -->
-                {% include './template/_options.html' %}
+                            <!-- THE PUBLISH BUTTON -->
+                            <button
+                                class="form-button form-button-publish"
+                                data-form-id="{{ post.id }}"
+                                onclick="duplink('{{ post.id }}', 'publish')">
+                                Publish Now
+                            </button>
 
-                <!-- THE TIME -->
-                <input
-                    type="datetime-local"
-                    name="time"
-                    class="form-input"
-                    data-form-id="{{ post.id }}"
-                    value="{{ post.time }}" />
+                            <!-- THE DELETE BUTTON -->
+                            <button
+                                class="form-button form-button-delete"
+                                data-form-id="{{ post.id }}"
+                                onclick="deletePost('{{ post.id }}')">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </section>
+                    </section>
 
-                <!-- THE PRIORITY -->
-                <input
-                    type="number"
-                    name="priority"
-                    class="form-input hidden"
-                    data-form-id="{{ post.id }}"
-                    value="{{ post.priority }}" />
-
-                <!-- THE BUTTONS -->
-                <section class="form-buttons" data-form-id="{{ post.id }}">
-                    <!-- THE SCHEDULE BUTTON -->
-                    <button
-                        class="form-button form-button-schedule"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'scheduled')">
-                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 18px"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        Update
-                    </button>
-
-                    <!-- THE AUTOMATE BUTTON -->
-                    <button
-                        class="form-button form-button-automate"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'automated')">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </button>
-
-                    <!-- THE PUBLISH BUTTON -->
-                    <button
-                        class="form-button form-button-publish"
-                        data-form-id="{{ post.id }}"
-                        onclick="duplink('{{ post.id }}', 'publish')">
-                        Publish Now
-                    </button>
-
-                    <!-- THE DELETE BUTTON -->
-                    <button
-                        class="form-button form-button-delete"
-                        data-form-id="{{ post.id }}"
-                        onclick="deletePost('{{ post.id }}')">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                </section>
-
-                <!-- THE GROUPS -->
-                <p class="form-selected-groups">
-                    Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if post.groups !=
-                    'null' %} {% for group in post.groups %}
-                    <span>{{ group.name }}.&nbsp;</span>
-                    {% endfor %} {% endif %}
-                </p>
-                <!-- END GROUPS -->
+                    <!-- THE GROUPS -->
+                    <!-- <p class="form-selected-groups">
+                        Groups:&nbsp; {% if post.groups == 'null' %} <span>no group.</span> {% endif %} {% if
+                        post.groups != 'null' %} {% for group in post.groups %}
+                        <span>{{ group.name }}.&nbsp;</span>
+                        {% endfor %} {% endif %}
+                    </p> -->
+                    <!-- END GROUPS -->
+                </div>
             </form>
             {% endfor %}
         </section>
