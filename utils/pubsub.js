@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const pub = {
     post: require('../automaton/post'),
     meta: require('../automaton/post.create'),
@@ -251,17 +253,27 @@ module.exports = async (posts, db) => {
         }
     }
 
-    return end_result.delete_errors.length > 0 || end_result.publish_errors.length > 0
-        ? {
-              success: false,
-              data: null,
-              error: {
-                  code: 3003,
-                  type: 'PubSub-Unified-Error-Interface',
-                  moment: 'PubSub-Unified-Publication',
-                  error: 'Various errors were encountered while trying to publish posts to Pages/Groups and/or removing them from the Database.',
-                  description: { delete_erros: end_result.delete_errors, publish_errors: end_result.publish_errors },
-              },
-          }
-        : end_result;
+    if (end_result.delete_errors.length > 0 || end_result.publish_errors.length > 0) {
+        const endest_result = {
+            success: false,
+            data: null,
+            error: {
+                code: 3003,
+                type: 'PubSub-Unified-Error-Interface',
+                moment: 'PubSub-Unified-Publication',
+                error: 'Various errors were encountered while trying to publish posts to Pages/Groups and/or removing them from the Database.',
+                description: { delete_erros: end_result.delete_errors, publish_errors: end_result.publish_errors },
+            },
+        };
+
+        const errored_posts = JSON.parse(fs.readFileSync('../data/errored_posts.json'));
+
+        errored_posts.push(endest_result);
+
+        fs.writeFileSync('../data/errored_posts.json', JSON.stringify(errored_posts));
+
+        return endest_result;
+    } else {
+        return end_result;
+    }
 };
