@@ -554,21 +554,7 @@ module.exports = async (post, auth) => {
         }
     }
 
-    // for (let i = 1; i !== 0; i++) {
-    //     try {
-    //         const dialog = '[role="dialog"]';
-    //         if (await page.waitForSelector(dialog, { timeout: 3000 })) {
-    //             await sleep(1000);
-    //             continue;
-    //         } else {
-    //             break;
-    //         }
-    //     } catch (err) {
-    //         break;
-    //     }
-    // }
-
-    const totalSleepTime = 30000 + post.media.length * 12500;
+    const totalSleepTime = 30000 + (post?.media?.length > 0 ? post?.media?.length : 0) * 12500;
 
     await sleep(totalSleepTime);
 
