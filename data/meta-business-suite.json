@@ -4,14 +4,14 @@
             "success": true
         }
     },
-    "updated": "2023-10-17T00:00",
+    "updated": "2023-12-13T00:00",
     "xpath": {
         "pageGroupDropdown": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[1]/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/div[2]/div/div[2]/div/div/div/div/div/div[1]/div[2]/div[1]/div/div[2]/div",
         "groupSelector": "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div[1]/div/div[1]/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div/a",
         "groupSelectorModal": "/html/body/div[4]/div[1]",
         "group": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[2]/div[1]/div[2]/div/label/div/div/div[2]/div[1]/div[contains(., 'Name of Group')]",
         "saveGroups": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div",
-        "saveLink": "/html/body/div[4]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div",
+        "saveLink": "/html/body/div[5]/div[1]/div[1]/div/div/div/div/div[3]/div/div[2]/div/span/div/div/div",
         "publishButton": "//div[text()='Publish']"
     },
     "selector": {
